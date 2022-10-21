@@ -1,14 +1,3 @@
-#   
-#    ####             ####
-#   ######           ######         i3wm 
-#    ####             ####          config file
-#
-#   ########################        gryzlee
-#    ######################
-#     ###################
-#       ################       
-#
-
 # ================= BOILERPLATE =================
 
 # XDG desktop entries
@@ -34,32 +23,23 @@ set $ws9 "9: "
 set $ws10 "10:"
 
 
-
 # ================= PROGRAMS =================
 
 # ----------------- AUTORUN -----------------
 
-# Removable media manager
-exec --no-startup-id udiskie
-
-# User programs
-exec --no-startup-id discord
+# Passoword + Secret Service
+exec --no-startup-id keepassxc
+# Removable media automount
+exec --no-startup-id udiskie -N -s
+#exec --no-startup-id discord
 
 # ----------------- WS ASSOCIATIONS -----------------
 
-# Terminal
 for_window [class="Alacritty"]      move to workspace $ws1
-
-# Google Chrome
 for_window [class="Google-chrome"]  move to workspace $ws2
-
-# VS Code
 for_window [class="Code"]           move to workspace $ws3
-
-# Neovim
+for_window [class="Eclipse"]	    move to workspace $ws3
 for_window [instance="Neovim"]      move to workspace $ws3
-
-# Discord
 for_window [class="discord"]        move to workspace $ws9
 
 # ----------------- SHORTCUTS -----------------
@@ -83,94 +63,75 @@ bindsym $mod+t exec --no-startup-id code \
 bindsym $mod+Shift+t exec --no-startup-id i3-sensible-terminal --class "Neovim" -e nvim  \
     ; exec --no-startup-id i3-msg workspace $ws3
 
-
-
 # ================= VISUALS =================
 
-# ----------------- DISLPAY CONFIG -----------------
+# ----------------- DISLPAYS -----------------
 exec_always --no-startup-id ./$HOME/.screenlayout/screen.sh
-
-# ----------------- COMPOSER -----------------
-# Enables transparency, shadows, blurring, rounded corners...
-exec --no-startup-id picom --experimental-backends --config $HOME/.config/picom/picom.conf
-
-# ----------------- FONT -----------------
-set $userfont pango:Source Code
-font $userfont 12
 
 # ----------------- WALLPAPER -----------------
 exec_always --no-startup-id nitrogen --restore
 
+# ----------------- COMPOSER -----------------
+exec --no-startup-id picom --experimental-backends --config $HOME/.config/picom/picom.conf
+
+# ----------------- FONT -----------------
+set $userfont Source Code
+font pango:$userfont 12
+
 # ----------------- COLOURS -----------------
-# i = inactive, u = urgent, t = transparency (requires composer)
-# colours are in RGB hex values 
+set $focused    #525252
+set $inactive   #1B262C 
+set $text       #FFFFFF
+set $urgent     #FF4C29
 
-# Background
-set $bg-col		#3D89C9
-set $bg-col-t	#3D89C980
-set $i-bg-col	#3a3e3d
-set $i-bg-col-t	#3a3e3d80
-set $u-bg-col	#3D89C9
-
-# Border
-set $bd-col		#3a3e3d
-set $bd-col-t	#3a3e3d80
-set $i-bd-col	#3a3e3d
-set $i-bd-col-t	#3a3e3d80
-set $u-bd-col	#3D89C9
-
-# Text
-set $tx-col		#ffffff
-set $i-tx-col	#7f7f7f
-
-# Indicator and separator
-set $indicator  #00ff00
-set $separator  #757575
-
-# Type	         	    Border      Background	Text		Indicator
-client.focused		    $bd-col-t	$bg-col-t	$tx-fol		$indicator
-client.unfocused	    $i-bd-col-t	$i-bg-col-t	$i-tx-fol	$indicator
-client.focused_inactive	$i-bd-col-t	$i-bg-col-t	$i-tx-fol	$indicator
-client.urgent		    $u-bd-col	$u-bg-col	$tx-fol		$indicator
+# Class                 Border      Background  Text    Indices     Child border 
+client.focused		    $focused    $focused    $text   $focused  $focused
+client.unfocused	    $inactive   $inactive   $text   $inactive $inactive
+client.focused_inactive	$inactive   $inactive   $text   $inactive $inactive
+client.urgent		    $urgent     $urgent     $text   $urgent   $urgent
 
 # ----------------- GAPS AND BORDERS -----------------
-# No title bars, thin borders
-default_border pixel 2
+for_window [class="^.*"] border pixel 0 
+for_window [floating] border pixel 3
 
-# Hides borders if only one window
-smart_borders on
-
-# Gap size
+smart_gaps on
 gaps inner 15
 
 # ----------------- STATUS BARS -----------------
 
 # Run nm-applet for NetworkManager integration
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
+
+# Configs for either Polybar or i3bar/i3status
+
+# Polybar 
+#exec_always --no-startup-id polybar-msg cmd quit ; polybar -c "$HOME/.config/polybar/config.ini"
+
+# i3Bar
 
 # Upper bar
 bar {
 
     # Enables transparency
-    i3bar_command i3bar -t
+    i3bar_command i3bar
 
     # Launches empty bar
     status_command i3status --config $HOME/.config/i3/i3status_empty.conf
 
-    font $userfont 12
+    font pango:$userfont 12
 
-    position topset $i-bg-col-t	#3a3e3d80
+    position top
 
     strip_workspace_numbers yes
     tray_output none
 
     colors {
-        background $i-bg-col-t
-        separator $separator
-        # Type			    Border	    Background  Text
-        focused_workspace	$bd-col-t	$bg-col-t	$tx-col
-        inactive_workspace	$i-bd-col-t	$i-bg-col-t	$i-tx-col
-        urgent_workspace	$u-bd-col	$u-bg-col	$tx-col
+        background $inactive
+        separator  $inactive
+        # Class             Border      Background  Text
+        focused_workspace	$focused	$focused	$text
+        inactive_workspace	$inactive	$inactive	$text
+        urgent_workspace	$urgent	    $urgent	    $text
     }
 }
 
@@ -178,31 +139,32 @@ bar {
 bar {
 
     # Enables transparency
-    i3bar_command i3bar -t
-
-
+    i3bar_command i3bar
+    
     # Launches bar with custom config
     status_command i3status --config $HOME/.config/i3/i3status.conf
 
-    font $userfont 12
-    position bottom
+    font pango:$userfont, Icons 12
     workspace_buttons no
-
+    
     colors {
-        background $i-bg-col-t
-        separator $separator
-        # Type			    Border	    Background  Text
-        focused_workspace	$bd-col-t	$bg-col-t	$tx-col
-        inactive_workspace	$i-bd-col-t	$i-bg-col-t	$i-tx-col
-        urgent_workspace	$u-bd-col	$u-bg-col	$tx-col
+        background $inactive
+        separator  $inactive
+        # Class             Border      Background  Text
+        focused_workspace	$focused	$focused	$text
+        inactive_workspace	$inactive	$inactive	$text
+        urgent_workspace	$urgent	    $urgent	    $text
     }
 }
 
 # ================= RUN MENU =================
-bindsym $mod+d exec --no-startup-id dmenu_run -p "Run: " \
-    -nb "$i-bg-col" -nf "$tx-col" \
-    -sb "$u-bg-col" -sf "$tx-col" \
-    -fn "$userfont:12" -l 8
+#bindsym $mod+d exec --no-startup-id dmenu_run -p 'Run: ' \
+#    -nb '$inactive' -nf '$text' -sb '$focused' -sf '$text' \
+#    -fn 'pango:$userfont:12' -l 8
+
+bindsym $mod+d exec --no-startup-id rofi -show drun \
+	-theme ~/.config/rofi/launcher.rasi
+
 
 # ================= KEYBINDINGS =================
 
@@ -281,8 +243,8 @@ bindsym $mod+Ctrl+Up 	resize  grow	height	10 px or 10 ppt
 bindsym $mod+Ctrl+Right resize 	shrink 	width 	10 px or 10 ppt
 
 # Resize gaps
-bindsym $mod+plus  gaps inner all plus  5
-bindsym $mod+minus gaps inner all minus 5
+bindsym $mod+plus  gaps inner all minus 5
+bindsym $mod+minus gaps inner all plus 5
 
 # Toggle full screen
 bindsym $mod+f fullscreen toggle
@@ -308,33 +270,24 @@ bindsym $mod+Shift+c reload
 # Reload i3 in-place
 bindsym $mod+Shift+r restart
 
-# Exit i3
-bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar \
-    --font 'pango:Source Code 10' -t warning \
-    -m 'Do you really want to exit i3?' \
-    -B 'Yes, exit i3' 'i3-msg exit'"
+# Exit i3 or power off 
+bindsym $mod+Shift+p exec --no-startup-id $HOME/.config/rofi/powermenu.sh
 
-# Shutdown/restart/suspend
-bindsym $mod+Shift+p exec --no-startup-id "i3-nagbar \
-    --font 'pango:Source Code 10' -t warning \
-    -m 'Do you really want to shut down?' \
-    -B 'Suspend' 'exec systemctl suspend' \
-    -B 'Restart' 'exec systemctl reboot' \
-    -B 'Shut down' 'exec systemctl poweroff'"
+# Locks screen (uses betterlockscreen)
+bindsym $mod+Shift+o exec --no-startup-id betterlockscreen --lock blur -- -u
 
 
 # ----------------- MEDIA KEYS -----------------
-# Volume/mute/deafen media keys
+# Volume/mute/deafen
 bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl set-sink-volume \
                                 @DEFAULT_SINK@ 	+5% && $refresh_i3status
 bindsym XF86AudioLowerVolume    exec --no-startup-id pactl set-sink-volume \
-                     set $i-bg-col-t	#3a3e3d80
-           @DEFAULT_SINK@ 	-5% && $refresh_i3status
+                                @DEFAULT_SINK@ 	-5% && $refresh_i3status
 bindsym XF86AudioMute           exec --no-startup-id pactl set-sink-mute \
                                 @DEFAULT_SINK@ 	toggle && $refresh_i3status
-bindsym XF86AudioMicMute        exec --no-startup-id pactl set-source-mute	\
+bindsym XF86AudioMicMute        exec --no-startup-id pactl set-source-mute \
                                 @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# Brightness media keys
+# Brightness
 bindsym XF86MonBrightnessUp 	exec --no-startup-id xbacklight -inc 5
 bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5
