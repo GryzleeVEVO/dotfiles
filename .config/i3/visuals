@@ -1,0 +1,40 @@
+# ================= VISUALS =================
+
+# Screens
+exec_always --no-startup-id ./$xrandr_script
+
+# Wallpaper
+exec_always --no-startup-id nitrogen --restore
+
+# Composer
+exec --no-startup-id picom  \
+    --experimental-backends \
+    --config $picom_config
+
+# Polybar 
+exec_always --no-startup-id \
+    polybar-msg cmd quit ;  \
+    polybar
+
+
+# Font
+set $userfont Source Code
+font pango:$userfont 12
+
+# Color
+set $focused    #525252
+set $inactive   #1B262C
+set $text       #FFFFFF
+set $urgent     #FF4C29
+
+# Class                 Border      Background  Text    Indices     Child border 
+client.focused          $focused    $focused    $text   $focused    $focused
+client.unfocused        $inactive   $inactive   $text   $inactive   $inactive
+client.focused_inactive $inactive   $inactive   $text   $inactive   $inactive
+client.urgent           $urgent     $urgent     $text   $urgent     $urgent
+
+# Gaps and borders
+for_window [class="^.*"] border pixel 0
+for_window [floating] border pixel 3
+smart_gaps on
+gaps inner 15

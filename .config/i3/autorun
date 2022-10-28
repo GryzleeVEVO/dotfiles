@@ -1,0 +1,52 @@
+# ================= AUTORUN =================
+
+# XDG desktop entries
+exec --no-startup-id dex --autostart --environment i3
+
+# Touch controls
+exec --no-startup-id xinput set-prop \
+    "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+
+# Automount drives
+exec --no-startup-id udiskie -N -s
+
+# Password + keyring
+exec --no-startup-id keepassxc
+
+# ================= PROGRAM BINDS =================
+
+# Menu
+bindsym $mod+d exec --no-startup-id rofi \
+    -show drun -config $HOME/.config/rofi/launcher.rasi
+
+# Terminal
+bindsym $mod+Return exec --no-startup-id \
+    i3-sensible-terminal; \
+    exec --no-startup-id i3-msg workspace $ws1
+
+# Google Chrome (normal / incognito)
+bindsym $mod+n exec --no-startup-id \
+    google-chrome-stable; \
+    exec --no-startup-id i3-msg workspace $ws2
+
+bindsym $mod+Shift+n exec --no-startup-id \
+    google-chrome-stable --incognito; \
+    exec --no-startup-id i3-msg workspace $ws2
+
+# VS Code
+bindsym $mod+t exec --no-startup-id \
+    code; \
+    exec --no-startup-id i3-msg workspace $ws3
+
+# Neovim
+bindsym $mod+Shift+t exec --no-startup-id \
+    i3-sensible-terminal --class "Neovim" -e nvim; \
+    exec --no-startup-id i3-msg workspace $ws3
+
+# Assocciate to window
+#for_window [class="Alacritty"]      move to workspace $ws1
+#for_window [class="Google-chrome"]  move to workspace $ws2
+#for_window [class="Code"]           move to workspace $ws3
+#for_window [class="Eclipse"]	     move to workspace $ws3
+#for_window [instance="Neovim"]      move to workspace $ws3
+#for_window [class="discord"]        move to workspace $ws9

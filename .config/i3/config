@@ -1,0 +1,29 @@
+# Workspaces
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws10 "10:"
+
+# Windows/Command/Super (Mod4) is modifier
+set $mod Mod4
+
+set $i3_config         $HOME/.config
+set $xrandr_script  $HOME/.screenlayout/screen.sh
+
+include $i3_config/i3/visuals
+include $i3_config/i3/keybindings
+include $i3_config/i3/autorun
+
+# Assocciate to window
+#for_window [class="Alacritty"]      move to workspace $ws1
+#for_window [class="Google-chrome"]  move to workspace $ws2
+#for_window [class="Code"]           move to workspace $ws3
+#for_window [class="Eclipse"]	     move to workspace $ws3
+#for_window [instance="Neovim"]      move to workspace $ws3
+#for_window [class="discord"]        move to workspace $ws9
