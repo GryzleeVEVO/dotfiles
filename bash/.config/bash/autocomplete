@@ -1,4 +1,4 @@
-# bash
+#!/bin/bash
 # Globbing and autocompletion options
 
 # If command is name of directory, cd into it
@@ -8,10 +8,16 @@ shopt -s autocd
 shopt -s cdspell
 
 # Include files starting with . when globbing (excl. '.' and '..')
-shopt -s dotglob
+#shopt -s dotglob
 
 # Extended globbing
 shopt -s extglob
 
 # Case-insensitive globbing
 shopt -s nocaseglob
+
+# Don't show autocompletion for empty prompt
+shopt -s no_empty_cmd_completion
+
+# If alias exists, tries autocompletion for command
+shopt -s progcomp_alias

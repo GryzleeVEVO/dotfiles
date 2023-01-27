@@ -2,29 +2,53 @@
 
 # This file contains graphical options for the window manager
 
+# Font
+set $userfont Noto Sans 
+font pango:$userfont 12
+
+# Color
+set $background #273248
+set $foreground #FFFFFF
+set $inactive   #282A36
+
+set $color0	    #282a36	
+set $color1	    #ff5c57
+set $color2	    #5af78e
+set $color3	    #f3f99d
+set $color4	    #57c7ff	
+set $color5 	#ff6ac1	
+set $color6	    #9aedfe
+set $color7	    #f1f1f0
+set $color8	    #686868
+set $color9	    #ff5c57
+set $color10	#5af78e
+set $color11	#f3f99d
+set $color12	#57c7ff
+set $color13	#ff6ac1
+set $color14	#9aedfe
+set $color15	#f1f1f0
+
+# Class                 Border      Background  Text        Indices     Child border 
+client.background       $background
+client.focused         	$background	$background	$foreground	$background $background	
+client.unfocused       	$inactive	$inactive	$foreground	$inactive   $inactive
+client.focused_inactive	$inactive	$inactive	$foreground	$inactive   $inactive
+client.urgent           $background	$color1	    $foreground	$background $background
+client.placeholder	    $background	$background	$foreground	$background $background
+
+# Gaps and borders
+gaps inner 15
+smart_gaps on
+for_window [class="^.*"] border pixel 0
+hide_edge_borders        both
+
+# Bar
+bar {
+    status_command i3status
+}
+
 # Wallpaper
 exec_always --no-startup-id nitrogen --restore
 
 # Composer
 exec --no-startup-id picom
-
-# Font
-set $userfont Noto Sans Bold
-
-font pango:$userfont 12
-
-# Color
-set $focused    #212940
-set $inactive   #181F32
-set $text       #FFFFFF
-set $urgent     #FF4C29
-
-# Class                 Border      Background  Text    Indices     Child border 
-client.focused          $focused    $focused    $text   $focused    $focused
-client.unfocused        $inactive   $inactive   $text   $inactive   $inactive
-client.focused_inactive $inactive   $inactive   $text   $inactive   $inactive
-client.urgent           $urgent     $urgent     $text   $urgent     $urgent
-
-bar {
-    status_command i3status
-}

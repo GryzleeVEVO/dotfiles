@@ -2,6 +2,9 @@
 
 # This file contains programs to run at launch
 
+# Switches to detected monitor layout
+exec --no-startup-id autorandr --change 
+
 # Network manager applet
 exec --no-startup-id nm-applet
 

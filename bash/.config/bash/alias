@@ -1,8 +1,34 @@
-# bash
+#!/bin/bash
 # Common aliases for bash
 
+# Color ls output
 alias ls='ls --color=auto'
 
 # Symlinks all files in the .dotfiles directory 
 alias restow='pushd $HOME/.dotfiles && stow --restow --target=$HOME */ && popd'
 
+
+# Script for quick access to config files
+dotconf () {
+    local CONFIG_PATH=$HOME/.config
+    
+    [ $# -eq 0 ] && echo "dotconfig: No arguments" && return 1
+    [ $# -ne 1 ] && echo "dotconfig: Only one argument at a time" && return 1
+
+    case $1 in
+        alacritty|i3)
+            nvim $CONFIG_PATH/$1
+        ;;
+        bash)
+            nvim $BASH_CONFIG_PATH
+        ;;
+        bashrc)
+            nvim $HOME/.bashrc 
+        ;;
+        *) 
+            echo "dotconfig: Invalid argument" && return 1
+        ;;
+    esac
+
+    return 0
+}

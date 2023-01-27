@@ -1,4 +1,4 @@
-# bash
+#!/bin/bash
 # History configuration for bash
 
 # Number of remembered commands

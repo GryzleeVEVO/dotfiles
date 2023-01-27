@@ -21,6 +21,9 @@ set $ws10   "10"
 
 # Config is split along several files for simplicity
 
+# Non-essential programs to run at launch
+include $HOME/.config/i3/run
+
 # Theme and graphical settings
 include $HOME/.config/i3/theme
 
@@ -29,9 +32,6 @@ include $HOME/.config/i3/binds
 
 # Keybinds and options for programs
 include $HOME/.config/i3/programs
-
-# Non-essential programs to run at launch
-include $HOME/.config/i3/run
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
