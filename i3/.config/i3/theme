@@ -1,0 +1,30 @@
+# i3wm config file
+
+# This file contains graphical options for the window manager
+
+# Wallpaper
+exec_always --no-startup-id nitrogen --restore
+
+# Composer
+exec --no-startup-id picom
+
+# Font
+set $userfont Noto Sans Bold
+
+font pango:$userfont 12
+
+# Color
+set $focused    #212940
+set $inactive   #181F32
+set $text       #FFFFFF
+set $urgent     #FF4C29
+
+# Class                 Border      Background  Text    Indices     Child border 
+client.focused          $focused    $focused    $text   $focused    $focused
+client.unfocused        $inactive   $inactive   $text   $inactive   $inactive
+client.focused_inactive $inactive   $inactive   $text   $inactive   $inactive
+client.urgent           $urgent     $urgent     $text   $urgent     $urgent
+
+bar {
+    status_command i3status
+}

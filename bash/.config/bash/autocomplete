@@ -1,0 +1,17 @@
+# bash
+# Globbing and autocompletion options
+
+# If command is name of directory, cd into it
+shopt -s autocd
+
+# Autocorrect minor typos when using cd
+shopt -s cdspell
+
+# Include files starting with . when globbing (excl. '.' and '..')
+shopt -s dotglob
+
+# Extended globbing
+shopt -s extglob
+
+# Case-insensitive globbing
+shopt -s nocaseglob

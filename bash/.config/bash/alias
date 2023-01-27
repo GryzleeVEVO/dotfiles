@@ -1,0 +1,8 @@
+# bash
+# Common aliases for bash
+
+alias ls='ls --color=auto'
+
+# Symlinks all files in the .dotfiles directory 
+alias restow='pushd $HOME/.dotfiles && stow --restow --target=$HOME */ && popd'
+
