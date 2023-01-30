@@ -8,6 +8,7 @@ shopt -s autocd
 shopt -s cdspell
 
 # Include files starting with . when globbing (excl. '.' and '..')
+# (it messes with stow by including and symlinking .git)
 #shopt -s dotglob
 
 # Extended globbing

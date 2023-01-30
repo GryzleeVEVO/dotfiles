@@ -18,4 +18,4 @@ exec --no-startup-id `sleep 5 && volumeicon`
 exec --no-startup-id optimus-manager-qt 
 
 # Password manager
-exec --no-startup-id keepassxc
+exec --no-startup-id keepassxc open $HOME/.secret/passwordDb.kdbx 
