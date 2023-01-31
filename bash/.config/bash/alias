@@ -4,21 +4,18 @@
 # Color ls output
 alias ls='ls --color=auto'
 
-# Symlinks all files in the .dotfiles directory 
-alias restow='pushd $HOME/.dotfiles &> /dev/null && stow --restow --target=$HOME */ && popd &> /dev/null'
-
 # quit also exits 
 alias quit='exit'
 
-# Script for quick access to config files
-dotconf () {
+# Access relevant dotfiles quickly
+cfg () {
     local CONFIG_PATH=$HOME/.config
     
-    [ $# -eq 0 ] && echo "dotconfig: No arguments" && return 1
-    [ $# -ne 1 ] && echo "dotconfig: Only one argument at a time" && return 1
+    [ $# -eq 0 ] && echo "cfg: No arguments" && return 1
+    [ $# -ne 1 ] && echo "cfg: Only one argument at a time" && return 1
 
     case $1 in
-        alacritty|i3|polybar)
+        alacritty|i3|picom|polybar)
             $EDITOR $CONFIG_PATH/$1
         ;;
         bash)
@@ -28,9 +25,20 @@ dotconf () {
             $EDITOR $HOME/.bashrc 
         ;;
         *) 
-            echo "dotconfig: Invalid argument" && return 1
+            echo ": Invalid argument" && return 1
         ;;
     esac
 
     return 0
+}
+
+# Commit changes in dotfiles and restow
+dot() {
+    if pushd $HOME/.dotfiles &> /dev/null
+    then
+	    git add *
+	    git commit -m "$(date '+%Y/%m/%d %H:%M')"
+        stow --restow --target=$HOME */
+	    popd &> /dev/null
+    fi
 }
