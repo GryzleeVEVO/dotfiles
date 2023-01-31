@@ -37,7 +37,7 @@ dot() {
     if pushd $HOME/.dotfiles &> /dev/null
     then
 	    git add *
-	    git commit -m "$(date '+%Y/%m/%d %H:%M')"
+	    git commit -m "$(date '+%Y/%m/%d %H:%M') $@"
         stow --restow --target=$HOME */
 	    popd &> /dev/null
     fi
