@@ -4,8 +4,15 @@
 # Color ls output
 alias ls='ls --color=auto'
 
+# Resource .bashrc
+alias reload='source $HOME/.bashrc'
 # quit also exits 
 alias quit='exit'
+
+# Quick access to ssh hosts
+sshx() {
+    ssh -X a817570@$@.cps.unizar.es
+}
 
 # Access relevant dotfiles quickly
 cfg () {
@@ -41,4 +48,22 @@ dot() {
         stow --restow --target=$HOME */
 	    popd &> /dev/null
     fi
+}
+
+# Generate document from markdown file with pandoc
+mdgen() {
+    for f in $@; do
+        pandoc $f.md \
+	-f markdown \
+	--pdf-engine=xelatex \
+        --highlight-style kate \
+        -V geometry:a4paper \
+        -V geometry:margin=2cm \
+        -V documentclass=report \
+        -V lang=es-ES \
+        --toc \
+        --top-level-division=chapter \
+        -N \
+        -o "$f.pdf"
+    done
 }
