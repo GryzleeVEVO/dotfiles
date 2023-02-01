@@ -15,7 +15,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id `sleep 5 && volumeicon`
 
 # Nvidia Optimus applet
-exec --no-startup-id optimus-manager-qt 
+# exec --no-startup-id optimus-manager-qt 
 
 # Password manager
 exec --no-startup-id keepassxc open $HOME/.secret/passwordDb.kdbx 
