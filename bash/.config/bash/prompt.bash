@@ -18,4 +18,4 @@ COLOR_GREEN="\[$(tput setaf 192)\]"
 COLOR_YELLOW="\[$(tput setaf 226)\]"
 COLOR_RESET="\[$(tput sgr0)\]"
 
-export PS1="$COLOR_BLUE1\u$COLOR_BLUE2@$COLOR_BLUE3\h $COLOR_GREEN\w$COLOR_YELLOW\$(get_git_branch)$COLOR_RESET $ "
+PS1="$COLOR_BLUE1\u$COLOR_BLUE2@$COLOR_BLUE3\h $COLOR_GREEN\w$COLOR_YELLOW\$(get_git_branch)$COLOR_RESET $ "
