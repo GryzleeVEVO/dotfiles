@@ -73,3 +73,8 @@ let mapleader=","
 
 " Open new tab with ctrl-t 
 "nnoremap <silent> <C-t> :tabnew<CR>
+
+"  *** INCLUDES ***
+if filereadable(expand("~/.vimrc.plug"))
+    source ~/.vimrc.plug
+endif
