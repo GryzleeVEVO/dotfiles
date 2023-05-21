@@ -29,6 +29,9 @@ filetype indent on
 
 " *** VISUAL ***
 
+" Set colorscheme
+colorscheme desert
+
 " Syntax highlighting
 syntax on
 
@@ -75,6 +78,8 @@ let mapleader=","
 "nnoremap <silent> <C-t> :tabnew<CR>
 
 "  *** INCLUDES ***
-if filereadable(expand("~/.vimrc.plug"))
+
+" If vim, read plugins 
+if !has('nvim') && filereadable(expand("~/.vimrc.plug"))
     source ~/.vimrc.plug
 endif

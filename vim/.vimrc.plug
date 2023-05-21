@@ -1,5 +1,13 @@
 call plug#begin('~/.vim/plugged')
 
+" Language server
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+
+" Git integration
 Plug 'tpope/vim-fugitive'
 
 call plug#end()
