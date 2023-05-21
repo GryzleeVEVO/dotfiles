@@ -8,9 +8,6 @@
 
 # *** PROMPT ***
 
-# Run prompt_setup every time the prompt is updated
-PROMPT_COMMAND=prompt_setup
-
 # Set up the prompt
 prompt_setup() {
     # Exit status of last command
@@ -40,10 +37,10 @@ prompt_setup() {
 
     # Git repository status
     # Adapted from https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
-    local GIT_DIRTY=""
+    GIT_DIRTY=""
     [[ $(git status --porcelain 2>/dev/null) ]] && GIT_DIRTY=" *"
 
-    local GIT_BRANCH=$(git branch --no-color 2>/dev/null |
+    GIT_BRANCH=$(git branch --no-color 2>/dev/null |
         sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1${GIT_DIRTY})/")
 
     # Format:
@@ -61,6 +58,9 @@ prompt_setup() {
     # Number of directories shown
     PROMPT_DIRTRIM=3
 }
+
+# Run prompt_setup every time the prompt is updated
+PROMPT_COMMAND=prompt_setup
 
 # *** HISTORY ***
 
@@ -150,6 +150,9 @@ completion_setup() {
     bind "set mark-symlinked-directories on"
 }
 
+completion_setup
+
+
 # *** MISCELLANEOUS OPTIONS ***
 # More oprtions
 # https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
@@ -163,6 +166,8 @@ options_setup() {
     # Update screen size after each command
     shopt -s checkwinsize
 }
+
+options_setup
 
 # *** DEFAULT PROGRAMS ***
 
@@ -321,6 +326,5 @@ alias rm='rm --verbose --dir --recursive --interactive=once'
 #
 alias reload='source $HOME/.bashrc'
 
-options_setup
-completion_setup
+
 history_setup

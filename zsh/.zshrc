@@ -1,21 +1,51 @@
+# zshrc
 
+# If not running interactively, don't run anything
+[[ -z "$PS1" ]] && return
 
-autoload -Uz vcs_info compinit
+# *** PROMPT ***
 
-compinit
-setopt prompt_subst
+# Prompt variable
+PROMPT_USER='%n'
+PROMPT_HOST='%m'
+PROMPT_DIR='%~'
+
+# Colors
+COLOR_39='%F{39}'
+COLOR_45='%F{45}'
+COLOR_51='%F{51}'
+COLOR_192='%F{192}'
+COLOR_226='%F{226}'
+COLOR_RESET='%f'
+
+# Load and enable version control info
+autoload -Uz vcs_info
+
+# Sets up version control info
 zstyle ':vcs_info:*' formats '(%b %u)'
 zstyle ':vcs_info:*' unstagedstr '*'
 zstyle ':vcs_info:*' check-for-changes true
-precmd() { vcs_info }
 
-COLOR_BLUE1="%F{39}"
-COLOR_BLUE2="%F{45}"
-COLOR_BLUE3="%F{51}"
-COLOR_GREEN="%F{192}"
-COLOR_YELLOW="%F{226}"
-COLOR_RESET="%f"
+# Enable prompt expansion
+setopt prompt_subst
 
-export PS1='$COLOR_BLUE1%n$COLOR_BLUE2@$COLOR_BLUE3%m$COLOR_GREEN %~$COLOR_YELLOW${vcs_info_msg_0_}$COLOR_RESET $ '
+# Format:
+# user@host /.../path/to/dir (branch *) $
+PROMPT='${COLOR_39}${PROMPT_USER}'
+PROMPT+='${COLOR_45}@'
+PROMPT+='${COLOR_51}${PROMPT_HOST} '
+PROMPT+='${COLOR_192}${PROMPT_DIR} '
+PROMPT+='${COLOR_226}${vcs_info_msg_0_}'
+PROMPT+='${COLOR_RESET} $ '
 
+precmd() {
+    vcs_info
+}
 
+completion_setup() {
+    # Load and enable command completion
+    autoload -Uz compinit
+    compinit
+}
+
+completion_setup
