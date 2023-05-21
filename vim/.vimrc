@@ -32,6 +32,9 @@ filetype indent on
 " Syntax highlighting
 syntax on
 
+" Show status bar at the bottom  of the screen
+set laststatus=2
+
 " No wrapping 
 set nowrap
 
