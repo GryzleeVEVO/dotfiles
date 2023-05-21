@@ -1,6 +1,8 @@
 
 
-autoload -Uz vcs_info
+autoload -Uz vcs_info compinit
+
+compinit
 setopt prompt_subst
 zstyle ':vcs_info:*' formats '(%b %u)'
 zstyle ':vcs_info:*' unstagedstr '*'
@@ -15,3 +17,5 @@ COLOR_YELLOW="%F{226}"
 COLOR_RESET="%f"
 
 export PS1='$COLOR_BLUE1%n$COLOR_BLUE2@$COLOR_BLUE3%m$COLOR_GREEN %~$COLOR_YELLOW${vcs_info_msg_0_}$COLOR_RESET $ '
+
+

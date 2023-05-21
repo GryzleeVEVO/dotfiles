@@ -3,7 +3,7 @@
 # This file contains graphical options for the window manager
 
 # Font
-set $userfont JetBrainsMono Nerd Font 
+set $userfont NotoSans Nerd Font 
 font pango:$userfont 12
 
 # Color
@@ -37,7 +37,7 @@ client.urgent           $background	$color1	    $foreground	$background $backgro
 client.placeholder	    $background	$background	$foreground	$background $background
 
 # Gaps and borders
-gaps inner 15
+gaps inner 0 
 smart_gaps on
 for_window [class="^.*"] border pixel 0
 hide_edge_borders        both
