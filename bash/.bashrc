@@ -46,7 +46,7 @@ prompt_setup() {
     # Format:
     # [exit code] user@host /.../path/to/dir (branch *) $
     PS1=""
-    [ $EXIT = 0 ] && PS1+="${COLOR_GREEN}" || PS1+="${COLOR_RED}"
+    [ $EXIT = 0 ] && PS1="$PS1${COLOR_GREEN}" || PS1="$PS1${COLOR_RED}"
     PS1="$PS1[${EXIT}] "
     PS1="$PS1${COLOR_39}${PROMPT_USER}"
     PS1="$PS1${COLOR_45}@"
