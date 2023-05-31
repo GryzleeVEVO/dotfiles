@@ -246,7 +246,7 @@ dot() {
 
 # *** ALIASES ***
 
-if [ $(uname -n) != hendrix* ]; then
+if [[ $(uname -n) != hendrix* ]]; then
 
     #
     # cd
