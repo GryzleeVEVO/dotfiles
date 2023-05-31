@@ -246,83 +246,87 @@ dot() {
 
 # *** ALIASES ***
 
-#
-# cd
-#
-alias cd..='cd ..'
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias .....='cd ../../../../'
-alias ......='cd ../../../../'
-alias .......='cd ../../../../..'
+if [ $(uname -n) != hendrix* ]; then
 
-#
-# clear
-#
-alias c="clear"
-alias cl='clear'
-alias clr='clear'
+    #
+    # cd
+    #
+    alias cd..='cd ..'
+    alias ..='cd ..'
+    alias ...='cd ../../../'
+    alias ....='cd ../../../../'
+    alias .....='cd ../../../../'
+    alias ......='cd ../../../../'
+    alias .......='cd ../../../../..'
 
-#
-# cp
-#
-alias cp='cp --verbose --interactive --recursive'
+    #
+    # clear
+    #
+    alias c="clear"
+    alias cl='clear'
+    alias clr='clear'
 
-#
-# diff
-#
-alias diff='diff --color=auto'
+    #
+    # cp
+    #
+    alias cp='cp --verbose --interactive --recursive'
 
-#
-# exit
-#
-alias q='exit'
-alias quit='exit'
+    #
+    # diff
+    #
+    alias diff='diff --color=auto'
 
-#
-# grep
-#
-alias grep='grep --color=auto'
-alias egrep='grep --extended-regexp'
-alias fgrep='grep --fixed-strings'
+    #
+    # exit
+    #
+    alias q='exit'
+    alias quit='exit'
 
-#
-# history
-#
-alias h='history'
+    #
+    # grep
+    #
+    alias grep='grep --color=auto'
+    alias egrep='grep --extended-regexp'
+    alias fgrep='grep --fixed-strings'
 
-#
-# ln
-#
-alias ln='ln --verbose --interactive'
+    #
+    # history
+    #
+    alias h='history'
 
-#
-# ls
-#
-alias l='ls'
-alias ls='ls --color=auto --human-readable'
-alias la='ls --all'
-alias ll='ls --all -l'
+    #
+    # ln
+    #
+    alias ln='ln --verbose --interactive'
 
-#
-# mkdir
-#
-alias mkdir='mkdir --verbose --parents'
+    #
+    # ls
+    #
+    alias l='ls'
+    alias ls='ls --color=auto --human-readable'
+    alias la='ls --all'
+    alias ll='ls --all -l'
 
-#
-# mv
-#
-alias mv='mv --verbose --interactive'
+    #
+    # mkdir
+    #
+    alias mkdir='mkdir --verbose --parents'
 
-#
-# rm
-#
-alias rm='rm --verbose --dir --recursive --interactive=once'
+    #
+    # mv
+    #
+    alias mv='mv --verbose --interactive'
 
-#
-# source
-#
-alias reload='source $HOME/.bashrc'
+    #
+    # rm
+    #
+    alias rm='rm --verbose --dir --recursive --interactive=once'
+
+    #
+    # source
+    #
+    alias reload='source $HOME/.bashrc'
+
+fi
 
 history_setup
