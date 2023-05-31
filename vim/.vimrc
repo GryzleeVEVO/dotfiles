@@ -1,5 +1,12 @@
 " Disable compatibility mode
-set nocompatible
+"  *** INCLUDES ***
+
+" If vim, read plugins 
+if !has('nvim') && filereadable(expand("~/.vimrc.plug"))
+    source ~/.vimrc.plug
+endif
+
+"set nocompatible
 
 " Set encoding to UTF-8 and filetype to UNIX
 set encoding=utf-8
@@ -29,11 +36,15 @@ filetype indent on
 
 " *** VISUAL ***
 
-" Set colorscheme
-colorscheme desert
-
 " Syntax highlighting
 syntax on
+
+set background=dark
+
+set termguicolors 
+
+" Set colorscheme
+colorscheme darkula
 
 " Show status bar at the bottom  of the screen
 set laststatus=2
@@ -77,9 +88,3 @@ let mapleader=","
 " Open new tab with ctrl-t 
 "nnoremap <silent> <C-t> :tabnew<CR>
 
-"  *** INCLUDES ***
-
-" If vim, read plugins 
-if !has('nvim') && filereadable(expand("~/.vimrc.plug"))
-    source ~/.vimrc.plug
-endif

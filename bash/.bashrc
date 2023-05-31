@@ -152,7 +152,6 @@ completion_setup() {
 
 completion_setup
 
-
 # *** MISCELLANEOUS OPTIONS ***
 # More oprtions
 # https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
@@ -232,7 +231,7 @@ push() {
 
 # Pull
 pull() {
-    git pull $@
+    git pull "$@"
 }
 
 # Commit changes in dotfiles and restow
@@ -325,6 +324,5 @@ alias rm='rm --verbose --dir --recursive --interactive=once'
 # source
 #
 alias reload='source $HOME/.bashrc'
-
 
 history_setup

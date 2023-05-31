@@ -1,18 +1,14 @@
 #!/bin/sh
 
-DIRS=$(ls -d */)
-
 case $1 in
 simulate)
-    stow --simulate --target=$HOME ${DIRS}
+    stow --simulate --target=$HOME */
     ;;
 
 restow)
-    stow --restow --target=$HOME ${DIRS}
+    stow --restow --target=$HOME */
     ;;
 *)
-    stow --target=$HOME ${DIRS}
+    stow --target=$HOME */
     ;;
 esac
-
-stow --restow --target=$HOME

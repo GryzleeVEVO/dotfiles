@@ -7,6 +7,11 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 
+" Auto formatting
+Plug 'chiel92/vim-autoformat'
+
+Plug 'jcorbin/darkula'
+
 " Git integration
 " Plug 'tpope/vim-fugitive'
 
