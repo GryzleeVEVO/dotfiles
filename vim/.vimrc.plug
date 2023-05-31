@@ -10,7 +10,9 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Auto formatting
 Plug 'chiel92/vim-autoformat'
 
+" Theming
 Plug 'jcorbin/darkula'
+Plug 'vim-airline/vim-airline'
 
 " Git integration
 " Plug 'tpope/vim-fugitive'

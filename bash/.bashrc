@@ -47,13 +47,13 @@ prompt_setup() {
     # [exit code] user@host /.../path/to/dir (branch *) $
     PS1=""
     [ $EXIT = 0 ] && PS1+="${COLOR_GREEN}" || PS1+="${COLOR_RED}"
-    PS1+="[${EXIT}] "
-    PS1+="${COLOR_39}${PROMPT_USER}"
-    PS1+="${COLOR_45}@"
-    PS1+="${COLOR_51}${PROMPT_HOST} "
-    PS1+="${COLOR_192}${PROMPT_DIR}"
-    PS1+="${COLOR_226}\${GIT_BRANCH}"
-    PS1+="${COLOR_RESET} $ "
+    PS1="$PS1[${EXIT}] "
+    PS1="$PS1${COLOR_39}${PROMPT_USER}"
+    PS1="$PS1${COLOR_45}@"
+    PS1="$PS1${COLOR_51}${PROMPT_HOST} "
+    PS1="$PS1${COLOR_192}${PROMPT_DIR}"
+    PS1="$PS1${COLOR_226}\${GIT_BRANCH}"
+    PS1="$PS1${COLOR_RESET} $ "
 
     # Number of directories shown
     PROMPT_DIRTRIM=3
@@ -120,7 +120,7 @@ completion_setup() {
     set +o noglob
 
     # If command is name of directory, cd into it
-    shopt -s autocd
+    [ "${BASH_VERSINFO:-0}" -ge 4 ] && shopt -s autocd
 
     # Autocorrect minor typos when using cd
     shopt -s cdspell
@@ -138,7 +138,7 @@ completion_setup() {
     shopt -s no_empty_cmd_completion
 
     # If alias exists, tries autocompletion for command
-    shopt -s progcomp_alias
+    [ "${BASH_VERSINFO:-0}" -ge 5 ] && shopt -s progcomp_alias
 
     # Case-insensitive file completion
     bind "set completion-map-case on"

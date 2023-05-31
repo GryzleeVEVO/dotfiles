@@ -1,7 +1,7 @@
 " Disable compatibility mode
 "  *** INCLUDES ***
 
-" If vim, read plugins 
+" If vim, read plugins
 if !has('nvim') && filereadable(expand("~/.vimrc.plug"))
     source ~/.vimrc.plug
 endif
@@ -41,15 +41,25 @@ syntax on
 
 set background=dark
 
-set termguicolors 
+set termguicolors
 
 " Set colorscheme
 colorscheme darkula
 
+set guicursor
+  \=a:block
+  \,n:nCursor
+  \,c:cCursor
+  \,v:vCursor
+  \,i-ci-ve:ver25-iCursor
+  \,r-cr:hor25-rCursor
+  \,o:hor50-nCursor
+
+
 " Show status bar at the bottom  of the screen
 set laststatus=2
 
-" No wrapping 
+" No wrapping
 set nowrap
 
 " Numbers on the side
@@ -85,6 +95,6 @@ let mapleader=","
 "map <C-k> <C-w>k
 "map <C-l> <C-w>l
 
-" Open new tab with ctrl-t 
+" Open new tab with ctrl-t
 "nnoremap <silent> <C-t> :tabnew<CR>
 
