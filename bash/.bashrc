@@ -6,7 +6,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# *** PROMPT ***
+# Source aliases
+[ -f "$HOME/.bash_alaises" ] && source "$HOME/.bash_aliases"
+
+# * PROMPT
 
 # Set up the prompt
 prompt_setup() {
@@ -246,7 +249,8 @@ dot() {
 
 # *** ALIASES ***
 
-if [[ $(uname -n) != hendrix* ]]; then
+# GNU Coreutils
+if [[ $(uname) == Linux ]]; then
 
     #
     # cd
