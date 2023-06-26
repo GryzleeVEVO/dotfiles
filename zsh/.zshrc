@@ -1,51 +1,56 @@
 # zshrc
 
-# If not running interactively, don't run anything
-[[ -z "$PS1" ]] && return
+[[ -z "$PS1" ]] && return # If not running interactively, don't run anything
 
-# *** PROMPT ***
+# Source aliases
+[[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
-# Prompt variable
-PROMPT_USER='%n'
-PROMPT_HOST='%m'
-PROMPT_DIR='%~'
+# Source plugins
+#if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]]; then
+#    source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
+#fi
 
-# Colors
-COLOR_39='%F{39}'
-COLOR_45='%F{45}'
-COLOR_51='%F{51}'
-COLOR_192='%F{192}'
-COLOR_226='%F{226}'
-COLOR_RESET='%f'
+#if [[ -f "/usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]]; then
+#    source "/usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+#fi
 
-# Load and enable version control info
-autoload -Uz vcs_info
+# * PROMPT
 
-# Sets up version control info
-zstyle ':vcs_info:*' formats '(%b %u)'
+autoload -Uz vcs_info # Load and enable version control info
+
+zstyle ':vcs_info:*' formats '(%b %u) ' # Sets up version control info
 zstyle ':vcs_info:*' unstagedstr '*'
 zstyle ':vcs_info:*' check-for-changes true
 
-# Enable prompt expansion
-setopt prompt_subst
+setopt prompt_subst # Enable prompt expansion
 
-# Format:
-# user@host /.../path/to/dir (branch *) $
-PROMPT='${COLOR_39}${PROMPT_USER}'
-PROMPT+='${COLOR_45}@'
-PROMPT+='${COLOR_51}${PROMPT_HOST} '
-PROMPT+='${COLOR_192}${PROMPT_DIR} '
-PROMPT+='${COLOR_226}${vcs_info_msg_0_}'
-PROMPT+='${COLOR_RESET} $ '
+PROMPT='%(?.%F{green}[%?].%F{red}[%?]) ' # [exit code]
+PROMPT+='%F{39}%n'                       # user
+PROMPT+='%F{45}@'                        # @
+PROMPT+='%F{51}%m'                       # host
+PROMPT+='%F{192}% ~ '                    # pwd
+PROMPT+='%F{226}${vcs_info_msg_0_}'      # (branch *)
+PROMPT+='%f$ '                           # $
 
 precmd() {
-    vcs_info
+    vcs_info # Update VCS info
 }
 
-completion_setup() {
-    # Load and enable command completion
-    autoload -Uz compinit
-    compinit
-}
+# * HISTORY
 
-completion_setup
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" up-line-or-beginning-search
+[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
+
+# * AUTOCOMPLETE/EXPANSION
+
+# Autocompletion
+
+# autoload -Uz compinit
+# compinit
+#
+# zstyle ':completion:*' menu select

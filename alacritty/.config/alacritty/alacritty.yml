@@ -5,7 +5,7 @@ window:
   #  x: 10
   #  y: 10
   dynamic_title: true
-  opacity: 0.8
+  #opacity: 0.8
 
 mouse:
   hide_when_typing: true

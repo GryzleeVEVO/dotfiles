@@ -11,7 +11,6 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'chiel92/vim-autoformat'
 
 " Theming
-Plug 'jcorbin/darkula'
 Plug 'vim-airline/vim-airline'
 
 " Git integration

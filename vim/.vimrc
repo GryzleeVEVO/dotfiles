@@ -2,9 +2,7 @@
 "  *** INCLUDES ***
 
 " If vim, read plugins
-if !has('nvim') && filereadable(expand("~/.vimrc.plug"))
-    source ~/.vimrc.plug
-endif
+source ~/.vimrc.plug
 
 "set nocompatible
 
@@ -44,7 +42,6 @@ set background=dark
 set termguicolors
 
 " Set colorscheme
-colorscheme darkula
 
 set guicursor
   \=a:block
