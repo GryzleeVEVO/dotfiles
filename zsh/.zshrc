@@ -5,15 +5,6 @@
 # Source aliases
 [[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
-# Source plugins
-#if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]]; then
-#    source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-#fi
-
-#if [[ -f "/usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]]; then
-#    source "/usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
-#fi
-
 # * PROMPT
 
 autoload -Uz vcs_info # Load and enable version control info
@@ -47,10 +38,3 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 # * AUTOCOMPLETE/EXPANSION
-
-# Autocompletion
-
-# autoload -Uz compinit
-# compinit
-#
-# zstyle ':completion:*' menu select
