@@ -5,6 +5,11 @@
 # Source aliases
 [[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
+# * ANTIDOTE (Plugin manager)
+source "/usr/share/zsh-antidote/antidote.zsh"
+antidote load
+
+
 # * PROMPT
 
 autoload -Uz vcs_info # Load and enable version control info
@@ -19,7 +24,7 @@ PROMPT='%(?.%F{green}[%?].%F{red}[%?]) ' # [exit code]
 PROMPT+='%F{39}%n'                       # user
 PROMPT+='%F{45}@'                        # @
 PROMPT+='%F{51}%m'                       # host
-PROMPT+='%F{192}% ~ '                    # pwd
+PROMPT+='%F{192} %~ '                    # pwd
 PROMPT+='%F{226}${vcs_info_msg_0_}'      # (branch *)
 PROMPT+='%f$ '                           # $
 
@@ -29,12 +34,6 @@ precmd() {
 
 # * HISTORY
 
-autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+[[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" history-substring-search-up 
+[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" history-substring-search-down
 
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-[[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" up-line-or-beginning-search
-[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
-
-# * AUTOCOMPLETE/EXPANSION

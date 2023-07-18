@@ -15,8 +15,10 @@ alias clr='clear'
 alias q='exit'
 alias quit='exit'
 
-alias r='source $HOME/.bashrc'
-alias reload='source $HOME/.bashrc'
+[ "$0" = "/bin/bash" -o "$0" = "bash" ] && SRC_TARGET="$HOME/.bashrc" ||  SRC_TARGET="$HOME/.zshrc"
+
+alias r="source $SRC_TARGET"
+alias reload="source $SRC_TARGET"
 
 alias h='history'
 

@@ -3,48 +3,29 @@
 # This file contains graphical options for the window manager
 
 # Font
-set $userfont NotoSans Nerd Font
+set $userfont NotoSans Nerd Font, JetBrainsMono
 font pango:$userfont 12
 
 # Color
-set $background #273248
-set $foreground #FFFFFF
-set $inactive   #282A36
-
-set $color0     #282a36
-set $color1     #ff5c57
-set $color2     #5af78e
-set $color3     #f3f99d
-set $color4     #57c7ff
-set $color5     #ff6ac1
-set $color6     #9aedfe
-set $color7     #f1f1f0
-set $color8     #686868
-set $color9     #ff5c57
-set $color10    #5af78e
-set $color11    #f3f99d
-set $color12    #57c7ff
-set $color13    #ff6ac1
-set $color14    #9aedfe
-set $color15    #f1f1f0
+set $bg 	#1F2430
+set $fg 	#FFFFFF
+set $focus 	#8775B0
+set $urgent    	#FFA759
 
 # Class                 Border      Background  Text        Indices     Child border
-client.background       $background
-client.focused          $background $background $foreground $background $background
-client.unfocused        $inactive   $inactive   $foreground $inactive   $inactive
-client.focused_inactive $:inactive  $inactive   $foreground $inactive   $inactive
-client.urgent           $background $color1     $foreground $background $background
-client.placeholder      $background $background $foreground $background $background
+client.unfocused        $bg 	$bg 	$fg 	$bg 	$bg
+client.focused 		$focus 	$focus 	$fg 	$focus 	$focus
+client.urgent           $urgent $urgent $fg 	$urgent $urgent
 
 # Gaps and borders
-gaps inner 0
+gaps inner 10
+gaps outer 10
 smart_gaps on
-for_window [class="^.*"] border pixel 0
-hide_edge_borders        both
+smart_borders on
+default_border pixel 1
 
 # Bar
-exec_always --no-startup-id "polybar-msg cmd quit ; polybar top"
-exec_always --no-startup-id "polybar bottom"
+exec_always --no-startup-id "polybar-msg cmd quit ; polybar bottom"
 
 # Wallpaper
 exec_always --no-startup-id nitrogen --restore

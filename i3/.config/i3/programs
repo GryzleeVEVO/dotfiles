@@ -6,7 +6,9 @@
 set $switch_to_ws i3-msg workspace
 
 # Program menu --> dmenu
-bindsym $mod+d          exec --no-startup-id dmenu_run
+bindsym $mod+d          exec --no-startup-id rofi -show drun -theme $HOME/.config/rofi/menu.rasi 
+bindsym $mod+Shift+p    exec --no-startup-id $HOME/.config/rofi/./powermenu.sh
+
 
 # Terminal --> Alacritty
 bindsym $mod+Return     exec --no-startup-id i3-sensible-terminal
