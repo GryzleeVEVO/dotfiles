@@ -9,7 +9,6 @@
 source "/usr/share/zsh-antidote/antidote.zsh"
 antidote load
 
-
 # * PROMPT
 
 autoload -Uz vcs_info # Load and enable version control info
@@ -31,9 +30,3 @@ PROMPT+='%f$ '                           # $
 precmd() {
     vcs_info # Update VCS info
 }
-
-# * HISTORY
-
-[[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" history-substring-search-up 
-[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" history-substring-search-down
-

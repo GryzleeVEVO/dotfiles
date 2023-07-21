@@ -1,7 +1,3 @@
-" Disable compatibility mode
-"  *** INCLUDES ***
-
-" If vim, read plugins
 source ~/.vimrc.plug
 
 "set nocompatible

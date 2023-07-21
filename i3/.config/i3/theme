@@ -7,15 +7,15 @@ set $userfont NotoSans Nerd Font, JetBrainsMono
 font pango:$userfont 12
 
 # Color
-set $bg 	#1F2430
-set $fg 	#FFFFFF
-set $focus 	#8775B0
-set $urgent    	#FFA759
+set $bg     #1F2430
+set $fg     #FFFFFF
+set $focus  #8775B0
+set $urgent #FFA759
 
-# Class                 Border      Background  Text        Indices     Child border
-client.unfocused        $bg 	$bg 	$fg 	$bg 	$bg
-client.focused 		$focus 	$focus 	$fg 	$focus 	$focus
-client.urgent           $urgent $urgent $fg 	$urgent $urgent
+# Class             Border      Background  Text    Indices     Child border
+client.unfocused    $bg         $bg         $fg     $bg         $bg
+client.focused      $focus      $focus      $fg     $focus      $focus
+client.urgent       $urgent     $urgent     $fg     $urgent     $urgent
 
 # Gaps and borders
 gaps inner 10

@@ -5,17 +5,19 @@
 # https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 
-[[ $- != *i* ]] && return # If not running interactively, don't do anything
+# https://stackoverflow.com/questions/16715103/bash-prompt-with-the-last-exit-code
+# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+# https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
+# https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
 # Source aliases
 [[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
-# * PROMPT
+#  PROMPT
 prompt_setup() {
-    # https://stackoverflow.com/questions/16715103/bash-prompt-with-the-last-exit-code
-    # https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
-    # https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
-    # https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
 
     local EXIT="$?" # Exit status of last command
 
@@ -51,7 +53,7 @@ prompt_setup() {
 
 PROMPT_COMMAND=prompt_setup
 
-# * HISTORY
+#  HISTORY
 
 set -o histexpand # Enable expansion with !!
 
@@ -72,7 +74,7 @@ bind '"\e[B": history-search-forward'
 bind '"\e[C": forward-char'
 bind '"\e[D": backward-char'
 
-# * AUTOCOMPLETE/EXPANSION
+# AUTOCOMPLETE/EXPANSION
 
 set -o braceexpand # Enable brace expansion
 set +o noglob      # (disabled) Disable globbing
@@ -93,8 +95,7 @@ bind "set completion-map-case on"        # Case-insensitive file completion
 bind "set show-all-if-ambiguous on"      # Display ambiguous matches
 bind "set mark-symlinked-directories on" # Autocomplete for symlink directories
 
-set -o emacs # Use emacs or vi style input+
-set +o vi
+set -o emacs # Use emacs style input
 
 shopt -s checkwinsize # Update screen size after each command
 
@@ -109,4 +110,5 @@ else
     export EDITOR='vi'
 fi
 
-set -o history # Enable history (if not set already)
+# Enable history (if not set already)
+set -o history

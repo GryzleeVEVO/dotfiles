@@ -1,70 +1,62 @@
-# Useful defaults
+alias cd..='cd ..'                                   # cd
+alias ..='cd ..'                                     #
+alias ...='cd ../../../'                             #
+alias ....='cd ../../../../'                         #
+alias .....='cd ../../../../'                        #
+alias ......='cd ../../../../'                       #
+alias .......='cd ../../../../..'                    #
+alias c='clear'                                      # clear
+alias cl='clear'                                     #
+alias clr='clear'                                    #
+alias q='exit'                                       # exit
+alias quit='exit'                                    #
+if [ "$0" = "/bin/bash" ] || [ "$0" = "bash" ]; then # reload
+    alias reload='source $HOME/.bashrc'              #
+else                                                 #
+    alias reload='source $HOME/.zshrc'               #
+fi                                                   #
+alias r='reload'                                     #
+alias h='history'                                    #
+alias g='git'                                        # git
+alias p='yay -Syu'                                   # pacman/yay
+alias prm='yay -R'                                   #
+alias plist='yay -Q'                                 #
+alias pquery='yay -Qss'                              #
+alias pss='yay -Ss'                                  #
 
-alias cd..='cd ..'
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias .....='cd ../../../../'
-alias ......='cd ../../../../'
-alias .......='cd ../../../../..'
+# ------------------------------------------------------------------------------
 
-alias c='clear'
-alias cl='clear'
-alias clr='clear'
-
-alias q='exit'
-alias quit='exit'
-
-[ "$0" = "/bin/bash" -o "$0" = "bash" ] && SRC_TARGET="$HOME/.bashrc" ||  SRC_TARGET="$HOME/.zshrc"
-
-alias r="source $SRC_TARGET"
-alias reload="source $SRC_TARGET"
-
-alias h='history'
-
-alias l='ls -hF'
+alias ls='ls -h -F'
+alias l='ls'
 alias la='ls -a'
 alias ll='ls -a -l'
 
-alias g='git'
-
-alias p='yay -Syu'
-alias pr='yay -R'
-alias pq='yay -Qs'
-alias ps='yay -Ss'
-alias pcl='yay -Rsu $(yay -Qqtd)'
+alias mkdir='mkdir -p'
 
 # Some aliases use GNU-specific flags
 if [ "$(uname)" = Linux ]; then
     alias m='make'
 
-    alias ls='ls -F --color=auto --human-readable --group-directories-first'
+    alias ls='ls -h -F --color=auto --group-directories-first'
 
-    alias mkdir='mkdir --verbose --parents'
-    alias ln='ln --verbose --interactive'
-    alias rm='rm --verbose --dir --recursive --interactive=once'
+    alias mkdir='mkdir -p -v'
+    alias ln='ln -v --interactive'
+    alias rm='rm -v --dir --recursive --interactive=once'
 
-    alias cp='cp --verbose --interactive --recursive'
-    alias mv='mv --verbose --interactive'
+    alias cp='cp -v --interactive --recursive'
+    alias mv='mv -v --interactive'
 
     alias diff='diff --color=auto'
 
     alias grep='grep --color=auto'
     alias egrep='grep --extended-regexp'
     alias fgrep='grep --fixed-strings'
+# Else, assume SunOS/Solaris/BSD
+else
+    alias m='gmake'
 fi
 
-# Generate document from markdown file with pandoc
-docgen() {
-    [ $# -eq 0 ] && echo "docgen: No arguments" && return 1
-
-    for f in "$@"; do
-        pandoc "$f" \
-            -f markdown \
-            --pdf-engine=xelatex \
-            -o "$(basename "$f" .md).pdf"
-    done
-}
+# ------------------------------------------------------------------------------
 
 # Quick access to university ssh hosts
 sshx() {
