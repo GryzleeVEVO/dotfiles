@@ -31,6 +31,9 @@ alias l='ls'
 alias la='ls -a'
 alias ll='ls -a -l'
 
+alias du='du -h'
+alias df='df -h'
+
 alias mkdir='mkdir -p'
 
 # Some aliases use GNU-specific flags

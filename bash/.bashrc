@@ -1,15 +1,5 @@
 # .bashrc
 
-# Sources
-# https://github.com/mrzool/bash-sensible/blob/master/sensible.bash
-# https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
-# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
-
-# https://stackoverflow.com/questions/16715103/bash-prompt-with-the-last-exit-code
-# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
-# https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
-# https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -23,14 +13,14 @@ prompt_setup() {
 
     history -a # Append last command
 
-    local COLOR_RED="\[$(tput setaf 9)\]" # Colors
-    local COLOR_GREEN="\[$(tput setaf 10)\]"
-    local COLOR_39="\[$(tput setaf 39)\]"
-    local COLOR_45="\[$(tput setaf 45)\]"
-    local COLOR_51="\[$(tput setaf 51)\]"
-    local COLOR_192="\[$(tput setaf 192)\]"
-    local COLOR_226="\[$(tput setaf 226)\]"
-    local COLOR_RESET="\[$(tput sgr0)\]"
+    local COLOR_RED="\[$(tput setaf 9)\]"    # Colors
+    local COLOR_GREEN="\[$(tput setaf 10)\]" #
+    local COLOR_39="\[$(tput setaf 39)\]"    #
+    local COLOR_45="\[$(tput setaf 45)\]"    #
+    local COLOR_51="\[$(tput setaf 51)\]"    #
+    local COLOR_192="\[$(tput setaf 192)\]"  #
+    local COLOR_226="\[$(tput setaf 226)\]"  #
+    local COLOR_RESET="\[$(tput sgr0)\]"     #
 
     # Git repository status
     [[ $(git status --porcelain 2>/dev/null) ]] && GIT_DIRTY=" *" || GIT_DIRTY=""
@@ -53,7 +43,7 @@ prompt_setup() {
 
 PROMPT_COMMAND=prompt_setup
 
-#  HISTORY
+# HISTORY
 
 set -o histexpand # Enable expansion with !!
 
@@ -99,7 +89,7 @@ set -o emacs # Use emacs style input
 
 shopt -s checkwinsize # Update screen size after each command
 
-# * VARIABLES
+#  VARIABLES
 
 # Default editor
 if command -v nvim &>/dev/null; then
@@ -112,3 +102,12 @@ fi
 
 # Enable history (if not set already)
 set -o history
+
+# Sources
+# https://github.com/mrzool/bash-sensible/blob/master/sensible.bash
+# https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
+# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+# https://stackoverflow.com/questions/16715103/bash-prompt-with-the-last-exit-code
+# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+# https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
+# https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
