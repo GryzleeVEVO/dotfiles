@@ -22,3 +22,5 @@ exec --no-startup-id kwalletd5
 
 # Password manager
 exec --no-startup-id keepassxc open $HOME/.secret/passwordDb.kdbx 
+
+exec --no-startup-id discord

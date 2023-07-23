@@ -19,6 +19,8 @@ vim.cmd.set('autoindent')                              --
 
 vim.cmd.set('relativenumber')                          -- Numbering relative to current line
 
+vim.cmd.set('nowrap')                                  -- Do not wrap around
+
 -- REMAPS
 vim.keymap.set('', '<Up>', '<nop>', { noremap = true, silent = true })    -- Disable arrow keys
 vim.keymap.set('', '<Down>', '<nop>', { noremap = true, silent = true })  --

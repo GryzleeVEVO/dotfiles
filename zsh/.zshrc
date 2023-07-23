@@ -5,11 +5,11 @@
 # Source aliases
 [[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
-# * ANTIDOTE (Plugin manager)
+# ANTIDOTE (Plugin manager)
 source "/usr/share/zsh-antidote/antidote.zsh"
 antidote load
 
-# * PROMPT
+# PROMPT
 
 autoload -Uz vcs_info # Load and enable version control info
 
@@ -30,3 +30,20 @@ PROMPT+='%f$ '                           # $
 precmd() {
     vcs_info # Update VCS info
 }
+
+# COMPLETION
+
+autoload -Uz compinit
+compinit 
+
+# HISTORY
+
+HISTFILE="$HOME/.history"
+HISTCONTROL=erasedups:ignoreboth                # Ignore and erase duplicates, trim leading whitespaces
+HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear" # Ignore some commands
+HISTFILESIZE=50000                              # Size of history file
+HISTSIZE=10000                                  # Size of current history buffer
+
+setopt inc_append_history
+
+

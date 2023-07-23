@@ -52,11 +52,11 @@ shopt -s histappend # Append new entries instead of overwriting
 shopt -s histreedit # If search fails, paste command in prompt for editing
 shopt -s histverify # If search suceeds, paste command in prompt instead of running
 
+HISTFILE="$HOME/.history"
 HISTCONTROL=erasedups:ignoreboth                # Ignore and erase duplicates, trim leading whitespaces
 HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear" # Ignore some commands
 HISTFILESIZE=50000                              # Size of history file
 HISTSIZE=10000                                  # Size of current history buffer
-HISTTIMEFORMAT='%F %T '                         # Timestamp (YY-mm-dd HH:MM:SS)
 
 bind Space:magic-space                 # Autoexpand history after space
 bind '"\e[A": history-search-backward' # Incremental history search with arrows
@@ -100,8 +100,6 @@ else
     export EDITOR='vi'
 fi
 
-# Enable history (if not set already)
-set -o history
 
 # Sources
 # https://github.com/mrzool/bash-sensible/blob/master/sensible.bash
@@ -111,3 +109,5 @@ set -o history
 # https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
 # https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
 # https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
+
+
