@@ -1,12 +1,12 @@
 @import "~/.config/rofi/colors/onedark.rasi"
 
 * {
-    background:     #1E2127FF;
-    background-alt: #282B31FF;
+    background:     #1F243080;
+    background-alt: #1F2430FF;
     foreground:     #FFFFFFFF;
-    selected:       #61AFEFFF;
-    active:         #98C379FF;
-    urgent:         #E06C75FF;
+    selected:       #877BB0FF;
+    active:         #877BB0FF;
+    urgent:         #FFA759FF;
 
     font: "JetBrainsMono Nerd Font 10";
 }

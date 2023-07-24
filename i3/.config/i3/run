@@ -11,16 +11,12 @@ exec --no-startup-id nm-applet
 # Bluetooth manager applet
 exec --no-startup-id blueman-applet
 
-# Volume applet
-exec --no-startup-id `sleep 5 && volumeicon`
-
 # Nvidia Optimus applet
 # exec --no-startup-id optimus-manager-qt 
 
-# Secret-service
-exec --no-startup-id kwalletd5
+# Secret-service and passwords
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
+exec --no-startup-id "secret-tool lookup keepass credentials | keepassxc --pw-stdin $HOME/.secret/passwordsDb.kdbx"
 
-# Password manager
-exec --no-startup-id keepassxc open $HOME/.secret/passwordDb.kdbx 
 
 exec --no-startup-id discord
