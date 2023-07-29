@@ -4,7 +4,7 @@
 
 # Font
 set $userfont NotoSans Nerd Font, JetBrainsMono
-font pango:$userfont 12
+font pango:$userfont 10
 
 # Color
 set $bg     #1F2430
@@ -19,7 +19,6 @@ client.urgent       $urgent     $urgent     $fg     $urgent     $urgent
 
 # Gaps and borders
 gaps inner 10
-gaps outer 10
 smart_gaps on
 smart_borders on
 default_border pixel 1

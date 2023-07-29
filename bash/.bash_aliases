@@ -1,72 +1,34 @@
-alias cd..='cd ..'                                   # cd
-alias ..='cd ..'                                     #
-alias ...='cd ../../../'                             #
-alias ....='cd ../../../../'                         #
-alias .....='cd ../../../../'                        #
-alias ......='cd ../../../../'                       #
-alias .......='cd ../../../../..'                    #
-alias c='clear'                                      # clear
-alias cl='clear'                                     #
-alias clr='clear'                                    #
-alias q='exit'                                       # exit
-alias quit='exit'                                    #
-if [ "$0" = "/bin/bash" ] || [ "$0" = "bash" ]; then # reload
-    alias reload='source $HOME/.bashrc'              #
-else                                                 #
-    alias reload='source $HOME/.zshrc'               #
-fi                                                   #
-alias r='reload'                                     #
-alias h='history'                                    #
-alias g='git'                                        # git
-alias p='yay -Syu'                                   # pacman/yay
-alias prm='yay -R'                                   #
-alias plist='yay -Q'                                 #
-alias pquery='yay -Qss'                              #
-alias pss='yay -Ss'                                  #
+# cd
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../'
+alias .......='cd ../../../../..'
 
-# ------------------------------------------------------------------------------
+# clear
+alias c='clear'
+alias cl='clear'
+alias clr='clear'
 
-alias ls='ls -h -F'
-alias l='ls'
-alias la='ls -a'
-alias ll='ls -a -l'
+# cp
+alias cp='cp -v --interactive --recursive'
 
+# diff
+alias diff='diff --color=auto'
+
+# du/df
 alias du='du -h'
 alias df='df -h'
 
-alias mkdir='mkdir -p'
+# exit
+alias q='exit'
+alias quit='exit'
 
-# Some aliases use GNU-specific flags
-if [ "$(uname)" = Linux ]; then
-    alias m='make'
+# git
+alias g='git'
 
-    alias ls='ls -h -F --color=auto --group-directories-first'
-
-    alias mkdir='mkdir -p -v'
-    alias ln='ln -v --interactive'
-    alias rm='rm -v --dir --recursive --interactive=once'
-
-    alias cp='cp -v --interactive --recursive'
-    alias mv='mv -v --interactive'
-
-    alias diff='diff --color=auto'
-
-    alias grep='grep --color=auto'
-    alias egrep='grep --extended-regexp'
-    alias fgrep='grep --fixed-strings'
-# Else, assume SunOS/Solaris/BSD
-else
-    alias m='gmake'
-fi
-
-# ------------------------------------------------------------------------------
-
-# Quick access to university ssh hosts
-sshx() {
-    ssh -X "a817570@${1}.cps.unizar.es"
-}
-
-# Add files, commit and push
 push() {
     if git status -s &>/dev/null; then
         git add ./*
@@ -75,17 +37,67 @@ push() {
     fi
 }
 
-# Pull
 pull() {
     git pull "$@"
 }
 
-# Commit changes in dotfiles and restow
+# grep
+alias grep='grep --color=auto'
+alias egrep='grep --extended-regexp'
+alias fgrep='grep --fixed-strings'
+
+# history
+alias h='history'
+
+# ln
+alias ln='ln -v --interactive'
+
+# ls
+alias ls='ls -h -F --color=auto --group-directories-first'
+alias l='ls'
+alias la='ls -a'
+alias ll='ls -a -l'
+
+# make
+alias m='make'
+
+# mkdir
+alias mkdir='mkdir -p -v'
+
+# mv
+alias mv='mv -v --interactive'
+
+# pacman/yay
+alias p='yay'
+alias psy='yay -Syu'
+alias prm='yay -R'
+alias pe='yay -Qe'
+alias pqs'yay -Qss'
+alias pss='yay -Ss'
+
+# reload
+if [ "$0" = "/bin/bash" ] || [ "$0" = "bash" ]; then
+    alias reload='source $HOME/.bashrc'
+else
+    alias reload='source $HOME/.zshrc'
+fi
+
+alias r='reload'
+
+# rm
+alias rm='rm -v --dir --recursive --interactive=once'
+
+# ssh
+sshx() {
+    ssh -X "a817570@${1}.cps.unizar.es"
+}
+
+# stow
 dot() {
     if pushd "$HOME/.dotfiles" &>/dev/null; then
         git add ./*
         git commit -m "$(date '+%Y/%m/%d %H:%M') $*"
-        stow --target="$HOME" * 
+        stow --target="$HOME" -- *glob*
         popd &>/dev/null || return
     fi
 }

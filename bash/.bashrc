@@ -3,8 +3,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Source aliases
-[[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
+# Source aliases (only if on Linux)
+if [[ -f "$HOME/.bash_aliases" ]] && [ "$(uname)" = "Linux" ]; then
+    source "$HOME/.bash_aliases"
+fi
 
 #  PROMPT
 prompt_setup() {
@@ -100,7 +102,6 @@ else
     export EDITOR='vi'
 fi
 
-
 # Sources
 # https://github.com/mrzool/bash-sensible/blob/master/sensible.bash
 # https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
@@ -109,5 +110,3 @@ fi
 # https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
 # https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
 # https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/
-
-

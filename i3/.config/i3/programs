@@ -15,9 +15,12 @@ bindsym $mod+m          exec --no-startup-id discord
 bindsym $mod+Shift+t    exec --no-startup-id code
 bindsym $mod+t          exec --no-startup-id i3-sensible-terminal -e nvim "$HOME"
 
-bindsym $mod+r          exec --no-startup-id i3-sensible-terminal -e ranger 
-
+bindsym $mod+r          exec --no-startup-id "i3-sensible-terminal --class Alacritty,ranger -e ranger"
 
 for_window [class="Blueman-manager"] floating enable
-for_window [class="pavucontrol"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Alacritty" instance="ranger"] floating enable
+for_window [class="KeePassXC"] floating enable
+
+assign [class="discord"] $ws10
 
