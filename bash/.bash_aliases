@@ -97,7 +97,7 @@ dot() {
     if pushd "$HOME/.dotfiles" &>/dev/null; then
         git add ./*
         git commit -m "$(date '+%Y/%m/%d %H:%M') $*"
-        stow --target="$HOME" -- *glob*
+        stow --target="$HOME" -- *
         popd &>/dev/null || return
     fi
 }
