@@ -3,7 +3,8 @@
 # This file contains graphical options for the window manager
 
 # Font
-set $userfont NotoSans Nerd Font, JetBrainsMono
+#set $userfont JetBrainsMono Nerd Font
+set $userfont FiraCode Nerd Font 
 font pango:$userfont 10
 
 # Color
@@ -24,7 +25,7 @@ smart_borders on
 default_border pixel 1
 
 # Bar
-exec_always --no-startup-id "polybar-msg cmd quit ; polybar bottom"
+exec_always --no-startup-id "polybar-msg cmd quit; polybar bottom"
 
 # Wallpaper
 exec_always --no-startup-id nitrogen --restore

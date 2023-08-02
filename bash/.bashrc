@@ -8,21 +8,19 @@ if [[ -f "$HOME/.bash_aliases" ]] && [ "$(uname)" = "Linux" ]; then
     source "$HOME/.bash_aliases"
 fi
 
-#  PROMPT
 prompt_setup() {
-
     local EXIT="$?" # Exit status of last command
 
     history -a # Append last command
 
-    local COLOR_RED="\[$(tput setaf 9)\]"    # Colors
-    local COLOR_GREEN="\[$(tput setaf 10)\]" #
-    local COLOR_39="\[$(tput setaf 39)\]"    #
-    local COLOR_45="\[$(tput setaf 45)\]"    #
-    local COLOR_51="\[$(tput setaf 51)\]"    #
-    local COLOR_192="\[$(tput setaf 192)\]"  #
-    local COLOR_226="\[$(tput setaf 226)\]"  #
-    local COLOR_RESET="\[$(tput sgr0)\]"     #
+    local COLOR_RED="\[$(tput setaf 9)\]"
+    local COLOR_GREEN="\[$(tput setaf 10)\]"
+    local COLOR_39="\[$(tput setaf 39)\]"
+    local COLOR_45="\[$(tput setaf 45)\]"
+    local COLOR_51="\[$(tput setaf 51)\]"
+    local COLOR_192="\[$(tput setaf 192)\]"
+    local COLOR_226="\[$(tput setaf 226)\]"
+    local COLOR_RESET="\[$(tput sgr0)\]"
 
     # Git repository status
     [[ $(git status --porcelain 2>/dev/null) ]] && GIT_DIRTY=" *" || GIT_DIRTY=""
@@ -45,68 +43,43 @@ prompt_setup() {
 
 PROMPT_COMMAND=prompt_setup
 
-# HISTORY
+set -o histexpand  # Enable expansion with !!
+set -o braceexpand # Enable brace expansion
+set -o emacs       # Use emacs style input
 
-set -o histexpand # Enable expansion with !!
-
-shopt -s cmdhist    # Save multi-line commands as one
-shopt -s histappend # Append new entries instead of overwriting
-shopt -s histreedit # If search fails, paste command in prompt for editing
-shopt -s histverify # If search suceeds, paste command in prompt instead of running
-
-HISTFILE="$HOME/.history"
-HISTCONTROL=erasedups:ignoreboth                # Ignore and erase duplicates, trim leading whitespaces
-HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear" # Ignore some commands
-HISTFILESIZE=50000                              # Size of history file
-HISTSIZE=10000                                  # Size of current history buffer
+shopt -s cdspell                                           # Autocorrect cd typos
+shopt -s cdable_vars                                       # Allow cd with variables
+shopt -s checkwinsize                                      # Update screen size
+shopt -s cmdhist                                           # Save multi-line commands as one
+shopt -s extglob                                           # Extended globbing
+shopt -s histappend                                        # Append history entries
+shopt -s histreedit                                        # Put failed history searches in prompt
+shopt -s histverify                                        # Put history search in prompt
+shopt -ssol nocaseglob                                     # Case-insensitive globbing
+shopt -s no_empty_cmd_completion                           # Don't show autocompletion for empty prompt
+[ "${BASH_VERSINFO:-0}" -ge 4 ] && shopt -s autocd         # If command is name of directory, cd into it
+[ "${BASH_VERSINFO:-0}" -ge 5 ] && shopt -s progcomp_alias # If alias exists, tries autocompletion for command
 
 bind Space:magic-space                 # Autoexpand history after space
 bind '"\e[A": history-search-backward' # Incremental history search with arrows
 bind '"\e[B": history-search-forward'
 bind '"\e[C": forward-char'
 bind '"\e[D": backward-char'
+bind "set completion-ignore-case on"
+bind "set completion-map-case on"
+bind "set mark-symlinked-directories on"
+bind "set show-all-if-ambiguous on"
 
-# AUTOCOMPLETE/EXPANSION
+HISTFILE="$HOME/.history"                       # History file
+HISTCONTROL=erasedups:ignoreboth                # Ignore and erase duplicates, trim leading whitespaces
+HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear" # Ignore commands
+HISTFILESIZE=50000                              # Size of history file
+HISTSIZE=10000                                  # Size of current history buffer
 
-set -o braceexpand # Enable brace expansion
-set +o noglob      # (disabled) Disable globbing
-
-shopt -s cdspell                 # Autocorrect minor typos when using cd
-shopt -s cdable_vars             # Enable cd-ing to path stored in variable
-shopt -s extglob                 # Extended globbing
-shopt -s nocaseglob              # Case-insensitive globbing
-shopt -s no_empty_cmd_completion # Don't show autocompletion for empty prompt
-
-# If command is name of directory, cd into it
-[ "${BASH_VERSINFO:-0}" -ge 4 ] && shopt -s autocd
-
-# If alias exists, tries autocompletion for command
-[ "${BASH_VERSINFO:-0}" -ge 5 ] && shopt -s progcomp_alias
-
-bind "set completion-map-case on"        # Case-insensitive file completion
-bind "set show-all-if-ambiguous on"      # Display ambiguous matches
-bind "set mark-symlinked-directories on" # Autocomplete for symlink directories
-
-set -o emacs # Use emacs style input
-
-shopt -s checkwinsize # Update screen size after each command
-
-#  VARIABLES
-
-# Default editor
-if command -v nvim &>/dev/null; then
+if command -v nvim &>/dev/null; then # Default editor
     export EDITOR='nvim'
 elif command -v vim &>/dev/null; then
     export EDITOR='vim'
 else
     export EDITOR='vi'
 fi
-
-# Sources
-# https://github.com/mrzool/bash-sensible/blob/master/sensible.bash
-# https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
-# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
-# https://stackoverflow.com/questions/16715103/bash-prompt-with-the-last-exit-code
-# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
-# https://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes
-# https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/

@@ -1,11 +1,14 @@
-# zshrc
+# .zshrc
 
-[[ -z "$PS1" ]] && return # If not running interactively, don't run anything
+# If not running interactively, don't run anything
+[[ -z "$PS1" ]] && return
 
-# Source aliases
-[[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
+# Source aliases (only if on Linux)
+if [[ -f "$HOME/.bash_aliases" ]] && [ "$(uname)" = "Linux" ]; then
+    source "$HOME/.bash_aliases"
+fi
 
-# ANTIDOTE (Plugin manager)
+# Antidote (Plugin manager)
 source "/usr/share/zsh-antidote/antidote.zsh"
 antidote load
 
@@ -34,16 +37,13 @@ precmd() {
 # COMPLETION
 
 autoload -Uz compinit
-compinit 
+compinit
 
 # HISTORY
 
-HISTFILE="$HOME/.history"
-HISTCONTROL=erasedups:ignoreboth                # Ignore and erase duplicates, trim leading whitespaces
-HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear" # Ignore some commands
-HISTFILESIZE=50000                              # Size of history file
-HISTSIZE=10000                                  # Size of current history buffer
+HISTFILE="$HOME/.history" # History file
+SAVEHIST=50000
+HISTSIZE=10000 # Size of current history buffer
 
 setopt inc_append_history
-
-
+setopt hist_ignore_all_dups

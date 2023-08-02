@@ -2,21 +2,13 @@
 
 # This file contains programs to run at launch
 
-# Switches to detected monitor layout
 exec --no-startup-id autorandr --change 
 
-# Network manager applet
 exec --no-startup-id nm-applet
 
-# Bluetooth manager applet
 exec --no-startup-id blueman-applet
 
-# Nvidia Optimus applet
-# exec --no-startup-id optimus-manager-qt 
-
-# Secret-service and passwords
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
 exec --no-startup-id "secret-tool lookup keepass credentials | keepassxc --pw-stdin $HOME/.secret/passwordsDb.kdbx"
-
 
 exec --no-startup-id discord

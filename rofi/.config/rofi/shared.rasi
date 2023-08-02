@@ -6,5 +6,5 @@
     active:         #877BB0FF;
     urgent:         #FFA759FF;
 
-    font: "JetBrainsMono Nerd Font 10";
+    font: "FiraCode Nerd Font 10";
 }

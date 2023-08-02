@@ -12,8 +12,9 @@ alias c='clear'
 alias cl='clear'
 alias clr='clear'
 
-# cp
+# cp/mv
 alias cp='cp -v --interactive --recursive'
+alias mv='mv -v --interactive'
 
 # diff
 alias diff='diff --color=auto'
@@ -61,19 +62,18 @@ alias ll='ls -a -l'
 # make
 alias m='make'
 
-# mkdir
+# mkdir/rmdir
 alias mkdir='mkdir -p -v'
-
-# mv
-alias mv='mv -v --interactive'
+alias rmdir='rmdir -p -v'
 
 # pacman/yay
 alias p='yay'
 alias psy='yay -Syu'
-alias prm='yay -R'
+alias prm='yay -Rs'
 alias pe='yay -Qe'
-alias pqs'yay -Qss'
+alias pqs='yay -Qss'
 alias pss='yay -Ss'
+alias pcl='yay -Rs $(yay -Qqtd)'
 
 # reload
 if [ "$0" = "/bin/bash" ] || [ "$0" = "bash" ]; then
@@ -97,7 +97,7 @@ dot() {
     if pushd "$HOME/.dotfiles" &>/dev/null; then
         git add ./*
         git commit -m "$(date '+%Y/%m/%d %H:%M') $*"
-        stow --target="$HOME" -- *
+        stow --target="$HOME" *
         popd &>/dev/null || return
     fi
 }
