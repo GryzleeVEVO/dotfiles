@@ -55,7 +55,7 @@ shopt -s extglob                                           # Extended globbing
 shopt -s histappend                                        # Append history entries
 shopt -s histreedit                                        # Put failed history searches in prompt
 shopt -s histverify                                        # Put history search in prompt
-shopt -ssol nocaseglob                                     # Case-insensitive globbing
+shopt -s nocaseglob                                        # Case-insensitive globbing
 shopt -s no_empty_cmd_completion                           # Don't show autocompletion for empty prompt
 [ "${BASH_VERSINFO:-0}" -ge 4 ] && shopt -s autocd         # If command is name of directory, cd into it
 [ "${BASH_VERSINFO:-0}" -ge 5 ] && shopt -s progcomp_alias # If alias exists, tries autocompletion for command

@@ -15,13 +15,15 @@ uptime="`uptime -p | sed -e 's/up //g'`"
 host=`uname -n`
 
 # Options
-shutdown=''
-reboot=''
-lock=''
-suspend=''
-logout=''
+# Options
+shutdown='󰐥'
+reboot='󰑐'
+lock=''
+suspend=''
+logout='󰿅'
 yes=''
 no=''
+
 
 # Rofi CMD
 rofi_cmd() {

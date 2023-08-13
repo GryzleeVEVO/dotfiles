@@ -27,6 +27,9 @@ alias df='df -h'
 alias q='exit'
 alias quit='exit'
 
+# find
+alias f='find'
+
 # git
 alias g='git'
 
@@ -67,10 +70,9 @@ alias mkdir='mkdir -p -v'
 alias rmdir='rmdir -p -v'
 
 # pacman/yay
-alias p='yay'
-alias psy='yay -Syu'
+alias p='yay -Syu'
 alias prm='yay -Rs'
-alias pe='yay -Qe'
+alias pq='yay -Qe'
 alias pqs='yay -Qss'
 alias pss='yay -Ss'
 alias pcl='yay -Rs $(yay -Qqtd)'

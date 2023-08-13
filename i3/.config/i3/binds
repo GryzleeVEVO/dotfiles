@@ -3,16 +3,16 @@
 # This file contains basic keybinds for using i3
 
 # Switch focus
-bindsym $mod+h              focus   left
-bindsym $mod+j              focus   down
-bindsym $mod+k              focus   up
-bindsym $mod+l              focus   right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # Swap windows
-bindsym $mod+Shift+h        move    left
-bindsym $mod+Shift+j        move    down
-bindsym $mod+Shift+k        move    up
-bindsym $mod+Shift+l        move    right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # Switch workspace
 bindsym $mod+1 workspace $ws1
@@ -47,10 +47,10 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Resize window
-bindsym $mod+Ctrl+h     resize  grow    width   5 px or 5 ppt
-bindsym $mod+Ctrl+j     resize  shrink  height  5 px or 5 ppt
-bindsym $mod+Ctrl+k     resize  grow    height  5 px or 5 ppt
-bindsym $mod+Ctrl+l     resize  shrink  width   5 px or 5 ppt
+bindsym $mod+Ctrl+h resize  grow    width   5 px or 5 ppt
+bindsym $mod+Ctrl+j resize  shrink  height  5 px or 5 ppt
+bindsym $mod+Ctrl+k resize  grow    height  5 px or 5 ppt
+bindsym $mod+Ctrl+l resize  shrink  width   5 px or 5 ppt
 
 # Resize gap
 bindsym $mod+plus  gaps inner all minus 5
@@ -77,21 +77,15 @@ bindsym $mod+Shift+c reload
 # Reload in-place
 bindsym $mod+Shift+r restart
 
-# Refresh i3status
-set $refresh_i3status killall -SIGUSR1 i3status
-
 # Volume/mute/deafen
-bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl \
-    set-sink-volume   @DEFAULT_SINK@    +5%     && $refresh_i3status
-
-bindsym XF86AudioLowerVolume    exec --no-startup-id pactl \
-    set-sink-volume   @DEFAULT_SINK@    -5%     && $refresh_i3status
-
-bindsym XF86AudioMute           exec --no-startup-id pactl \
-    set-sink-mute     @DEFAULT_SINK@    toggle  && $refresh_i3status
-
-bindsym XF86AudioMicMute        exec --no-startup-id pactl \
-    set-source-mute   @DEFAULT_SOURCE@  toggle  && $refresh_i3status
+bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% 
+bindsym XF86AudioLowerVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%     
+bindsym XF86AudioMute           exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute        exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle  
+bindsym XF86AudioPlay           exec --no-startup-id playerctl play
+bindsym XF86AudioPause          exec --no-startup-id playerctl pause
+bindsym XF86AudioNext           exec --no-startup-id playerctl next
+bindsym XF86AudioPrev           exec --no-startup-id playerctl previous
 
 # Brightness control
 bindsym XF86MonBrightnessUp     exec --no-startup-id xbacklight -inc 5
