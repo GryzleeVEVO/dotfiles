@@ -1,4 +1,4 @@
-# i3wm config file
+ #i3wm config file
 
 # This file contains basic keybinds for using i3
 
@@ -47,10 +47,10 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Resize window
-bindsym $mod+Ctrl+h resize  grow    width   5 px or 5 ppt
-bindsym $mod+Ctrl+j resize  shrink  height  5 px or 5 ppt
-bindsym $mod+Ctrl+k resize  grow    height  5 px or 5 ppt
-bindsym $mod+Ctrl+l resize  shrink  width   5 px or 5 ppt
+bindsym $mod+Ctrl+h resize  grow    left    5 px or 5 ppt
+bindsym $mod+Ctrl+j resize  grow    up      5 px or 5 ppt
+bindsym $mod+Ctrl+k resize  grow    down    5 px or 5 ppt
+bindsym $mod+Ctrl+l resize  grow    right   5 px or 5 ppt
 
 # Resize gap
 bindsym $mod+plus  gaps inner all minus 5
@@ -88,5 +88,5 @@ bindsym XF86AudioNext           exec --no-startup-id playerctl next
 bindsym XF86AudioPrev           exec --no-startup-id playerctl previous
 
 # Brightness control
-bindsym XF86MonBrightnessUp     exec --no-startup-id xbacklight -inc 5
-bindsym XF86MonBrightnessDown   exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp     exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown   exec --no-startup-id xbacklight -dec 10

@@ -12,3 +12,5 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secr
 exec --no-startup-id "secret-tool lookup keepass credentials | keepassxc --pw-stdin $HOME/.secret/passwordsDb.kdbx"
 
 exec --no-startup-id discord
+
+exec --no-startup-id udiskie

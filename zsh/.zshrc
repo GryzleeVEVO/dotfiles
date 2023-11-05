@@ -16,18 +16,18 @@ antidote load
 
 autoload -Uz vcs_info # Load and enable version control info
 
-zstyle ':vcs_info:*' formats '(%b %u) ' # Sets up version control info
-zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' formats '(%b%u)' # Sets up version control info
+zstyle ':vcs_info:*' unstagedstr ' *'
 zstyle ':vcs_info:*' check-for-changes true
 
 setopt prompt_subst # Enable prompt expansion
 
-PROMPT='%(?.%F{green}[%?].%F{red}[%?]) ' # [exit code]
+PROMPT='%(?.%F{green}.%F{red})[%?] ' # [exit code]
 PROMPT+='%F{39}%n'                       # user
 PROMPT+='%F{45}@'                        # @
 PROMPT+='%F{51}%m'                       # host
 PROMPT+='%F{192} %~ '                    # pwd
-PROMPT+='%F{226}${vcs_info_msg_0_}'      # (branch *)
+PROMPT+='%F{226}${vcs_info_msg_0_} '      # (branch *)
 PROMPT+='%f$ '                           # $
 
 precmd() {
@@ -47,6 +47,10 @@ HISTSIZE=10000 # Size of current history buffer
 
 setopt inc_append_history
 setopt hist_ignore_all_dups
+
+setopt autocd
+
+setopt correct 
 
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins

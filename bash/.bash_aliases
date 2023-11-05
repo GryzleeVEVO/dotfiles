@@ -36,7 +36,8 @@ alias g='git'
 push() {
     if git status -s &>/dev/null; then
         git add ./*
-        git commit -am "$(date '+%Y/%m/%d %H:%M') $*"
+        #git commit -am "$(date '+%Y/%m/%d %H:%M') $*"
+        git commit -am "$*"
         git push
     fi
 }

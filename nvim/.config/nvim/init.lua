@@ -21,6 +21,8 @@ vim.cmd.set('number relativenumber') -- Numbering relative to current line
 
 vim.cmd.set('nowrap') -- Do not wrap around
 
+vim.cmd.set('scrolloff=10')
+
 vim.cmd.set('list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,') -- Render whitespaces
 
 -- REMAPS

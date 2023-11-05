@@ -25,8 +25,8 @@ prompt_setup() {
     # Git repository status
     [[ $(git status --porcelain 2>/dev/null) ]] && GIT_DIRTY=" *" || GIT_DIRTY=""
 
-    GIT_BRANCH=$(git branch --no-color 2>/dev/null |
-        sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1${GIT_DIRTY})/")
+    GIT_BRANCH="$(git branch --no-color 2>/dev/null |
+        sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1${GIT_DIRTY})/")"
 
     PS1=""
     [ $EXIT = 0 ] && PS1="${PS1}${COLOR_GREEN}" || PS1="${PS1}${COLOR_RED}"
@@ -35,7 +35,7 @@ prompt_setup() {
     PS1="${PS1}${COLOR_45}@"               # @
     PS1="${PS1}${COLOR_51}\h "             # host
     PS1="${PS1}${COLOR_192}\w"             # pwd
-    PS1="${PS1}${COLOR_226}\${GIT_BRANCH}" # (branch *)
+    PS1="${PS1}${COLOR_226}${GIT_BRANCH}" # (branch *)
     PS1="${PS1}${COLOR_RESET} $ "          # $
 
     PROMPT_DIRTRIM=3 # Number of directories shown
