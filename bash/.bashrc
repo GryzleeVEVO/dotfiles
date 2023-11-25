@@ -1,85 +1,103 @@
-# .bashrc
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Source aliases (only if on Linux)
-if [[ -f "$HOME/.bash_aliases" ]] && [ "$(uname)" = "Linux" ]; then
-    source "$HOME/.bash_aliases"
-fi
+# Load aliases
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
-prompt_setup() {
-    local EXIT="$?" # Exit status of last command
+# Use vi keybindings
+set -o vi
 
-    history -a # Append last command
+# Reset window size after each command
+shopt -s checkwinsize
 
-    local COLOR_RED="\[$(tput setaf 9)\]"
-    local COLOR_GREEN="\[$(tput setaf 10)\]"
-    local COLOR_39="\[$(tput setaf 39)\]"
-    local COLOR_45="\[$(tput setaf 45)\]"
-    local COLOR_51="\[$(tput setaf 51)\]"
-    local COLOR_192="\[$(tput setaf 192)\]"
-    local COLOR_226="\[$(tput setaf 226)\]"
-    local COLOR_RESET="\[$(tput sgr0)\]"
+# Returns git repository status
+__vcs__status__() {
+    local GIT_DIRTY GIT_BRANCH COLOR_VCS RESET_COLOR
+    COLOR_VCS="$(tput setaf 226)"
+    RESET_COLOR="$(tput sgr0)"
 
-    # Git repository status
     [[ $(git status --porcelain 2>/dev/null) ]] && GIT_DIRTY=" *" || GIT_DIRTY=""
+    GIT_BRANCH="$(git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1${GIT_DIRTY})/")"
 
-    GIT_BRANCH="$(git branch --no-color 2>/dev/null |
-        sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1${GIT_DIRTY})/")"
-
-    PS1=""
-    [ $EXIT = 0 ] && PS1="${PS1}${COLOR_GREEN}" || PS1="${PS1}${COLOR_RED}"
-    PS1="${PS1}[${EXIT}] "                 # [exit code]
-    PS1="${PS1}${COLOR_39}\u"              # user
-    PS1="${PS1}${COLOR_45}@"               # @
-    PS1="${PS1}${COLOR_51}\h "             # host
-    PS1="${PS1}${COLOR_192}\w"             # pwd
-    PS1="${PS1}${COLOR_226}${GIT_BRANCH}" # (branch *)
-    PS1="${PS1}${COLOR_RESET} $ "          # $
-
-    PROMPT_DIRTRIM=3 # Number of directories shown
+    echo "${COLOR_VCS}${GIT_BRANCH}${RESET_COLOR}"
 }
 
-PROMPT_COMMAND=prompt_setup
+# Returns exit status
+__exit__status__() {
+    local EXIT="$?" COLOR_EXIT RESET_COLOR
+    RESET_COLOR="$(tput sgr0)"
+    [[ $EXIT = 0 ]] && COLOR_EXIT="$(tput setaf 10)" || COLOR_EXIT="$(tput setaf 9)"
 
-set -o histexpand  # Enable expansion with !!
-set -o braceexpand # Enable brace expansion
-set -o emacs       # Use emacs style input
+    echo "${COLOR_EXIT}[${EXIT}]${RESET_COLOR}"
+}
 
-shopt -s cdspell                                           # Autocorrect cd typos
-shopt -s cdable_vars                                       # Allow cd with variables
-shopt -s checkwinsize                                      # Update screen size
-shopt -s cmdhist                                           # Save multi-line commands as one
-shopt -s extglob                                           # Extended globbing
-shopt -s histappend                                        # Append history entries
-shopt -s histreedit                                        # Put failed history searches in prompt
-shopt -s histverify                                        # Put history search in prompt
-shopt -s nocaseglob                                        # Case-insensitive globbing
-shopt -s no_empty_cmd_completion                           # Don't show autocompletion for empty prompt
-[ "${BASH_VERSINFO:-0}" -ge 4 ] && shopt -s autocd         # If command is name of directory, cd into it
-[ "${BASH_VERSINFO:-0}" -ge 5 ] && shopt -s progcomp_alias # If alias exists, tries autocompletion for command
+# Prompt: [x] user@host ~/pwd (branch *) $
+__set__prompt__() {
+    local RESET_COLOR COLOR_USER COLOR_AT COLOR_HOST COLOR_PWD PROMPT
+    RESET_COLOR="$(tput sgr0)"
+    COLOR_USER="$(tput setaf 39)"
+    COLOR_AT="$(tput setaf 45)"
+    COLOR_HOST="$(tput setaf 51)"
+    COLOR_PWD="$(tput setaf 192)"
 
-bind Space:magic-space                 # Autoexpand history after space
-bind '"\e[A": history-search-backward' # Incremental history search with arrows
-bind '"\e[B": history-search-forward'
-bind '"\e[C": forward-char'
-bind '"\e[D": backward-char'
-bind "set completion-ignore-case on"
-bind "set completion-map-case on"
-bind "set mark-symlinked-directories on"
-bind "set show-all-if-ambiguous on"
+    PROMPT="\$(__exit__status__) "
+    PROMPT+="${COLOR_USER}\u"
+    PROMPT+="${COLOR_AT}@"
+    PROMPT+="${COLOR_HOST}\h "
+    PROMPT+="${COLOR_PWD}\w"
+    PROMPT+="\$(__vcs__status__) "
+    PROMPT+="${RESET_COLOR}$ "
 
-HISTFILE="$HOME/.history"                       # History file
-HISTCONTROL=erasedups:ignoreboth                # Ignore and erase duplicates, trim leading whitespaces
-HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear" # Ignore commands
-HISTFILESIZE=50000                              # Size of history file
-HISTSIZE=10000                                  # Size of current history buffer
+    echo "${PROMPT}"
+}
 
-if command -v nvim &>/dev/null; then # Default editor
-    export EDITOR='nvim'
-elif command -v vim &>/dev/null; then
-    export EDITOR='vim'
-else
-    export EDITOR='vi'
-fi
+PS1="$(__set__prompt__)"
+
+# Execute each time prompt is drawn
+__prompt__command__() {
+    history -a
+}
+
+PROMPT_COMMAND="__prompt__command__"
+
+# History file
+HISTFILE="$HOME/.history"
+
+# Erase duplicates, trim whitespace
+HISTCONTROL=erasedups:ignoreboth
+
+# Commands not to save
+HISTIGNORE=""
+
+# Size of history file
+HISTFILESIZE=50000
+
+# Size of history in memory
+HISTSIZE=10000
+
+# Append to history file
+shopt -s histappend
+
+# Let reedit failed substitutions
+shopt -s histreedit
+
+# Don't execute immediately after history substitution
+shopt -s histverify
+
+# Autocorrect cd typos
+shopt -s cdspell
+
+# Recursive expansion
+shopt -s globstar
+
+# Case-insensitive globbing
+shopt -s nocaseglob
+
+# Do not autocomplete with empty prompt
+shopt -s no_empty_cmd_completion
+
+# cd into directories by typing their name
+[ "${BASH_VERSINFO[0]}" -ge 4 ] && shopt -s autocd
+
+# Autocomplete aliases
+[ "${BASH_VERSINFO[0]}" -ge 5 ] && shopt -s progcomp_alias

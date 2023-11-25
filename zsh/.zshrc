@@ -4,9 +4,7 @@
 [[ -z "$PS1" ]] && return
 
 # Source aliases (only if on Linux)
-if [[ -f "$HOME/.bash_aliases" ]] && [ "$(uname)" = "Linux" ]; then
-    source "$HOME/.bash_aliases"
-fi
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
 # Antidote (Plugin manager)
 source "/usr/share/zsh-antidote/antidote.zsh"
@@ -50,7 +48,7 @@ setopt hist_ignore_all_dups
 
 setopt autocd
 
-setopt correct 
+setopt correct
 
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins

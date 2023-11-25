@@ -1,0 +1,124 @@
+alias c='clear'
+alias cl='clear'
+alias clr='clear'
+alias cls='clear'
+
+alias q='quit'
+alias quit='exit'
+
+alias h='history'
+
+alias o='xdg-open'
+alias open='xdg-open'
+
+if [ "$(basename $0)" = "bash" ]; then
+    alias reload='source ~/.bashrc'
+elif [ "$(basename $0)" = "zsh" ]; then
+    alias reload='source ~/.zshrc'
+fi
+
+alias r='reload'
+
+alias cd..='cd ..'
+alias ..='cd ..'
+
+alias ls='ls --human-readable --classify --group-directories-first --color=auto'
+alias l='ls'
+alias la='ls --almost-all'
+alias ll='ls -l --almost-all'
+
+alias cp='cp --recursive --interactive --verbose'
+alias mv='mv --recusrive --interactive --verbose'
+alias rm='rm --dir --recursive --interactive=once --verbose'
+
+alias mkdir='mkdir --parents --verbose'
+alias rmdir='rmdir --parents --verbose'
+
+alias ln='ln --interactive --verbose'
+alias lns='ln --symbolic --interactive --verbose'
+
+alias chmod='chmod --preserve-root --changes'
+alias mod='chmod'
+
+alias chown='chown  --preserve-root --changes'
+alias own='chown'
+
+alias chgrp='chgrp --preserve-root --changes'
+alias grp='chgrp'
+
+alias diff='diff --recursive --unified --color=auto'
+
+alias find='find'
+
+fd() {
+    local DIR="$1" NAME="$2"
+    shift 2
+    find "$DIR" -type d -name "$NAME" "$@"
+}
+
+ff() {
+    local DIR="$1" NAME="$2"
+    shift 2
+    find "$DIR" -type f -name "$NAME" "$@"
+}
+
+fext() {
+    local DIR="$1" NAME="$2"
+    shift 2
+    find "$DIR" -type f -name "*.$NAME" "$@"
+}
+
+alias grep='grep --color=auto'
+alias gr='grep'
+
+alias egrep='grep -extended-regexp'
+alias egr='egrep'
+
+alias fgrep='grep -fixed-strings'
+alias fgr='fgrep'
+
+alias perlgrep='grep -perl-regexp'
+
+alias less='less -R'
+
+alias df='df --human-readable --total --type -x tmpfs --type -x devtmpfs -x efivarfs'
+alias du='du --human-readable --total'
+alias free='free --human-readable --total'
+
+alias dd='dd status=progress'
+
+alias ctl='systemctl'
+
+alias ip='ip --human-readable'
+
+alias p='yay -Syu'
+alias prm='yay -Rs'
+alias pq='yay -Qe'
+alias pqs='yay -Qss'
+alias pss='yay -Ss'
+alias pcl='yay -Rs $(yay -Qdtq) && yay -Scc'
+
+alias make='make --jobs=$(nproc)'
+alias m='make'
+
+alias g='git'
+
+push() {
+    if git status -s &>/dev/null; then
+        git add --all
+        git commit --message "$@"
+        git push
+    else
+        echo "Nothing to commit."
+    fi
+}
+
+alias pull='git pull'
+
+alias s='ssh'
+
+async() {
+    "$@" &
+    disown
+
+}
