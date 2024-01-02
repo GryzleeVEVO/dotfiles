@@ -4,13 +4,13 @@
 # Load aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
-# Use vi keybindings
-set -o vi
+# Use emacs keybindings
+set -o emacs
 
 # Reset window size after each command
 shopt -s checkwinsize
 
-# Returns git repository status
+# Set up VCS info
 __vcs__status__() {
     local GIT_DIRTY GIT_BRANCH COLOR_VCS RESET_COLOR
     COLOR_VCS="$(tput setaf 226)"
@@ -51,12 +51,18 @@ __set__prompt__() {
     echo "${PROMPT}"
 }
 
-PS1="$(__set__prompt__)"
+# Broken
+# PS1="$(__set__prompt__)"
 
 # Execute each time prompt is drawn
 __prompt__command__() {
     history -a
 }
+
+# Enable completion
+if [[ -f "/usr/share/bash-completion/bash_completion" ]]; then
+    source "/usr/share/bash-completion/bash_completion"
+fi
 
 PROMPT_COMMAND="__prompt__command__"
 
@@ -66,7 +72,7 @@ HISTFILE="$HOME/.history"
 # Erase duplicates, trim whitespace
 HISTCONTROL=erasedups:ignoreboth
 
-# Commands not to save
+# Commands to ignore in history
 HISTIGNORE=""
 
 # Size of history file

@@ -6,8 +6,16 @@ Space: magic-space
 "\e[D": backward-char
 
 set completion-ignore-case on
+
+# Treat underscores and hyphens as equal
 set completion-map-case on
+
 set mark-symlinked-directories on
-set show-all-if-ambiguous on
+
+#set show-all-if-ambiguous on
+
+set colored-completion-prefix on
+
+# Show me type of file in completion
 set colored-stats on
 set visible-stats on

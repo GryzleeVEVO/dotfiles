@@ -11,11 +11,10 @@ alias h='history'
 alias o='xdg-open'
 alias open='xdg-open'
 
-if [ "$(basename $0)" = "bash" ]; then
-    alias reload='source ~/.bashrc'
-elif [ "$(basename $0)" = "zsh" ]; then
-    alias reload='source ~/.zshrc'
-fi
+case $(basename "$0") in
+bash) alias reload='source ~/.bashrc' ;;
+zsh) alias reload='source ~/.zshrc' ;;
+esac
 
 alias r='reload'
 
@@ -28,7 +27,7 @@ alias la='ls --almost-all'
 alias ll='ls -l --almost-all'
 
 alias cp='cp --recursive --interactive --verbose'
-alias mv='mv --recusrive --interactive --verbose'
+alias mv='mv --interactive --verbose'
 alias rm='rm --dir --recursive --interactive=once --verbose'
 
 alias mkdir='mkdir --parents --verbose'
@@ -48,7 +47,7 @@ alias grp='chgrp'
 
 alias diff='diff --recursive --unified --color=auto'
 
-alias find='find'
+alias f='find'
 
 fd() {
     local DIR="$1" NAME="$2"
@@ -81,7 +80,7 @@ alias perlgrep='grep -perl-regexp'
 
 alias less='less -R'
 
-alias df='df --human-readable --total --type -x tmpfs --type -x devtmpfs -x efivarfs'
+alias df='df --human-readable --total --type -x tmpfs -x devtmpfs -x efivarfs'
 alias du='du --human-readable --total'
 alias free='free --human-readable --total'
 
@@ -89,7 +88,7 @@ alias dd='dd status=progress'
 
 alias ctl='systemctl'
 
-alias ip='ip --human-readable'
+alias ip='ip --human-readable --color=auto'
 
 alias p='yay -Syu'
 alias prm='yay -Rs'
