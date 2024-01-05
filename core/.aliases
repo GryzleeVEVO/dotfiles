@@ -11,7 +11,7 @@ alias h='history'
 alias o='xdg-open'
 alias open='xdg-open'
 
-case $(basename "$0") in
+case "$(basename "$(echo "${0}" | tr -d '-')")" in
 bash) alias reload='source ~/.bashrc' ;;
 zsh) alias reload='source ~/.zshrc' ;;
 esac
@@ -80,15 +80,35 @@ alias perlgrep='grep -perl-regexp'
 
 alias less='less -R'
 
-alias df='df --human-readable --total --type -x tmpfs -x devtmpfs -x efivarfs'
+alias df='df --human-readable --total -x tmpfs -x devtmpfs -x efivarfs'
 alias du='du --human-readable --total'
-alias free='free --human-readable --total'
+alias free='free --human --total'
 
 alias dd='dd status=progress'
 
 alias ctl='systemctl'
 
 alias ip='ip --human-readable --color=auto'
+
+man() {
+    # Blink -> Green
+    # Bold -> Bold Blue
+    # Reset
+    # Standout (line bar/match) -> Bold Purple
+    # Stop standout
+    # Underline -> Bold underline cyan
+    # Stop underline
+    env \
+        LESS_TERMCAP_mb=$(printf '\033[1;32m') \
+        LESS_TERMCAP_md=$(printf '\033[1;34m') \
+        LESS_TERMCAP_me=$(printf '\033[0m') \
+        LESS_TERMCAP_so=$(printf '\033[1;35m') \
+        LESS_TERMCAP_se=$(printf '\033[0m') \
+        LESS_TERMCAP_us=$(printf '\033[4;1;36m') \
+        LESS_TERMCAP_ue=$(printf '\033[0m') \
+        GROFF_NO_SGR=1 \
+        man "$@"
+}
 
 alias p='yay -Syu'
 alias prm='yay -Rs'
@@ -101,6 +121,9 @@ alias make='make --jobs=$(nproc)'
 alias m='make'
 
 alias g='git'
+alias gi='git init'
+alias ga='git add'
+alias gc='git commit'
 
 push() {
     if git status -s &>/dev/null; then
@@ -121,3 +144,7 @@ async() {
     disown
 
 }
+
+alias py='python'
+
+alias sudo='sudo -E'

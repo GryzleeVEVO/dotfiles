@@ -8,7 +8,6 @@
 
 ```sh
 git clone https://github.com/GryzleeVEVO/dotfiles .dotfiles
-
 ```
 
 2. Go to the directory where the repository is cloned and simulate
@@ -22,5 +21,4 @@ stow -n -t $HOME *
 ```sh
 stow --adopt -t $HOME * # Adopt will overwrite the stow directory if in conflict
 git reset --hard        # Restore the repository
-
 ```

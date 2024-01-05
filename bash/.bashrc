@@ -12,98 +12,66 @@ shopt -s checkwinsize
 
 # Set up VCS info
 __vcs__status__() {
-    local GIT_DIRTY GIT_BRANCH COLOR_VCS RESET_COLOR
-    COLOR_VCS="$(tput setaf 226)"
-    RESET_COLOR="$(tput sgr0)"
+    local GIT_DIRTY GIT_BRANCH
 
-    [[ $(git status --porcelain 2>/dev/null) ]] && GIT_DIRTY=" *" || GIT_DIRTY=""
+    if [[ $(git status --porcelain 2>/dev/null) ]]; then
+        GIT_DIRTY=" *"
+    else
+        GIT_DIRTY=""
+    fi
+
     GIT_BRANCH="$(git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1${GIT_DIRTY})/")"
 
-    echo "${COLOR_VCS}${GIT_BRANCH}${RESET_COLOR}"
+    echo -e "${GIT_BRANCH}"
 }
 
 # Returns exit status
 __exit__status__() {
-    local EXIT="$?" COLOR_EXIT RESET_COLOR
-    RESET_COLOR="$(tput sgr0)"
-    [[ $EXIT = 0 ]] && COLOR_EXIT="$(tput setaf 10)" || COLOR_EXIT="$(tput setaf 9)"
+    local EXIT="$?" COLOR_EXIT
 
-    echo "${COLOR_EXIT}[${EXIT}]${RESET_COLOR}"
+    if [[ $EXIT = 0 ]]; then
+        COLOR_EXIT="\001$(tput setaf 10)\002"
+    else
+        COLOR_EXIT="\001$(tput setaf 9)\002"
+    fi
+
+    echo -e "${COLOR_EXIT}[${EXIT}]\001$(tput sgr0)\002"
 }
 
-# Prompt: [x] user@host ~/pwd (branch *) $
-__set__prompt__() {
-    local RESET_COLOR COLOR_USER COLOR_AT COLOR_HOST COLOR_PWD PROMPT
-    RESET_COLOR="$(tput sgr0)"
-    COLOR_USER="$(tput setaf 39)"
-    COLOR_AT="$(tput setaf 45)"
-    COLOR_HOST="$(tput setaf 51)"
-    COLOR_PWD="$(tput setaf 192)"
-
-    PROMPT="\$(__exit__status__) "
-    PROMPT+="${COLOR_USER}\u"
-    PROMPT+="${COLOR_AT}@"
-    PROMPT+="${COLOR_HOST}\h "
-    PROMPT+="${COLOR_PWD}\w"
-    PROMPT+="\$(__vcs__status__) "
-    PROMPT+="${RESET_COLOR}$ "
-
-    echo "${PROMPT}"
-}
-
-# Broken
-# PS1="$(__set__prompt__)"
+# Prompt: [?] user@host ~/path/to/dir (branch *) $
+PS1="\$(__exit__status__) "
+PS1+="\[$(tput setaf 14)\]\u"
+[[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && PS1+="@\h"
+PS1+=" \[$(tput setaf 4)\]\w\[$(tput sgr0)\]"
+PS1+="\[$(tput setaf 8)\]\$(__vcs__status__) "
+PS1+="\[$(tput sgr0)\]\$ "
 
 # Execute each time prompt is drawn
 __prompt__command__() {
     history -a
 }
 
+PROMPT_COMMAND="__prompt__command__"
+
 # Enable completion
 if [[ -f "/usr/share/bash-completion/bash_completion" ]]; then
     source "/usr/share/bash-completion/bash_completion"
 fi
 
-PROMPT_COMMAND="__prompt__command__"
+HISTFILE="$HOME/.history"        # History file
+HISTCONTROL=erasedups:ignoreboth # Don't store duplicates or lines starting with space
+HISTIGNORE=""                    # Ignore these commands
+HISTFILESIZE=50000               # History file size
+HISTSIZE=10000                   # History buffer size
 
-# History file
-HISTFILE="$HOME/.history"
-
-# Erase duplicates, trim whitespace
-HISTCONTROL=erasedups:ignoreboth
-
-# Commands to ignore in history
-HISTIGNORE=""
-
-# Size of history file
-HISTFILESIZE=50000
-
-# Size of history in memory
-HISTSIZE=10000
-
-# Append to history file
-shopt -s histappend
-
-# Let reedit failed substitutions
-shopt -s histreedit
-
-# Don't execute immediately after history substitution
-shopt -s histverify
-
-# Autocorrect cd typos
-shopt -s cdspell
-
-# Recursive expansion
-shopt -s globstar
-
-# Case-insensitive globbing
-shopt -s nocaseglob
-
-# Do not autocomplete with empty prompt
-shopt -s no_empty_cmd_completion
-
-# cd into directories by typing their name
-[ "${BASH_VERSINFO[0]}" -ge 4 ] && shopt -s autocd
-
-# Autocomplete aliases
-[ "${BASH_VERSINFO[0]}" -ge 5 ] && shopt -s progcomp_alias
+shopt -s histappend                # Append to history file instead of overwriting
+shopt -s histreedit                # Put failed history substitution back on prompt
+shopt -s histverify                # Don't execute history substitution immediately
+shopt -s cdspell                   # Correct spelling errors in cd
+shopt -s globstar                  # Let ** recurse all directories
+shopt -s nocaseglob                # Case insensitive globbing
+shopt -s no_empty_cmd_completion   # Don't complete empty prompt
+[ "${BASH_VERSINFO[0]}" -ge 4 ] && #
+    shopt -s autocd                # Automatically cd into directories
+[ "${BASH_VERSINFO[0]}" -ge 5 ] && #
+    shopt -s progcomp_alias        # Allow completion of aliases

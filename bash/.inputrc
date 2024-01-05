@@ -1,21 +1,58 @@
-Space: magic-space
+$if mode=emacs
 
+# Arrows
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
 
-set completion-ignore-case on
+# Shift+Arrows
+"\e[1;2A": menu-complete
+"\e[1;2B": menu-complete-backward
+"\e[1;2C": forward-char
+"\e[1;2D": backward-char
 
-# Treat underscores and hyphens as equal
-set completion-map-case on
+# Alt+Arrows
+"\e[1;3C": forward-word
+"\e[1;3D": backward-word
 
-set mark-symlinked-directories on
+"\e[3A": menu-complete
+"\e[3B": menu-complete-backward
+"\e[3C": forward-word
+"\e[3D": backward-word
 
-#set show-all-if-ambiguous on
+# Ctrl+Arrows
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
 
-set colored-completion-prefix on
+# Ctrl+Delete/Backspace
+"\e[3;5~": kill-word
+"\C-h": backward-kill-word
 
-# Show me type of file in completion
-set colored-stats on
-set visible-stats on
+# Home/End
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# Page Up/Down
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+
+# Insert/Delete
+"\e[2~": quoted-insert
+"\e[3~": delete-char
+
+$endif
+
+Space: magic-space
+
+set completion-ignore-case on    # Case insensitive completion
+set completion-map-case on       # Treat hyphens and underscores as equivalent
+set colored-completion-prefix on # Colorize completion prefix
+set colored-stats on             # Colorize completions by type
+set visible-stats on             # Show type of file in completion
+set show-all-if-ambiguous on     # Complete immediately if more than one match
+set show-all-if-unmodified on    # Complete immediately if no changes made
