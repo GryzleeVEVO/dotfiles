@@ -10,9 +10,18 @@ Plug 'ayu-theme/ayu-vim'
 " Close parenthesis automatically
 Plug 'tmsvg/pear-tree'
 
-" Syntax highlighting
-Plug 'bfrg/vim-cpp-modern'
+" LSP
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'chiel92/vim-autoformat'
+
+"Plug 'sheerun/vim-polyglot'
+
+Plug 'bfrg/vim-cpp-modern'
 
 call plug#end()
 
@@ -23,7 +32,7 @@ set history=1000
 set backspace=indent,eol,start
 
 " Colors
-syntax enable
+syntax on
 
 set background=dark
 try

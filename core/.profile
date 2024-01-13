@@ -17,3 +17,5 @@ export PAGER='less'
 if command -v google-chrome-stable &>/dev/null; then
     export BROWSER='google-chrome-stable'
 fi
+
+secret-tool lookup keepass credentials | keepassxc --pw-stdin $HOME/.secret/passwordsDb.kdbx &
