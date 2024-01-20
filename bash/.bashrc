@@ -30,9 +30,9 @@ __exit__status__() {
     local EXIT="$?" COLOR_EXIT
 
     if [[ $EXIT = 0 ]]; then
-        COLOR_EXIT="\001$(tput setaf 10)\002"
+        COLOR_EXIT="\001\e[38;5;10m\002"
     else
-        COLOR_EXIT="\001$(tput setaf 9)\002"
+        COLOR_EXIT="\001\e[38;5;9m\002"
     fi
 
     echo -e "${COLOR_EXIT}[${EXIT}]\001$(tput sgr0)\002"
@@ -40,11 +40,11 @@ __exit__status__() {
 
 # Prompt: [?] user@host ~/path/to/dir (branch *) $
 PS1="\$(__exit__status__) "
-PS1+="\[$(tput setaf 14)\]\u"
+PS1+="\[\e[38;5;14m\]\u"
 [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && PS1+="@\h"
-PS1+=" \[$(tput setaf 4)\]\w\[$(tput sgr0)\]"
-PS1+="\[$(tput setaf 8)\]\$(__vcs__status__) "
-PS1+="\[$(tput sgr0)\]\$ "
+PS1+=" \[\e[38;5;4m\]\w\[\e(B\e[m\]"
+PS1+="\[\e[38;5;8m\]\$(__vcs__status__) "
+PS1+="\[\e(B\e[m\]\$ "
 
 # Execute each time prompt is drawn
 __prompt__command__() {

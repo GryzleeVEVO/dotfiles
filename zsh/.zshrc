@@ -24,6 +24,9 @@ zstyle ':vcs_info:*' check-for-changes true
 # Enable prompt substitutions
 setopt prompt_subst
 
+# Enable colors
+autoload -U colors && colors
+
 # Prompt: [x] user@host ~/path/to/dir (branch *) $
 PROMPT='%(?.%F{10}.%F{9})[%?] '
 PROMPT+='%F{14}%n'
@@ -31,6 +34,11 @@ PROMPT+='%F{14}%n'
 PROMPT+='%F{4} %~ '
 PROMPT+='%F{8}${vcs_info_msg_0_}'
 PROMPT+='%f$ '
+
+
+
+
+
 
 # Execute each time prompt is drawn
 precmd() {
