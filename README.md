@@ -13,7 +13,8 @@ git clone https://github.com/GryzleeVEVO/dotfiles .dotfiles
 2. Go to the directory where the repository is cloned and simulate
 
 ```sh
-stow -n -t $HOME *
+# Do not use *, so you don't stow etc files
+stow -n -t $HOME module_1 module_2 ...
 ```
 
 3. If there are no conflicts, go ahead. Else, you'll need to overwrite the existing files with symlinks to the repository (the previous dotfiles *WILL BE LOST*)
