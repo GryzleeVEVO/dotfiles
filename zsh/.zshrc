@@ -35,11 +35,6 @@ PROMPT+='%F{4} %~ '
 PROMPT+='%F{8}${vcs_info_msg_0_}'
 PROMPT+='%f$ '
 
-
-
-
-
-
 # Execute each time prompt is drawn
 precmd() {
   vcs_info

@@ -13,7 +13,6 @@ git clone https://github.com/GryzleeVEVO/dotfiles .dotfiles
 2. Go to the directory where the repository is cloned and simulate
 
 ```sh
-# Do not use *, so you don't stow etc files
 stow -n -t $HOME module_1 module_2 ...
 ```
 

@@ -121,17 +121,16 @@ alias make='make --jobs=$(nproc)'
 alias m='make'
 
 alias g='git'
-alias gi='git init'
 alias ga='git add'
 alias gc='git commit'
+alias gb='git branch'
+alias gch='git checkout'
 
 push() {
     if git status -s &>/dev/null; then
         git add --all
         git commit --message "$@"
         git push
-    else
-        echo "Nothing to commit."
     fi
 }
 
@@ -148,3 +147,5 @@ async() {
 alias py='python'
 
 alias sudo='sudo -E'
+
+alias roboz='ssh -X pi@10.1.31.223'

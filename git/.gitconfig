@@ -1,5 +1,8 @@
 [user]
-	name = GryzleeVEVO
-	email = dorian.wozniak@gmail.com
+name = GryzleeVEVO
+email = dorian.wozniak@gmail.com
+
 [init]
-	defaultBranch = main 
+defaultBranch = main
+[core]
+	autocrlf = input
