@@ -18,6 +18,3 @@ if command -v google-chrome-stable &>/dev/null; then
     export BROWSER='google-chrome-stable'
 fi
 
-#if command -v keepassxc &>/dev/null; then
-#secret-tool lookup keepass credentials | keepassxc --pw-stdin $HOME/.secret/passwordsDb.kdbx &
-#fi

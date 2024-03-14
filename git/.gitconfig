@@ -1,8 +1,13 @@
 [user]
-name = GryzleeVEVO
+	name = Dorian Wozniak
 email = dorian.wozniak@gmail.com
 
 [init]
 defaultBranch = main
 [core]
 	autocrlf = input
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

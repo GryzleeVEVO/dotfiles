@@ -149,3 +149,11 @@ alias py='python'
 alias sudo='sudo -E'
 
 alias roboz='ssh -X pi@10.1.31.223'
+
+alias tunnel='ssh -L 3000:localhost:3389 -p 5900 gryzlee@92.190.13.63'
+
+alias babilonia='ssh -X -p 5900 gryzlee@92.190.13.63'
+
+alias ra='ranger'
+
+alias etc-changes='sudo etckeeper vcs log -i -E --invert-grep --grep "committing changes in /etc made by|saving uncommitted changes in /etc prior to pacman run"'

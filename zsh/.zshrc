@@ -27,13 +27,13 @@ setopt prompt_subst
 # Enable colors
 autoload -U colors && colors
 
-# Prompt: [x] user@host ~/path/to/dir (branch *) $
+# Prompt: [x] user@host ~/path/to/dir (branch *) %
 PROMPT='%(?.%F{10}.%F{9})[%?] '
 PROMPT+='%F{14}%n'
 [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && PROMPT+='%\@%m'
 PROMPT+='%F{4} %~ '
 PROMPT+='%F{8}${vcs_info_msg_0_}'
-PROMPT+='%f$ '
+PROMPT+='%f%% '
 
 # Execute each time prompt is drawn
 precmd() {

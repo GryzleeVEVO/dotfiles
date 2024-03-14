@@ -47,7 +47,9 @@ $if mode=emacs
 
 $endif
 
-Space: magic-space
+$if Bash
+    Space: magic-space
+$endif
 
 set completion-ignore-case on    # Case insensitive completion
 set completion-map-case on       # Treat hyphens and underscores as equivalent

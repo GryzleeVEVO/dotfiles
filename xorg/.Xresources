@@ -1,0 +1,10 @@
+URxvt.background: black
+URxvt.foreground: white
+
+URxvt.scrollBar: false
+
+URxvt.font: xft:JetBrainsMono Nerd Font Mono:size=12
+
+URxvt.geometry: 400x400
+
+URxct.cursorBlink: true
