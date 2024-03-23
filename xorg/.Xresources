@@ -1,8 +1,8 @@
 Xcursor.theme: capitaine-cursors-white
 
 
-URxvt.background: black
-URxvt.foreground: white
+! Urxvt settings
+
 
 URxvt.scrollBar: false
 
@@ -11,3 +11,54 @@ URxvt.font: xft:JetBrainsMono Nerd Font Mono:size=12
 URxvt.geometry: 400x400
 
 URxct.cursorBlink: true
+
+*foreground:   #ffffff
+*background:   #1f2430
+*cursorColor:  #ffcc66
+
+! Black
+
+*color0:       #1f2430
+*color8:       #8a9199
+
+! Red
+
+*color1:       #ff3333
+*color9:       #ff6666
+
+! Green
+
+*color2:       #bae67e
+*color10:      #cee6ac
+
+! Yellow
+
+*color3:       #ffd580
+*color11:      #ffe6b3
+
+! Blue
+
+*color4:       #399ee6
+*color12:      #80bfff
+
+! Magenta
+
+*color5:       #f28779
+*color13:      #ffd6da
+
+! Cyan
+
+*color6:       #73d0ff
+*color14:      #b3e6ff
+
+! White
+
+*color7:       #ffffff
+*color15:      #f3f4f5
+
+
+! Bold, Italic, Underline
+
+!*.colorBD:     #e6e1cf
+!*.colorIT:
+!*.colorUL:

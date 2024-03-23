@@ -25,7 +25,7 @@ exec --no-startup-id nitrogen --restore
 # Visuals
 
 # Hide window titles, show thin border
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 
 # Gaps between windows
 gaps inner 8
@@ -33,6 +33,23 @@ gaps inner 8
 # Don't show gaps and borders if there's only one window
 smart_gaps on
 smart_borders on
+
+# Colors
+
+set_from_resource $fg           i3wm.foreground    #ffffff
+set_from_resource $bg           i3wm.background    #1f2430
+set_from_resource $focused      i3wm.color4        #399ee6
+set_from_resource $inactive     i3wm.color14       #b3e6ff
+set_from_resource $unfocused    i3wm.color8        #8a9199
+set_from_resource $urgent       i3wm.cursorColor   #ffcc66
+
+# class                 border      backgr.     text indicator child_border
+client.focused          $focused    $focused    $fg  $bg       $focused
+client.focused_inactive $inactive   $inactive   $fg  $bg       $inactive
+client.unfocused        $unfocused  $unfocused  $fg  $bg       $unfocused
+client.urgent           $urgent     $urgent     $fg  $bg       $urgent
+client.placeholder      $bg         $bg         $fg  $bg       $bg
+client.background       $bg
 
 
 # ------------------------------------------------------------------------------
@@ -44,6 +61,17 @@ set $refresh_i3status killall -SIGUSR1 i3status
 # i3bar
 bar {
         status_command i3status
+
+        colors {
+            background $bg
+            statusline $fg
+            separator $bg
+            focused_workspace $focused $focused $fg
+            active_workspace $bg $bg $fg
+            inactive_workspace $bg $bg $fg
+            urgent_workspace $urgent $urgent $fg
+            binding_mode $urgent $urgent $fg
+        }
 
         position top
         padding 2px 
@@ -58,7 +86,7 @@ tiling_drag modifier titlebar
 
 
 # Terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # Browser
 bindsym $mod+n exec --no-startup-id google-chrome-stable
@@ -164,7 +192,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -196,19 +224,20 @@ bindsym $mod+r mode "resize"
 
 
 # Volume control
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 
 # Microphone control
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Playback control
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
 
 # Brightness control
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+
