@@ -1,0 +1,140 @@
+#
+# .inputrc
+#
+
+$if mode=emacs
+
+# Arrows
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
+
+# Shift+Arrows
+"\e[1;2A": menu-complete
+"\e[1;2B": menu-complete-backward
+"\e[1;2C": forward-char
+"\e[1;2D": backward-char
+
+# Alt+Arrows
+"\e[1;3C": forward-word
+"\e[1;3D": backward-word
+
+"\e[3A": menu-complete
+"\e[3B": menu-complete-backward
+"\e[3C": forward-word
+"\e[3D": backward-word
+
+# Ctrl+Arrows
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# Ctrl+Delete/Backspace
+"\e[3;5~": kill-word
+"\C-h": backward-kill-word
+
+# Home/End
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# Page Up/Down
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+
+# Insert/Delete
+"\e[2~": quoted-insert
+"\e[3~": delete-char
+
+$endif
+
+$if mode=vi
+
+# Change cursor depending on mode
+set show-mode-in-prompt on
+set vi-cmd-mode-string "\1\e[2 q\2"
+set vi-ins-mode-string "\1\e[6 q\2"
+
+set keymap vi-insert
+
+# Arrows
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
+
+# Shift+Arrows
+"\e[1;2A": menu-complete
+"\e[1;2B": menu-complete-backward
+"\e[1;2C": forward-char
+"\e[1;2D": backward-char
+
+# Alt+Arrows
+"\e[1;3C": forward-word
+"\e[1;3D": backward-word
+
+"\e[3A": menu-complete
+"\e[3B": menu-complete-backward
+"\e[3C": forward-word
+"\e[3D": backward-word
+
+# Ctrl+Arrows
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# Ctrl+Delete/Backspace
+"\e[3;5~": kill-word
+"\C-h": backward-kill-word
+
+# Home/End
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# Page Up/Down
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+
+# Insert/Delete
+"\e[2~": quoted-insert
+"\e[3~": delete-char
+
+# Clear
+"\C-l": clear-screen
+
+$endif
+
+# Expand !! automatically with space
+$if Bash
+Space: magic-space
+$endif
+
+# Case insensitive completion
+set completion-ignore-case on
+
+# Treat hyphens and underscores as equivalent
+set completion-map-case on
+
+# Colorize completion prefix
+set colored-completion-prefix on
+
+# Colorize completions by type
+set colored-stats on
+
+# Show type of file in completion
+set visible-stats on
+
+# Complete immediately if more than one match
+set show-all-if-ambiguous on
+
+# Complete immediately if no changes made
+set show-all-if-unmodified on
+
+# Add a / when completeing symlinked directories
+set mark-symlinked-directories on

@@ -1,0 +1,6 @@
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+none9632/zsh-sudo
+MichaelAquilina/zsh-you-should-use
+jeffreytse/zsh-vi-mode
