@@ -1,0 +1,49 @@
+[user]
+	name = Dorian Wozniak
+	email = dorian.wozniak@gmail.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	autocrlf = input
+	whitespace = -trailing-space
+
+[pull]
+	ff = only
+
+[advice]
+	addIgnoredFile = false
+
+[rerere]
+	enabled = 1
+	autoupdate = 1
+
+[url "git@github.com:"]
+	insteadOf = https://github.com
+	insteadOf = gh:
+
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
+[alias]
+	a = add --all
+	b = branch
+	bdel = branch --delete
+	c = commit --all --message
+	amend = commit --amend --message
+	f = fetch
+	bch = checkout
+	badd = checkout -b
+	m = merge
+	p = push
+	pp = pull
+	nuke = reset --hard HEAD
+	s = stash
+	sa = stash apply
+	sp = stash pop
+
