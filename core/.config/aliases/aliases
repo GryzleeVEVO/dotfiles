@@ -1,10 +1,83 @@
 #!/bin/sh
 
-# ~/.config/aliases/aliases
+# ------------------------------------------------------------------------------
+# Apps                                                                         |
+# ------------------------------------------------------------------------------
 
-################################################################################
-# BASIC UTILS                                                                  #
-################################################################################
+# xdg-open is similar to open on macOS
+alias o='xdg-open'
+alias open='xdg-open'
+
+# $EDITOR must be set
+alias e="$EDITOR"
+
+# Use all available cores for make.
+alias make='make --jobs=$(nproc)'
+alias m='make'
+
+alias py='python'
+
+alias s='ssh'
+
+# A vim-like TUI file explorer
+alias ra='ranger'
+
+# ------------------------------------------------------------------------------
+# Administration                                                               |
+# ------------------------------------------------------------------------------
+
+# https://wiki.archlinux.org/title/Sudo#Passing_aliases
+#
+# Preserve user environment. The extra space allows the next commands to
+# be aliases too
+alias sudo='sudo --preserve-env '
+
+# Edit with sudo privileges while keeping the editor user config
+alias sudoe="sudoedit"
+
+# ------------------------------------------------------------------------------
+# Git                                                                          |
+# ------------------------------------------------------------------------------
+
+alias g='git'
+alias ga='git add --all'
+alias gc='git commit --all --message'
+alias gb='git checkout'
+alias gp='git push'
+alias gpp='git pull'
+
+# ------------------------------------------------------------------------------
+# Package managers                                                             |
+# ------------------------------------------------------------------------------
+# p: install
+# prm: remove
+# pq: query all explicitly installed local packages
+# pqs: query installed package by name
+# pss: search in repositories by name
+# pcl: clean up unrequired packages
+# pcc: clean up cache
+
+if command -v yay >/dev/null; then
+	alias p='yay -Syu'
+	alias prm='yay -Rs'
+	alias pq='yay -Qe'
+	alias pqs='yay -Qss'
+	alias pss='yay -Ss'
+	alias pcl='yay -Rs $(yay -Qdtq)'
+	alias pcc='yay -Scc'
+elif command -v pacman >/dev/null; then
+	alias p='sudo pacman -Syu'
+	alias prm='sudo pacman -Rs'
+	alias pq='pacman -Qe'
+	alias pqs='pacman -Qss'
+	alias pss='pacman -Ss'
+	alias pcl='sudo pacman -Rs $(pacman -Qdtq)'
+	alias pcc='sudo pacman -Scc'
+fi
+
+# ------------------------------------------------------------------------------
+# Everything else                                                              |
+# ------------------------------------------------------------------------------
 
 alias c='clear'
 alias cl='clear'
@@ -14,24 +87,19 @@ alias cls='clear'
 alias cd..='cd ..'
 alias ..='cd ..'
 
-alias q='quit'
+alias q='exit'
 alias quit='exit'
+alias :q='exit'
+alias :wq='exit'
 
 alias h='history'
-
-# xdg-open is similar to open on macOS
-alias o='xdg-open'
-alias open='xdg-open'
-
-# sudo while preserving env vars. Redeclaration allows using aliases.
-alias sudo='sudo --preserve-env'
-alias sudo='sudo '
 
 alias ls='ls --human-readable --classify --group-directories-first --color=auto'
 alias l='ls'
 alias la='ls --almost-all'
 alias ll='ls -l --almost-all'
 
+# Ask before nuking
 alias cp='cp --recursive --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='rm --dir --recursive --interactive=once --verbose'
@@ -60,6 +128,7 @@ alias df='df --human-readable --total -x tmpfs -x devtmpfs -x efivarfs'
 # Get RAM and swap usage
 alias free='free --human --total'
 
+# Show changes together
 alias diff='diff --recursive --unified --color=auto'
 
 alias f='find'
@@ -69,117 +138,24 @@ alias egrep='grep --extended-regexp'
 
 alias less='less -R'
 
-################################################################################
-# OTHER UTILS                                                                  #
-################################################################################
-
-# Run a command and immediately disown it.
-async() {
-    "$@" &
-    disown
-}
-
-alias ctl='systemctl'
-
 alias ip='ip --human-readable --color=auto'
-
-alias ra='ranger'
 
 # Colorized man pages
 man() {
-    # Blink
-    # Bold
-    # Reset
-    # Standout (line bar/match)
-    # Stop standout
-    # Underline
-    # Stop underline
+    # mb -> Blink
+    # md -> Bold
+    # so -> Standout (line bar and search match)
+    # us -> Underline
     env \
         LESS_TERMCAP_mb=$(printf '\033[1;38;5;229m') \
         LESS_TERMCAP_md=$(printf '\033[1;38;5;216m') \
-        LESS_TERMCAP_me=$(printf '\033[0m') \
-        LESS_TERMCAP_so=$(printf '\033[1;38;5;229m') \
-        LESS_TERMCAP_se=$(printf '\033[0m') \
+        LESS_TERMCAP_so=$(printf '\033[1;38;5;3m') \
         LESS_TERMCAP_us=$(printf '\033[4;1;38;5;222m') \
+        LESS_TERMCAP_me=$(printf '\033[0m') \
+        LESS_TERMCAP_se=$(printf '\033[0m') \
         LESS_TERMCAP_ue=$(printf '\033[0m') \
         GROFF_NO_SGR=1 \
         man "$@"
 }
 
-################################################################################
-# DEVELOPEMENT                                                                 #
-################################################################################
 
-# Use all available cores for make.
-alias make='make --jobs=$(nproc)'
-alias m='make'
-
-alias py='python'
-
-################################################################################
-# GIT                                                                          # 
-################################################################################
-
-alias g='git'
-alias ga='git add --all'
-alias gc='git commit --all --message'
-alias gb='git checkout'
-alias gp='git push'
-alias gpp='git pull'
-
-################################################################################
-# SSH                                                                          # 
-################################################################################
-
-alias s='ssh'
-alias uber='ssh ubermaquinita'
-
-################################################################################
-# PACKAGE MANAGERS                                                             #
-################################################################################
-# p: install package and update
-# prm: remove package (including depencencies)
-# pq: print explicitly installed packages
-# pqs: search installed package
-# pss: search package in repositories
-# pcl: clean up unrequired packagesunrequired packages
-# pcc: clean up cache
-
-unset p prm pq pqs pss pcl pcc
-
-if command -v yay >/dev/null; then
-	alias p='yay -Syu'
-	alias prm='yay -Rs'
-	alias pq='yay -Qe'
-	alias pqs='yay -Qss'
-	alias pss='yay -Ss'
-	alias pcl='yay -Rs $(yay -Qdtq)'
-	alias pcc='yay -Scc'
-elif command -v pacman >/dev/null; then
-	alias p='sudo pacman -Syu'
-	alias prm='sudo pacman -Rs'
-	alias pq='pacman -Qe'
-	alias pqs='pacman -Qss'
-	alias pss='pacman -Ss'
-	alias pcl='sudo pacman -Rs $(yay -Qdtq)'
-	alias pcc='sudo pacman -Scc'
-elif command -v apt >/dev/null; then
-	# Necessary to avoid parse errors when re-sourcing
-	__p__() {
-		if sudo apt update; then
-			 [ "$#" -ne 0 ] && sudo apt install "$@" 
-			 sudo apt upgrade
-		fi
-	}
-	__prm__() {
-		sudo apt remove "$@"
-		sudo apt autoremove
-	}
-	alias p='__p__'
-	alias prm='__prm__'
-	alias pq='apt list --manual-installed'
-	alias pqs='apt list'
-	alias pss='apt search'
-	alias pcl='sudo apt autoremove'
-	alias pcc='sudo apt clean'
-fi

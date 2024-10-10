@@ -39,6 +39,7 @@
 	f = fetch
 	bch = checkout
 	badd = checkout -b
+	bnew = badd
 	m = merge
 	p = push
 	pp = pull
