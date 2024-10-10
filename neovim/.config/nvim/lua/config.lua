@@ -48,14 +48,12 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
-
-
 -- Minimal number of screen lines to keep above and below/right of the cursor.
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 
--- Don't wrap
-vim.opt.wrap = false
+-- Wrap text
+vim.opt.wrap = true
 
 --------------------------------------------------------------------------------
 -- Visual                                                                      -

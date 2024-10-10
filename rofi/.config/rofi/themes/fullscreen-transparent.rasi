@@ -2,7 +2,7 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- * 
+ *
  * Rofi Theme File
  * Rofi Version: 1.7.3
  **/
@@ -16,7 +16,7 @@
     active:         #98C379FF;
     urgent:         #E06C75FF;
 
-    font: "DejaVu Sans Mono 10";
+    font: "JetBrainsMono Nerd Font 10";
 }
 
 /*****----- Main Window -----*****/
@@ -100,7 +100,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     0px;
     margin:                      0px;
     padding:                     0px;

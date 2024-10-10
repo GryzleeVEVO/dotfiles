@@ -33,6 +33,12 @@ set $ws10 "10"
 # Run autostart files (e.g. desktop files in $HOME/.config/autostart)
 exec --no-startup-id dex --autostart --environment i3
 
+# Battery notification
+exec --no-startup-id batsignal
+
+# Lock screen
+exec --no-startup-id xss-lock -- i3lock -i "$HOME/Pictures/wallpapers/lock-screen.png"
+
 # Set desktop background
 exec_always --no-startup-id nitrogen --restore
 
@@ -56,32 +62,44 @@ gaps inner 8
 smart_gaps on
 smart_borders on
 
-# Colors
-set $bg         #000000
-set $fg         #FFFFFF
-set $focused    #2A3B55
-set $inactive   #000000
-set $unfocused  #000000
-set $urgent     #FF3333
+set_from_resource $bg               background  #000000
+set_from_resource $bg1              background1 #000000
+set_from_resource $fg               foreground  #000000
+set_from_resource $black            color0      #000000
+set_from_resource $dark_red         color1      #900000
+set_from_resource $dark_green       color2      #000000
+set_from_resource $dark_yellow      color3      #000000
+set_from_resource $dark_blue        color4      #5f676a
+set_from_resource $dark_magenta     color5      #000000
+set_from_resource $dark_cyan        color6      #000000
+set_from_resource $light_grey       color7      #000000
+set_from_resource $dark_grey        color8      #000000
+set_from_resource $light_red        color9      #000000
+set_from_resource $light_green      color10     #000000
+set_from_resource $light_yellow     color11     #000000
+set_from_resource $light_blue       color12     #000000
+set_from_resource $light_magenta    color13     #000000
+set_from_resource $light_cyan       color14     #000000
+set_from_resource $white            color15     #ffffff
 
-# class                 border      backgr.     text indicator child_border
-client.focused          $focused    $focused    $fg  $bg       $focused
-client.focused_inactive $inactive   $inactive   $fg  $bg       $inactive
-client.unfocused        #00000000   $unfocused  $fg  $bg       $unfocused
-client.urgent           $urgent     $urgent     $fg  $bg       $urgent
-client.placeholder      $bg         $bg         $fg  $bg       $bg
-client.background       $bg
+# class                 border      backgroud   text        drag indicator  child_border
+client.focused          $dark_blue  $dark_blue  $fg         $bg1            $dark_blue
+client.focused_inactive $bg1        $bg1        $fg         $bg1            $bg1
+client.unfocused        $bg         $bg         $light_gray $bg1            $bg
+client.urgent           $dark_red   $dark_red   $fg         $bg1            $dark_red
 
 # Use floating by default for some apps
 for_window [class="^pavucontrol$"] floating enable
 for_window [class="^gnome-calculator$"] floating enable
+for_window [class="^Blueman-manager$"] floating enable
 
 # ------------------------------------------------------------------------------
 # Workspaces
 # ------------------------------------------------------------------------------
 
-# Primary display is always workspace 1
+# Always show workspaces 1 and 2 on primary display
 workspace $ws1 output primary
+workspace $ws2 output primary
 
 # Don't move cursor when switching displays
 mouse_warping none
@@ -97,7 +115,9 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # Browser
 bindsym $mod+n exec --no-startup-id $BROWSER
-bindsym $mod+Shift+n exec --no-startup-id google-chrome-stable --incognito
+
+# bindsym $mod+Shift+n exec --no-startup-id google-chrome-stable --incognito
+bindsym $mod+Shift+n exec --no-startup-id firefox --private-window
 
 # Menu
 bindsym $mod+d exec --no-startup-id rofi -show drun
@@ -150,9 +170,6 @@ bindsym $mod+g focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -186,29 +203,29 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to exit i3?' -B 'Yes, exit i3' 'i3-msg exit'"
 
+bindsym $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Power control' -B 'Suspend' 'systemctl suspend' -B 'Reboot' 'systemctl reboot' -B 'Power off' 'systemctl poweroff'"
+
+
 # Resize with Super+Alt
 bindsym $mod+Mod1+h resize shrink width 5 px or 5 ppt
 bindsym $mod+Mod1+j resize grow height 5 px or 5 ppt
 bindsym $mod+Mod1+k resize shrink height 5 px or 5 ppt
 bindsym $mod+Mod1+l resize grow width 5 px or 5 ppt
 
-# Volume control
+# Media keys
+
+# TODO: Use wpctl instead?
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-# Microphone control
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-# Playback control
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86AudioStop exec --no-startup-id playerctl stop
 
-# Brightness control
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id set_backlight inc
+bindsym XF86MonBrightnessDown exec --no-startup-id set_backlight dec
 
-# Display layout control
 bindsym XF86Display exec --no-startup-id autorandr --change

@@ -4,10 +4,12 @@ require "autocmd"
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", "https://github.com/folke/lazy.nvim.git",
+    lazypath })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(
@@ -31,5 +33,3 @@ require("lazy").setup(
       },
     },
   })
-
--- vim: ts=2 sts=2 sw=2 et
