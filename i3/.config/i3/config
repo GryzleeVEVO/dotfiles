@@ -37,7 +37,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id batsignal
 
 # Lock screen
-exec --no-startup-id xss-lock -- i3lock -i "$HOME/Pictures/wallpapers/lock-screen.png"
+exec --no-startup-id $HOME/.local/bin/run_i3lock
 
 # Set desktop background
 exec_always --no-startup-id nitrogen --restore
@@ -205,7 +205,6 @@ bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Do you reall
 
 bindsym $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Power control' -B 'Suspend' 'systemctl suspend' -B 'Reboot' 'systemctl reboot' -B 'Power off' 'systemctl poweroff'"
 
-
 # Resize with Super+Alt
 bindsym $mod+Mod1+h resize shrink width 5 px or 5 ppt
 bindsym $mod+Mod1+j resize grow height 5 px or 5 ppt
@@ -214,11 +213,10 @@ bindsym $mod+Mod1+l resize grow width 5 px or 5 ppt
 
 # Media keys
 
-# TODO: Use wpctl instead?
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
@@ -228,4 +226,11 @@ bindsym XF86AudioStop exec --no-startup-id playerctl stop
 bindsym XF86MonBrightnessUp exec --no-startup-id set_backlight inc
 bindsym XF86MonBrightnessDown exec --no-startup-id set_backlight dec
 
-bindsym XF86Display exec --no-startup-id autorandr --change
+bindsym XF86Calculator exec --no-startup-id gnome-calculator
+
+# The display switch key is hardcoded to Win+p (the shortcut in windows to change display settings)
+# instead of emmiting its own keycode :D
+# bindsym XF86Display exec --no-startup-id autorandr --change
+bindsym Mod4+p exec --no-startup-id autorandr --change
+
+
