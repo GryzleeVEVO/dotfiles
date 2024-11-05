@@ -1,2 +1,26 @@
-xss-lock -- i3lock \
-  --color 000000ff
+#!/usr/bin/env sh
+
+# Wrapper script for i3-lock
+
+i3lock \
+    --color 282828ff \
+    --inside-color 282828ff \
+    --line-uses-inside \
+    --ring-color 98971aff \
+    --keyhl-color b8bb26ff \
+    --bshl-color fb4934ff \
+    --separator-color 282828ff \
+    --clock \
+    --date-str "%A, %d %b %Y" \
+    --time-color ebdbb2ff \
+    --date-color ebdbb2ff \
+    --verif-text="Verifying..." \
+    --noinput-text="No input!" \
+    --verif-color ebdbb2ff \
+    --insidever-color 282828ff \
+    --ringver-color 458588ff \
+    --wrong-text="Wrong!" \
+    --wrong-color ebdbb2ff \
+    --insidewrong-color 282828ff \
+    --ringwrong-color fb4934ff \
+    $@

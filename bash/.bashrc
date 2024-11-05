@@ -29,10 +29,6 @@ set -o vi
 # Reset window size after each command
 shopt -s checkwinsize
 
-################################################################################
-# HISTORY                                                                      #
-################################################################################
-
 # History file
 [[ ! -z "$XDG_CACHE_HOME" ]] &&
     HISTFILE="$XDG_CACHE_HOME/history" ||
@@ -59,13 +55,6 @@ shopt -s histreedit
 # Don't execute history substitution immediately
 shopt -s histverify
 
-################################################################################
-# Autocompletion and globbing                                                  #
-################################################################################
-
-# CDPATH acts as a PATH for the cd command
-# CDPATH=".:$HOME"
-
 # Correct spelling errors in cd
 shopt -s cdspell
 
@@ -85,10 +74,6 @@ shopt -s no_empty_cmd_completion
 # Allow programmable completion of aliases
 [[ "${BASH_VERSINFO[0]}" -ge 5 ]] &&
     shopt -s progcomp_alias
-
-################################################################################
-# PROMPT                                                                       #
-################################################################################
 
 # Show last 3 directories in cwd
 PROMPT_DIRTRIM=3
