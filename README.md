@@ -83,7 +83,12 @@ Currently it contains configs for:
 
 **TO DO**:
 
-- Add theme-specific shell script sourced by profile?
-- Move shell prompts too?
-- And theme config for other apps?
-- Unified look for GTK and Qt
+- [ ] Add theme-specific shell script sourced by profile?
+  - [ ] + Add colorscheme as envvars
+- [ ] Move shell prompts too?
+- [ ] And theme config for other apps?
+- [ ] Unified look for GTK and Qt
+- [ ] Fix `xss-lock`: Currently ignores when an application is fullscreen
+  - [ ] ... or just use `xidlehook`, which actually inhibits the lock screen
+  - [x] Temporarily disabled xss-lock
+

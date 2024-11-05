@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Wrapper script for calling xss-lock with i3-color
+
+xss-lock \
+  --transfer-sleep-lock \
+  -- run_i3lock --nofork

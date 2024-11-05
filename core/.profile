@@ -9,39 +9,58 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # Others it is either messy, buggy or impossible, and not worth the effort
 # This is not an exhaustive list
 
+# Android SDK
+export ANDROID_HOME="$XDG_DATA_HOME/Android/Sdk"
+export ANDROID_USER_HOME="$XDG_DATA_HOME/Android"
+
+# Docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
-export DOTNET_CLI_HOME="${XDG_DATA_HOME}/dotnet"
+# Dotnet
+export DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
 export NUGET_PACKAGES="$XDG_CACHE_HOME/NuGetPackages"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+# Golang
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 
+# GTK
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
+# Haskell
+export GHCUP_USE_XDG_DIRS=1
+export STACK_XDG=1
+
+# Java
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+
+# JetBrains
+export PATH="$PATH:$XDG_DATA_HOME/JetBrains/Toolbox/scripts"
+
+# Node JS
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NODE_REPL_HISTORY="$XDG_CACHE_HOME/node_repl_history"
 export NVM_DIR="$XDG_DATA_HOME/nvm"
 
+# Nvidia
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 
+# Python
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# Qt
+export QT_QPA_PLATFORMTHEME="qt6ct"
+
+# Readline
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
+# Rust
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
-# Add path for user bin
+# Add path for user bins
 export PATH="$HOME/.local/bin:$PATH"
-
-# Disable dotnet telemetry
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-# Use qt6ct as the QPA
-export QT_QPA_PLATFORMTHEME="qt6ct"
-
-# Don't show Python's venv prompt when activated
-# TOOD: Add custom venv prompt?
-export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Default programs
 export EDITOR='nvim'
