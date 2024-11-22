@@ -1,14 +1,10 @@
 return {
-  -- Fuzzy Finder (files, lsp, etc)
+  -- Fuzzy Finder
   "nvim-telescope/telescope.nvim",
 
-  event = "VimEnter",
-  branch = "0.1.x",
   dependencies = {
-    -- Scripting library
     "nvim-lua/plenary.nvim",
 
-    -- C implementation of FZF
     {
       "nvim-telescope/telescope-fzf-native.nvim",
 
@@ -18,124 +14,52 @@ return {
       end,
     },
 
-    -- Set vim.ui.select to Telescope
     "nvim-telescope/telescope-ui-select.nvim",
-
-    -- Nerd font icons
-    {
-      "nvim-tree/nvim-web-devicons",
-      enabled = vim.g.have_nerd_font,
-    },
+    "nvim-tree/nvim-web-devicons",
   },
 
-  config = function()
-    local telescope = require "telescope"
-    local builtin = require "telescope.builtin"
-    local themes = require "telescope.themes"
+  event = "VimEnter",
 
-    telescope.setup {
+  config = function()
+    local telescope = require("telescope")
+    local themes = require("telescope.themes")
+    local builtin = require("telescope.builtin")
+    local m = vim.keymap.set
+
+    telescope.setup({
       extensions = {
         ["ui-select"] = {
           themes.get_dropdown(),
         },
       },
-    }
+    })
 
     -- Enable Telescope extensions if they are installed
     pcall(telescope.load_extension, "fzf")
     pcall(telescope.load_extension, "ui-select")
 
-    -- Setup builtin picker binds
-    vim.keymap.set(
-      "n",
-      "<leader>sh",
-      builtin.help_tags,
-      { desc = "[S]earch [H]elp" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>sk",
-      builtin.keymaps,
-      { desc = "[S]earch [K]eymaps" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>sf",
-      builtin.find_files,
-      { desc = "[S]earch [F]iles" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>ss",
-      builtin.builtin,
-      { desc = "[S]earch [S]elect Telescope" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>sw",
-      builtin.grep_string,
-      { desc = "[S]earch current [W]ord" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>sg",
-      builtin.live_grep,
-      { desc = "[S]earch by [G]rep" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>sd",
-      builtin.diagnostics,
-      { desc = "[S]earch [D]iagnostics" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>sr",
-      builtin.resume,
-      { desc = "[S]earch [R]esume" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>s.",
-      builtin.oldfiles,
-      { desc = '[S]earch Recent Files ("." for repeat)' }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader><leader>",
-      builtin.buffers,
-      { desc = "[ ] Find existing buffers" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>/",
-      function()
-        builtin.current_buffer_fuzzy_find(
-          themes.get_dropdown {
-            winblend = 10,
-            previewer = false,
-          })
-      end,
-      { desc = "[/] Fuzzily search in current buffer" }
-    )
-    vim.keymap.set(
-      "n", "<leader>s/",
-      function()
-        builtin.live_grep({
-          grep_open_files = true,
-          prompt_title = "Live Grep in Open Files",
-        })
-      end,
-      { desc = "[S]earch [/] in Open Files" }
-    )
-    vim.keymap.set(
-      "n", "<leader>sn",
-      function()
-        builtin.find_files(
-          { cwd = vim.fn.stdpath("config") }
-        )
-      end,
-      { desc = "[S]earch [N]eovim files" }
-    )
+    -- See `:help telescope.builtin`
+    m("n", "<leader>f", builtin.find_files, { desc = "Search [F]iles" })
+    --m("n", "<leader>ss", builtin.builtin, { desc = "Search [S]elect Telescope" })
+    --m("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+    --m("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+    m("n", "<leader>d", builtin.diagnostics, { desc = "Search [D]iagnostics" })
+    --m("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+    --m("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+    m("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+
+    -- m("n", "<leader>/", function()
+    --   builtin.current_buffer_fuzzy_find(themes.get_dropdown({
+    --     winblend = 10,
+    --     previewer = false,
+    --   }))
+    -- end, { desc = "[/] Fuzzily search in current buffer" })
+
+    -- m("n", "<leader>s/", function()
+    --   builtin.live_grep({
+    --     grep_open_files = true,
+    --     prompt_title = "Live Grep in Open Files",
+    --   })
+    -- end, { desc = "[S]earch [/] in Open Files" })
   end,
 }
