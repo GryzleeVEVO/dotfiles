@@ -1,7 +1,7 @@
 return {
   -- Text parser. Better syntax highlighting, indentation, code navigation...
   "nvim-treesitter/nvim-treesitter",
-
+  version = "*",
   build = ":TSUpdate",
   main = "nvim-treesitter.configs", -- Call setup on this module
 

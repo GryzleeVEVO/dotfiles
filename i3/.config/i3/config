@@ -11,7 +11,7 @@
 set $mod Mod4
 
 # Default font
-font pango:DejaVu Sans Mono 12
+font pango:JetBrains Mono 10
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -59,31 +59,31 @@ gaps inner 8
 smart_gaps on
 smart_borders on
 
-set_from_resource $bg background         #000000
-set_from_resource $bg1 background1       #000000
-set_from_resource $fg foreground         #000000
-set_from_resource $black color0          #000000
-set_from_resource $dark_red color1       #900000
-set_from_resource $dark_green color2     #000000
-set_from_resource $dark_yellow color3    #000000
-set_from_resource $dark_blue color4      #5f676a
-set_from_resource $dark_magenta color5   #000000
-set_from_resource $dark_cyan color6      #000000
-set_from_resource $light_grey color7     #000000
-set_from_resource $dark_grey color8      #000000
-set_from_resource $light_red color9      #000000
-set_from_resource $light_green color10   #000000
-set_from_resource $light_yellow color11  #000000
-set_from_resource $light_blue color12    #000000
-set_from_resource $light_magenta color13 #000000
-set_from_resource $light_cyan color14    #000000
-set_from_resource $white color15         #ffffff
+set_from_resource $bg               background  #000000
+set_from_resource $bg1              background1 #000000
+set_from_resource $fg               foreground  #000000
+set_from_resource $black            color0      #000000
+set_from_resource $dark_red         color1      #900000
+set_from_resource $dark_green       color2      #000000
+set_from_resource $dark_yellow      color3      #000000
+set_from_resource $dark_blue        color4      #5f676a
+set_from_resource $dark_magenta     color5      #000000
+set_from_resource $dark_cyan        color6      #000000
+set_from_resource $light_grey       color7      #000000
+set_from_resource $dark_grey        color8      #000000
+set_from_resource $light_red        color9      #000000
+set_from_resource $light_green      color10     #000000
+set_from_resource $light_yellow     color11     #000000
+set_from_resource $light_blue       color12     #000000
+set_from_resource $light_magenta    color13     #000000
+set_from_resource $light_cyan       color14     #000000
+set_from_resource $white            color15     #ffffff
 
-# class                 border      backgroud   text        drag indicator  child_border
-client.focused $dark_blue $dark_blue $fg $bg1 $dark_blue
-client.focused_inactive $bg1 $bg1 $fg $bg1 $bg1
-client.unfocused $bg $bg $light_gray $bg1 $bg
-client.urgent $dark_red $dark_red $fg $bg1 $dark_red
+# class                 border      backgroud   text            drag indicator  child_border
+client.focused          $bg1        $bg1        $light_yellow   $bg1            $dark_blue
+client.focused_inactive $bg1        $bg1        $fg             $bg1            $bg1
+client.unfocused        $bg         $bg         $light_gray     $bg1            $bg
+client.urgent           $dark_red   $dark_red   $fg             $bg1            $dark_red
 
 # Use floating by default for some apps
 for_window [class="^pavucontrol$"] floating enable
@@ -232,3 +232,5 @@ bindsym XF86Calculator exec --no-startup-id gnome-calculator
 # instead of emmiting its own keycode :D
 # bindsym XF86Display exec --no-startup-id autorandr --change
 bindsym Mod4+p exec --no-startup-id autorandr --change
+
+# vim: set ts=4 sts=4 sw=4 et
