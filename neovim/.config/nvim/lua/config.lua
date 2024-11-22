@@ -1,66 +1,134 @@
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
+-- User config file
+-- Options grouped when possible
 
--- Make relative line numbers default
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
-
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
-vim.opt.clipboard = "unnamedplus"
-
--- Keep wrapped lines indented
-vim.opt.breakindent = true
-
--- Save undo history (default: ~/.local/state/nvim/undo)
-vim.opt.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Highlight search
-vim.opt.hlsearch = true
-
--- Keep signcolumn on by default
-vim.opt.signcolumn = "yes"
-
--- Decrease update time
-vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
-
--- Always create horizontal splits to the right and vertical splits below
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- Render whitespace characters
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
-
--- Minimal number of screen lines to keep above and below/right of the cursor.
-vim.opt.scrolloff = 10
-vim.opt.sidescrolloff = 8
-
--- Wrap text
-vim.opt.wrap = true
+local o = vim.opt
+local g = vim.g
+local m = vim.keymap.set
+local au = vim.api.nvim_create_autocmd
+local ag = vim.api.nvim_create_augroup
+local c = vim.cmd
 
 --------------------------------------------------------------------------------
--- Visual                                                                      -
+-- BASIC
+
+-- Map leader
+g.mapleader = " "
+g.maplocalleader = " "
+
+-- Enable mouse
+o.mouse = "a"
+
+-- Update swap file faster
+o.updatetime = 250
+
+-- Faster timeout for ambiguous key sequences
+o.timeoutlen = 500
+
+-- Save undo history
+o.undofile = true
+
 --------------------------------------------------------------------------------
+-- VISUAL
 
--- Rulers at 80, 100 and 120 columns
-vim.opt.colorcolumn = "80,100,120"
+-- Use relative numbers
+o.number = true
+o.relativenumber = true
 
--- Highlight line your cursor is on
-vim.opt.cursorline = true
+-- Draw sign column
+o.signcolumn = "yes"
+
+-- Highlight cursor line
+o.cursorline = true
+
+-- Highlight columns
+o.colorcolumn = { 80, 100, 120 }
+
+-- Show whitespaces
+o.list = true
+o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+-- Preserve indentation when wrapping
+o.breakindent = true
+
+-- Minimum number of lines below or above cursor
+o.scrolloff = 10
+
+--------------------------------------------------------------------------------
+-- INDENTATION
+
+-- Treesitter is better at determining how to indent a file and guess-indent
+-- at guessing the indentation of the current file
+-- Per filetype defaults are provided in after/ftplugin
+-- By default, just use 4-wide spaces instead of 8-wide tabs
+o.tabstop = 4
+o.softtabstop = 4
+o.shiftwidth = 4
+o.expandtab = true
+
+--------------------------------------------------------------------------------
+-- SEARCH AND SUBSTITUTION
+
+-- Case-insensitive by default unless search term has caps
+o.ignorecase = true
+o.smartcase = true
+
+-- Clear search with Escape
+m("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+--------------------------------------------------------------------------------
+-- SPLITS
+
+-- New split direction
+o.splitright = true
+o.splitbelow = true
+
+m("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+m("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+m("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+m("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+m("n", "<C-q>", "<C-w><C-q>", { desc = "Close window" })
+
+--------------------------------------------------------------------------------
+-- YANKING
+
+-- Use system clipboard
+o.clipboard = "unnamedplus"
+
+au("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = ag("qol-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+--------------------------------------------------------------------------------
+-- MISC
+
+-- Disable arrow keys
+m({ "n", "v" }, "<left>", "")
+m({ "n", "v" }, "<right>", "")
+m({ "n", "v" }, "<up>", "")
+m({ "n", "v" }, "<down>", "")
+
+-- formatoptions is reset by default plugins. Set them back with an autocmd
+au("BufEnter", {
+  desc = "Don't add comment prefix when pressing Enter on a line with a comment",
+  group = ag("qol-no-comment-after-enter", { clear = true }),
+  pattern = "",
+  command = "set formatoptions-=c formatoptions-=r formatoptions-=o",
+})
+
+au("BufWritePre", {
+  desc = "Remove trailing whitespace before saving",
+  group = ag("qol-format", { clear = true }),
+  pattern = "",
+  callback = function()
+    local cursor = vim.fn.getpos(".")
+    c([[%s/\s\+$//e]])
+    vim.fn.setpos(".", cursor)
+  end,
+})
+
+-- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab
