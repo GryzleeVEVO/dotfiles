@@ -12,7 +12,7 @@ pos 1920x0
 primary
 rate 144.00
 x-prop-non_desktop 0
-output eDP
+output eDP-1
 mode 1920x1080
 pos 0x360
 rate 165.01
@@ -20,7 +20,6 @@ x-prop-colorspace Default
 x-prop-max_bpc 16
 x-prop-non_desktop 0
 x-prop-scaling_mode None
-x-prop-tearfree on
 x-prop-underscan off
 x-prop-underscan_hborder 0
 x-prop-underscan_vborder 0
