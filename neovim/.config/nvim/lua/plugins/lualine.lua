@@ -28,7 +28,7 @@ return {
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
-      lualine_x = { "encoding", "fileformat", "filetype" },
+      lualine_x = { "filetype" },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },
@@ -50,5 +50,3 @@ return {
     vim.opt.showmode = false
   end,
 }
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

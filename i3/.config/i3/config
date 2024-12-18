@@ -230,7 +230,7 @@ bindsym XF86Calculator exec --no-startup-id gnome-calculator
 
 # The display switch key is hardcoded to Win+p (the shortcut in windows to change display settings)
 # instead of emmiting its own keycode :D
-# bindsym XF86Display exec --no-startup-id autorandr --change
+bindsym XF86Display exec --no-startup-id autorandr --change
 bindsym Mod4+p exec --no-startup-id autorandr --change
 
 # vim: set ts=4 sts=4 sw=4 et

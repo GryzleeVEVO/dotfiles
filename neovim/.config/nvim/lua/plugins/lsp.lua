@@ -2,14 +2,23 @@ return {
   {
     -- Install and configure language servers
     "neovim/nvim-lspconfig",
+    version = "*",
 
     dependencies = {
       {
-        "williamboman/mason.nvim", -- Mason is a package manager for LSPs
+        -- Package manager for LSPs
+        "williamboman/mason.nvim",
+        version = "*",
+
         config = true,
       },
-      "williamboman/mason-lspconfig.nvim", -- Utilities for configued LSPs installed by Mason
-      "hrsh7th/cmp-nvim-lsp", -- Add LSP completion to cmp
+      {
+        -- Utilities for configued LSPs installed by Mason
+        "williamboman/mason-lspconfig.nvim",
+        version = "*",
+      },
+      -- Add LSP completion to cmp
+      "hrsh7th/cmp-nvim-lsp",
     },
 
     config = function()
@@ -23,10 +32,7 @@ return {
       local attach_ag = ag("lsp-config-attach", { clear = true })
 
       -- Install and configure this servers and tools on startup:
-      local servers = {
-        clangd = {},
-        lua_ls = {},
-      }
+      local servers = {}
 
       au("LspAttach", {
         group = attach_ag,
@@ -40,12 +46,16 @@ return {
           m("n", "gd", telescope.lsp_definitions, { desc = "[G]oto [D]efinition" })
           m("n", "gr", telescope.lsp_references, { desc = "[G]oto [R]eferences" })
           m("n", "gI", telescope.lsp_implementations, { desc = "[G]oto [I]mplementation" })
-          m("n", "<leader>D", telescope.lsp_type_definitions, { desc = "Type [D]efinition" })
-          m("n", "<leader>ds", telescope.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
-          m("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
-          m("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-          m({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
           m("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
+
+          -- m("n", "<leader>D", telescope.lsp_type_definitions, { desc = "Type [D]efinition" })
+          -- m("n", "<leader>ds", telescope.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
+          -- m("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+
+          m("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
+          m("n", "<F2>", vim.lsp.buf.rename, { desc = "[R]e[n]ame" }) -- VS code crutch
+
+          m({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
           -- Enable reference highlighting
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
@@ -103,6 +113,10 @@ return {
           end,
         },
       })
+
+      -- Configure tools manually
+      lspconfig.lua_ls.setup({})
+      lspconfig.gopls.setup({})
     end,
   },
   {
@@ -119,4 +133,3 @@ return {
   },
   { "Bilal2453/luvit-meta", lazy = true },
 }
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

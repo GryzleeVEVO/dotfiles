@@ -1,4 +1,5 @@
 return {
+  -- Automatically insert the closing parenthesis/quote/tag...
   "windwp/nvim-autopairs",
 
   dependencies = { "hrsh7th/nvim-cmp" },
