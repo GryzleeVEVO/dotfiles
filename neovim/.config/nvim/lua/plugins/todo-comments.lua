@@ -1,6 +1,7 @@
 return {
   -- Highlight TODO comments
   "folke/todo-comments.nvim",
+  version = "*",
 
   event = "VimEnter",
 

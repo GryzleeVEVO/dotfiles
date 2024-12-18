@@ -1,6 +1,8 @@
 return {
   -- Git signs
   "lewis6991/gitsigns.nvim",
+  version = "*",
+
   opts = {
     signs = {
       add = { text = "+" },
@@ -11,5 +13,3 @@ return {
     },
   },
 }
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

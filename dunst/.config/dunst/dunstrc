@@ -15,8 +15,8 @@
 
     # Show notifications on top center of screen
     width = 300
-    height = 300
-    offset = 10x50
+    height = (0, 150)
+    offset = (10,50)
     origin = top-center
     scale = 0
 
@@ -87,8 +87,6 @@
 
     # Paths to default icons (only necessary when not using recursive icon lookup)
     icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
-
-
 
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is

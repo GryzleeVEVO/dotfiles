@@ -1,6 +1,7 @@
 return {
   -- Easier autoformatting
   "stevearc/conform.nvim",
+  version = "*",
 
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
@@ -44,5 +45,3 @@ return {
     end,
   },
 }
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

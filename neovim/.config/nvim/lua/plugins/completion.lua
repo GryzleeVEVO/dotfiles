@@ -4,10 +4,13 @@ return {
 
   dependencies = {
     {
-      "L3MON4D3/LuaSnip", -- Snippet engine
+      -- Snippet engine
+      "L3MON4D3/LuaSnip",
+      version = "*",
 
       dependencies = {
         {
+          -- Get VS Code snippets
           "rafamadriz/friendly-snippets",
 
           config = function()
@@ -33,6 +36,7 @@ return {
 
   config = function()
     local cmp = require("cmp")
+    local mapping = cmp.mapping
     local luasnip = require("luasnip")
 
     luasnip.config.setup({})
@@ -47,33 +51,41 @@ return {
         completeopt = "menu,menuone,noinsert",
       },
 
-      mapping = cmp.mapping.preset.insert({
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete({}),
-        ["<C-l>"] = cmp.mapping(function()
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          end
-        end, { "i", "s" }),
-        ["<C-h>"] = cmp.mapping(function()
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          end
-        end, { "i", "s" }),
-      }),
-
       sources = {
-        { name = "lazydev", group_index = 0 }, -- Skip LuaLS
-        { name = "nvim_lsp" },
+        {
+          name = "lazydev",
+
+          -- Skip LuaLS
+          group_index = 0,
+        },
+        {
+          name = "nvim_lsp",
+
+          -- Remove text completions, they are pretty useless
+          entry_filter = function(entry, _)
+            return cmp.lsp.CompletionItemKind ~= entry:get_kind()
+          end,
+        },
         { name = "luasnip" },
         { name = "path" },
       },
+
+      mapping = mapping.preset.insert({
+        ["<C-j>"] = mapping.select_next_item(),
+        ["<C-k>"] = mapping.select_prev_item(),
+
+        ["<C-n>"] = mapping.select_next_item(),
+        ["<C-p>"] = mapping.select_prev_item(),
+
+        ["<C-b>"] = mapping.scroll_docs(-4),
+        ["<C-f>"] = mapping.scroll_docs(4),
+
+        ["<C-y>"] = mapping.confirm({ select = true }),
+        ["<Enter>"] = mapping.confirm({ select = true }),
+
+        -- Open completions menu
+        ["<C-Space>"] = mapping.complete({}),
+      }),
     })
   end,
 }
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

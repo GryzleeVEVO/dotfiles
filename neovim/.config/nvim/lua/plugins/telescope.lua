@@ -1,6 +1,7 @@
 return {
   -- Fuzzy Finder
   "nvim-telescope/telescope.nvim",
+  version = "*",
 
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -24,12 +25,41 @@ return {
     local telescope = require("telescope")
     local themes = require("telescope.themes")
     local builtin = require("telescope.builtin")
+    local actions = require("telescope.actions")
     local m = vim.keymap.set
 
     telescope.setup({
+      defaults = {
+        mappings = {
+          n = {
+            ["<Down>"] = actions.nop,
+            ["<Up>"] = actions.nop,
+            ["<Left>"] = actions.nop,
+            ["<Right>"] = actions.nop,
+          },
+          i = {
+            ["<Down>"] = actions.nop,
+            ["<Up>"] = actions.nop,
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+          },
+        },
+
+        -- Ignore this directories
+        file_ignore_patterns = {
+          ".git/",
+        },
+      },
+
       extensions = {
         ["ui-select"] = {
           themes.get_dropdown(),
+        },
+      },
+
+      pickers = {
+        find_files = {
+          hidden = true,
         },
       },
     })

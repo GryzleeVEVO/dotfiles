@@ -1,6 +1,9 @@
 return {
   -- Fancy color theme
   "ellisonleao/gruvbox.nvim",
+  version = "*",
+
+  priority = 1000,
 
   opts = {
     terminal_colors = true, -- add neovim terminal colors
@@ -33,5 +36,3 @@ return {
     vim.cmd([[colorscheme gruvbox]])
   end,
 }
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

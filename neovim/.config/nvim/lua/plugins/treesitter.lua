@@ -2,6 +2,7 @@ return {
   -- Text parser. Better syntax highlighting, indentation, code navigation...
   "nvim-treesitter/nvim-treesitter",
   version = "*",
+
   build = ":TSUpdate",
   main = "nvim-treesitter.configs", -- Call setup on this module
 
@@ -15,6 +16,7 @@ return {
       "html",
       "java",
       "javascript",
+      "jsdoc",
       "lua",
       "luadoc",
       "luap",
@@ -35,14 +37,16 @@ return {
   },
 
   init = function()
-    -- FOLDING
     -- Use Treesitter to determine what to fold
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
     -- Don't show folds column. indent-blankline does it inline
     vim.opt.foldcolumn = "0"
+
     -- Keep syntax highlighting
     vim.opt.foldtext = ""
+
     -- Don't autofold on open
     vim.opt.foldlevel = 99
   end,

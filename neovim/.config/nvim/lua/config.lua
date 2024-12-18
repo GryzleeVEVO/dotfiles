@@ -38,7 +38,7 @@ o.relativenumber = true
 o.signcolumn = "yes"
 
 -- Highlight cursor line
-o.cursorline = true
+-- o.cursorline = true
 
 -- Highlight columns
 o.colorcolumn = { 80, 100, 120 }
@@ -107,10 +107,10 @@ au("TextYankPost", {
 -- MISC
 
 -- Disable arrow keys
-m({ "n", "v" }, "<left>", "")
-m({ "n", "v" }, "<right>", "")
-m({ "n", "v" }, "<up>", "")
-m({ "n", "v" }, "<down>", "")
+m({ "n", "v", "i" }, "<left>", "")
+m({ "n", "v", "i" }, "<right>", "")
+m({ "n", "v", "i" }, "<up>", "")
+m({ "n", "v", "i" }, "<down>", "")
 
 -- formatoptions is reset by default plugins. Set them back with an autocmd
 au("BufEnter", {
