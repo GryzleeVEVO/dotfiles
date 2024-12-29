@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+if [[ ! -f "/etc/arch-release" ]]; then
+  return
+fi
+
+# p: install
+# prm: remove
+# pq: query all explicitly installed local packages
+# pqi: query info about a package
+# pqs: query installed package by name
+# pss: search in repositories by name
+# pcl: clean up non required packages
+# pcc: clean up cache
+
+if command -v yay >/dev/null; then
+  alias p='yay -Syu'
+  alias prm='yay -Rs'
+  alias pq='yay -Qe'
+  alias pqi="yay -Qi"
+  alias pqs='yay -Qss'
+  alias pss='yay -Ss'
+  alias pcl='yay -Rs $(yay -Qdtq)'
+  alias pcc='yay -Scc'
+elif command -v pacman >/dev/null; then
+  alias p='sudo pacman -Syu'
+  alias prm='sudo pacman -Rs'
+  alias pq='pacman -Qe'
+  alias pqi='pacman -Qi'
+  alias pqs='pacman -Qss'
+  alias pss='pacman -Ss'
+  alias pcl='sudo pacman -Rs $(pacman -Qdtq)'
+  alias pcc='sudo pacman -Scc'
+fi

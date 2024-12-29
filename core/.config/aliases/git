@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+alias g='git'
+alias ga='git add --all'
+alias gc='git commit --all --message'
+alias gb='git checkout'
+alias gp='git push'
+alias gpp='git pull'

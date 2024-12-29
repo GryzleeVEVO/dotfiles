@@ -54,7 +54,6 @@ return {
 
           m("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
           m("n", "<F2>", vim.lsp.buf.rename, { desc = "[R]e[n]ame" }) -- VS code crutch
-
           m({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
           -- Enable reference highlighting
