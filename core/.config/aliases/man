@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Colorized man pages
+man() {
+	# mb -> Blink
+	# md -> Bold
+	# so -> Standout (line bar and search match)
+	# us -> Underline
+	env \
+		LESS_TERMCAP_mb=$(printf '\033[1;38;5;229m') \
+		LESS_TERMCAP_md=$(printf '\033[1;38;5;216m') \
+		LESS_TERMCAP_so=$(printf '\033[1;38;5;3m') \
+		LESS_TERMCAP_us=$(printf '\033[4;1;38;5;222m') \
+		LESS_TERMCAP_me=$(printf '\033[0m') \
+		LESS_TERMCAP_se=$(printf '\033[0m') \
+		LESS_TERMCAP_ue=$(printf '\033[0m') \
+		GROFF_NO_SGR=1 \
+		man "$@"
+}

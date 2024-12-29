@@ -47,8 +47,10 @@ o.colorcolumn = { 80, 100, 120 }
 o.list = true
 o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
--- Preserve indentation when wrapping
+-- Keep wraps at indent+2. Try not to wrap in the middle of a word
 o.breakindent = true
+o.breakindentopt = { "shift:2" }
+o.linebreak = true
 
 -- Minimum number of lines below or above cursor
 o.scrolloff = 10

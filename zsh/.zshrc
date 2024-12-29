@@ -9,29 +9,16 @@
 # .aliases needs $0 to be the name of the shell
 unsetopt function_argzero
 
-if [[ -f "$HOME/.aliases" ]]; then
-    source "$HOME/.aliases"
-else
-    echo "Alias file not found"
-fi
+for alias in "$XDG_CONFIG_HOME/aliases/"*; do
+  [[ -f "$alias" ]] && source "$alias"
+done
 
 setopt function_argzero
 
-# Run antidote
-if [[ -f "/usr/share/zsh-antidote/antidote.zsh" ]]; then
-    source "/usr/share/zsh-antidote/antidote.zsh"
-    antidote load
-else
-    echo "Antidote (plugin manager) not found"
-    echo "Get it at https://getantidote.github.io"
-fi
 
-# Source nvm
-[[ -s /usr/share/nvm/init-nvm.sh ]] && source /usr/share/nvm/init-nvm.sh
-
-# Use vi mode
-bindkey -v
-export KEYTIMEOUT=1
+# # Use vi mode
+# bindkey -v
+# export KEYTIMEOUT=1
 
 ################################################################################
 # PROMPT                                                                       #
@@ -147,13 +134,16 @@ setopt nomatch
 # KEY BINDINGS                                                                 #
 ################################################################################
 
-# Disable terminal output control (Ctrl+S and Ctrl+Q)
-stty -ixon
+# # Disable terminal output control (Ctrl+S and Ctrl+Q)
+# stty -ixon
+#
+# # Use vim keybindings to navigate suggestions
+# zmodload zsh/complist
+# bindkey -M menuselect 'h' vi-backward-char
+# bindkey -M menuselect 'k' vi-up-line-or-history
+# bindkey -M menuselect 'l' vi-forward-char
+# bindkey -M menuselect 'j' vi-down-line-or-history
 
-# Use vim keybindings to navigate suggestions
-zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-
+if [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] ; then
+     source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi

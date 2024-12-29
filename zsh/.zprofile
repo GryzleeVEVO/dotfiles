@@ -1,7 +1,5 @@
 # Load profile
-emulate sh
-[ -f "$HOME/.profile" ] && . "$HOME/.profile"
-emulate zsh
+emulate sh -c "[ -f $HOME/.profile ] && . $HOME/.profile"
 
 # Load .zshrc
 [ -f "$HOME/.zshrc" ] && . "$HOME/.zshrc"
