@@ -3,7 +3,7 @@
 
 local o = vim.opt
 local g = vim.g
-local m = vim.keymap.set
+local map = vim.keymap.set
 local au = vim.api.nvim_create_autocmd
 local ag = vim.api.nvim_create_augroup
 local c = vim.cmd
@@ -72,7 +72,7 @@ o.ignorecase = true
 o.smartcase = true
 
 -- Clear search with Escape
-m("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 --------------------------------------------------------------------------------
 -- SPLITS
@@ -81,12 +81,12 @@ m("n", "<Esc>", "<cmd>nohlsearch<CR>")
 o.splitright = true
 o.splitbelow = true
 
-m("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-m("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-m("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-m("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
-m("n", "<C-q>", "<C-w><C-q>", { desc = "Close window" })
+map("n", "<C-q>", "<C-w><C-q>", { desc = "Close window" })
 
 --------------------------------------------------------------------------------
 -- YANKING
@@ -106,10 +106,14 @@ au("TextYankPost", {
 -- MISC
 
 -- Disable arrow keys
-m({ "n", "v", "i" }, "<left>", "")
-m({ "n", "v", "i" }, "<right>", "")
-m({ "n", "v", "i" }, "<up>", "")
-m({ "n", "v", "i" }, "<down>", "")
+map({ "n", "v", "i" }, "<left>", "")
+map({ "n", "v", "i" }, "<right>", "")
+map({ "n", "v", "i" }, "<up>", "")
+map({ "n", "v", "i" }, "<down>", "")
+
+-- Use Ctrl-j and Ctrl-k to scroll
+map("n", "<C-j>", "<C-d>")
+map("n", "<C-k>", "<C-u>")
 
 -- formatoptions is reset by default plugins. Set them back with an autocmd
 au("BufEnter", {
