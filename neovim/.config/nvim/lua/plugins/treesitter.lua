@@ -51,5 +51,3 @@ return {
     vim.opt.foldlevel = 99
   end,
 }
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab
