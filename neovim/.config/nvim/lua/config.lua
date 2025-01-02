@@ -58,10 +58,7 @@ o.scrolloff = 10
 --------------------------------------------------------------------------------
 -- INDENTATION
 
--- Treesitter is better at determining how to indent a file and guess-indent
--- at guessing the indentation of the current file
--- Per filetype defaults are provided in after/ftplugin
--- By default, just use 4-wide spaces instead of 8-wide tabs
+-- New file defaults. Treesitter and guess-indent are better at determining indents
 o.tabstop = 4
 o.softtabstop = 4
 o.shiftwidth = 4
@@ -132,5 +129,3 @@ au("BufWritePre", {
     vim.fn.setpos(".", cursor)
   end,
 })
-
--- vim: tabstop=2 softtabstop=2 shiftwidth=2 expandtab

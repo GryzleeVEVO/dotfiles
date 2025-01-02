@@ -1,3 +1,38 @@
+local function setKeymaps()
+  local builtin = require("telescope.builtin")
+  local map = vim.keymap.set
+
+  -- Files
+  map("n", "<leader>sf", function()
+    if os.execute("git rev-parse --is-inside-work-tree") == 0 then
+      builtin.git_files()
+    else
+      builtin.find_files()
+    end
+  end, { desc = "[S]earch [F]iles" })
+
+  map("n", "<leader>sF", function()
+    builtin.find_files({ hidden = true })
+  end, { desc = "[S]earch all [F]iles" })
+
+  -- Buffers
+  map("n", "<leader>sb", builtin.buffers, { desc = "[S]earch active [B]uffers" })
+
+  -- Grep search
+  map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+  map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+
+  -- Diagnostics
+  map("n", "<leader>d", builtin.diagnostics, { desc = "Search [D]iagnostics" })
+  map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+  -- <leader>D: Show diagnostics message
+
+  -- Keymaps
+  map("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+
+  map("n", "<leader>ss", builtin.builtin, { desc = "[SS] Select Telescope picker" })
+end
+
 return {
   -- Fuzzy Finder
   "nvim-telescope/telescope.nvim",
@@ -24,9 +59,7 @@ return {
   config = function()
     local telescope = require("telescope")
     local themes = require("telescope.themes")
-    local builtin = require("telescope.builtin")
     local actions = require("telescope.actions")
-    local m = vim.keymap.set
 
     telescope.setup({
       defaults = {
@@ -44,11 +77,6 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
           },
         },
-
-        -- Ignore this directories
-        file_ignore_patterns = {
-          ".git/",
-        },
       },
 
       extensions = {
@@ -58,8 +86,8 @@ return {
       },
 
       pickers = {
-        find_files = {
-          hidden = true,
+        git_files = {
+          show_untracked = true,
         },
       },
     })
@@ -68,28 +96,6 @@ return {
     pcall(telescope.load_extension, "fzf")
     pcall(telescope.load_extension, "ui-select")
 
-    -- See `:help telescope.builtin`
-    m("n", "<leader>f", builtin.find_files, { desc = "Search [F]iles" })
-    --m("n", "<leader>ss", builtin.builtin, { desc = "Search [S]elect Telescope" })
-    --m("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-    --m("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-    m("n", "<leader>d", builtin.diagnostics, { desc = "Search [D]iagnostics" })
-    --m("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-    --m("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    m("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
-    -- m("n", "<leader>/", function()
-    --   builtin.current_buffer_fuzzy_find(themes.get_dropdown({
-    --     winblend = 10,
-    --     previewer = false,
-    --   }))
-    -- end, { desc = "[/] Fuzzily search in current buffer" })
-
-    -- m("n", "<leader>s/", function()
-    --   builtin.live_grep({
-    --     grep_open_files = true,
-    --     prompt_title = "Live Grep in Open Files",
-    --   })
-    -- end, { desc = "[S]earch [/] in Open Files" })
+    setKeymaps()
   end,
 }

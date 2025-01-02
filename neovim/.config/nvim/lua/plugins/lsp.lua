@@ -1,3 +1,50 @@
+-- Download and configure this servers with Mason
+local mason_servers = {
+  lua_ls = {},
+  gopls = {},
+}
+
+local ensure_installed = {}
+for k, _ in pairs(mason_servers) do
+  ensure_installed[#ensure_installed + 1] = k
+end
+
+-- Configure this servers if locally installed
+local local_servers = {
+  clangd = {},
+}
+
+local function setKeymaps()
+  local map = vim.keymap.set
+  local buf = vim.lsp.buf
+  local builtin = require("telescope.builtin")
+
+  -- Go-to
+  map("n", "gd", builtin.lsp_definitions, { desc = "[G]oto [D]efinition" })
+  map("n", "gr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
+  map("n", "gI", builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
+  -- map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Goto Type [D]efinition" })
+  -- gf = goto file
+
+  -- Symbol search
+  map("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
+  map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+  map("n", "<C-p>", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+
+  -- Diagnostics
+  map("n", "<leader>D", vim.diagnostic.open_float, { desc = "Show [D]iagnostic message" })
+  -- <leader>d = show diagnostics list
+
+  -- Rename
+
+  map("n", "<leader>rn", buf.rename, { desc = "[R]e[n]ame" })
+  map("n", "<F2>", buf.rename, { desc = "[R]e[n]ame" })
+
+  -- Code actions
+  map({ "n", "x" }, "<leader>ca", buf.code_action, { desc = "[C]ode [A]ction" })
+  map({ "n", "x" }, "<leader>a", buf.code_action, { desc = "[C]ode [A]ction" })
+end
+
 return {
   {
     -- Install and configure language servers
@@ -24,37 +71,45 @@ return {
     config = function()
       local cmp = require("cmp_nvim_lsp")
       local lspconfig = require("lspconfig")
-      local mason = require("mason")
-      local mason_lsp = require("mason-lspconfig")
       local m = vim.keymap.set
       local au = vim.api.nvim_create_autocmd
       local ag = vim.api.nvim_create_augroup
       local attach_ag = ag("lsp-config-attach", { clear = true })
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-      -- Install and configure this servers and tools on startup:
-      local servers = {}
+      setKeymaps()
 
+      -- Let LSP know cmp is available
+      capabilities = vim.tbl_deep_extend("force", capabilities, cmp.default_capabilities())
+
+      -- Set up Mason and install missing tools
+      require("mason").setup()
+
+      require("mason-lspconfig").setup({
+        ensure_installed = ensure_installed,
+        automatic_installation = false,
+        handlers = {
+          function(server)
+            local config = mason_servers[server] or {}
+            config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+            lspconfig[server].setup(config)
+          end,
+        },
+      })
+
+      -- Set up local tools
+      for server, config in pairs(local_servers) do
+        config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+        lspconfig[server].setup(config)
+      end
+
+      -- Setup attach behaviour
       au("LspAttach", {
         group = attach_ag,
         desc = "Configure attached LSP",
 
         callback = function(event)
-          local telescope = require("telescope.builtin")
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-          -- Setup keymaps
-          m("n", "gd", telescope.lsp_definitions, { desc = "[G]oto [D]efinition" })
-          m("n", "gr", telescope.lsp_references, { desc = "[G]oto [R]eferences" })
-          m("n", "gI", telescope.lsp_implementations, { desc = "[G]oto [I]mplementation" })
-          m("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
-
-          -- m("n", "<leader>D", telescope.lsp_type_definitions, { desc = "Type [D]efinition" })
-          -- m("n", "<leader>ds", telescope.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
-          -- m("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
-
-          m("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-          m("n", "<F2>", vim.lsp.buf.rename, { desc = "[R]e[n]ame" }) -- VS code crutch
-          m({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
           -- Enable reference highlighting
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
@@ -96,39 +151,23 @@ return {
           end
         end,
       })
-
-      -- Let LSP know cmp is available
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, cmp.default_capabilities())
-
-      -- Configure Mason and install missing tools
-      mason.setup()
-      mason_lsp.setup({
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            lspconfig[server_name].setup(server)
-          end,
-        },
-      })
-
-      -- Configure tools manually
-      lspconfig.lua_ls.setup({})
-      lspconfig.gopls.setup({})
     end,
   },
   {
     -- Lua LSP configuration
     "folke/lazydev.nvim",
-
     version = "*",
+
     ft = "lua",
+
     opts = {
       library = {
         { path = "luvit-meta/library", words = { "vim%.uv" } }, -- Vim's libUV bindings
       },
     },
   },
-  { "Bilal2453/luvit-meta", lazy = true },
+  {
+    "Bilal2453/luvit-meta",
+    lazy = true,
+  },
 }
