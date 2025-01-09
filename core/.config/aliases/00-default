@@ -9,15 +9,13 @@ alias o='xdg-open'
 alias open='xdg-open'
 
 # $EDITOR must be set
-alias e="$EDITOR"
+alias e='$EDITOR'
 
 # Use all available cores for make.
 alias make='make --jobs=$(nproc)'
 alias m='make'
 
 alias py='python'
-
-alias s='ssh'
 
 # A vim-like TUI file explorer
 alias ra='ranger'
@@ -94,6 +92,6 @@ alias f='find'
 alias grep='grep --color=auto'
 alias egrep='grep --extended-regexp'
 
-alias less='less -R'
+alias less='less -R --use-color'
 
 alias ip='ip --human-readable --color=auto'
