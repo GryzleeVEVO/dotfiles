@@ -1,48 +1,13 @@
 -- Download and configure this servers with Mason
-local mason_servers = {
-  lua_ls = {},
-  gopls = {},
-}
+local map = vim.keymap.set
+local au = vim.api.nvim_create_autocmd
+local ag = vim.api.nvim_create_augroup
+local tools = require("tools")
+local keybinds = require("plugin-keybinds")
 
 local ensure_installed = {}
-for k, _ in pairs(mason_servers) do
+for k, _ in pairs(tools.servers) do
   ensure_installed[#ensure_installed + 1] = k
-end
-
--- Configure this servers if locally installed
-local local_servers = {
-  clangd = {},
-}
-
-local function setKeymaps()
-  local map = vim.keymap.set
-  local buf = vim.lsp.buf
-  local builtin = require("telescope.builtin")
-
-  -- Go-to
-  map("n", "gd", builtin.lsp_definitions, { desc = "[G]oto [D]efinition" })
-  map("n", "gr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
-  map("n", "gI", builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
-  -- map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Goto Type [D]efinition" })
-  -- gf = goto file
-
-  -- Symbol search
-  map("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
-  map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
-  map("n", "<C-p>", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
-
-  -- Diagnostics
-  map("n", "<leader>D", vim.diagnostic.open_float, { desc = "Show [D]iagnostic message" })
-  -- <leader>d = show diagnostics list
-
-  -- Rename
-
-  map("n", "<leader>rn", buf.rename, { desc = "[R]e[n]ame" })
-  map("n", "<F2>", buf.rename, { desc = "[R]e[n]ame" })
-
-  -- Code actions
-  map({ "n", "x" }, "<leader>ca", buf.code_action, { desc = "[C]ode [A]ction" })
-  map({ "n", "x" }, "<leader>a", buf.code_action, { desc = "[C]ode [A]ction" })
 end
 
 return {
@@ -71,13 +36,8 @@ return {
     config = function()
       local cmp = require("cmp_nvim_lsp")
       local lspconfig = require("lspconfig")
-      local m = vim.keymap.set
-      local au = vim.api.nvim_create_autocmd
-      local ag = vim.api.nvim_create_augroup
       local attach_ag = ag("lsp-config-attach", { clear = true })
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      setKeymaps()
 
       -- Let LSP know cmp is available
       capabilities = vim.tbl_deep_extend("force", capabilities, cmp.default_capabilities())
@@ -90,7 +50,7 @@ return {
         automatic_installation = false,
         handlers = {
           function(server)
-            local config = mason_servers[server] or {}
+            local config = tools.servers[server] or {}
             config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
             lspconfig[server].setup(config)
           end,
@@ -98,7 +58,7 @@ return {
       })
 
       -- Set up local tools
-      for server, config in pairs(local_servers) do
+      for server, config in pairs(tools.local_servers) do
         config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
         lspconfig[server].setup(config)
       end
@@ -110,6 +70,8 @@ return {
 
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+          keybinds.lsp()
 
           -- Enable reference highlighting
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
@@ -145,7 +107,7 @@ return {
 
           -- Toggle inlay hints (like field names)
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            m("n", "<leader>th", function()
+            map("n", "<leader>th", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, { desc = "[T]oggle inlay [H]ints" })
           end

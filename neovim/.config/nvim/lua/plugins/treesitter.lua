@@ -7,23 +7,7 @@ return {
   main = "nvim-treesitter.configs", -- Call setup on this module
 
   opts = {
-    ensure_installed = {
-      "bash",
-      "c",
-      "cpp",
-      "css",
-      "csv",
-      "html",
-      "java",
-      "javascript",
-      "jsdoc",
-      "lua",
-      "luadoc",
-      "luap",
-      "make",
-      "python",
-      "typescript",
-    },
+    ensure_installed = require("tools").parsers,
 
     auto_install = true,
 
