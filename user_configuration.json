@@ -1,0 +1,56 @@
+{
+  "additional-repositories": ["multilib"],
+  "archinstall-language": "English",
+  "audio_config": {
+    "audio": "pipewire"
+  },
+  "bootloader": "Grub",
+  "config_version": "3.0.1",
+  "disk_config": {
+    "config_type": "pre_mounted_config",
+    "mountpoint": "/mnt"
+  },
+  "disk_encryption": null,
+  "hostname": "turboportatilaco",
+  "kernels": ["linux"],
+  "locale_config": {
+    "kb_layout": "es",
+    "sys_enc": "UTF-8",
+    "sys_lang": "en_GB.UTF-8"
+  },
+  "mirror_config": null,
+  "network_config": {
+    "type": "nm"
+  },
+  "ntp": true,
+  "packages": [
+    "linux-headers",
+    "amd-ucode",
+    "os-prober",
+
+    "man-db",
+    "man-pages",
+
+    "openssh",
+
+    "git",
+    "stow",
+    "neovim",
+    "zsh"
+  ],
+  "parallel downloads": 150,
+  "profile_config": {
+    "gfx_driver": null,
+    "greeter": null,
+    "profile": {
+      "custom_settings": {},
+      "details": [],
+      "main": "Minimal"
+    }
+  },
+  "save_config": null,
+  "swap": false,
+  "timezone": "Europe/Madrid",
+  "uki": false,
+  "version": "3.0.1"
+}
