@@ -1,3 +1,5 @@
+local keybinds = require("plugin-keybinds")
+
 return {
   -- Autocompletion
   "hrsh7th/nvim-cmp",
@@ -70,22 +72,7 @@ return {
         { name = "path" },
       },
 
-      mapping = mapping.preset.insert({
-        ["<C-j>"] = mapping.select_next_item(),
-        ["<C-k>"] = mapping.select_prev_item(),
-
-        ["<C-n>"] = mapping.select_next_item(),
-        ["<C-p>"] = mapping.select_prev_item(),
-
-        ["<C-b>"] = mapping.scroll_docs(-4),
-        ["<C-f>"] = mapping.scroll_docs(4),
-
-        ["<C-y>"] = mapping.confirm({ select = true }),
-        ["<Enter>"] = mapping.confirm({ select = true }),
-
-        -- Open completions menu
-        ["<C-Space>"] = mapping.complete({}),
-      }),
+      mapping = keybinds.cmp_menu(),
     })
   end,
 }
