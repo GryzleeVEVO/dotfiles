@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+alias s='ssh'
+
+# Mount directory through ssh without hangs
+sshmnt() {
+    if ! command -v sshfs >/dev/null; then
+        echo "sshfs not found"
+        return
+    fi
+
+    if [ $# -eq 0 ]; then
+        echo "Usage: sshmnt [user@]hostname:[directory] mountpoint [extra_options]"
+    fi
+
+    host="$1"
+    dir="$2"
+    opts="$3"
+
+    # Kill mount if server does not respond within ~10s
+    sshfs "$host" "$dir" \
+        -o ConnectTimeout=3 \
+        -o ConnectionAttempts=1 \
+        -o ServerAliveInterval=3 \
+        -o ServerAliveCountMax=3 \
+        $opts ||
+        echo "FAILED TO MOUNT"
+}
+
+alias sshumnt="fusermount -u"

@@ -5,19 +5,21 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Use vim keybindings
+# Use vim keybindings. Mapping is configured by readline.
 set -o vi
 
-# Reset window size after each command
+# Update LINES and COLUMNS after each command
 shopt -s checkwinsize
 
 # History file
-[[ ! -z "$XDG_CACHE_HOME" ]] && HISTFILE="$XDG_CACHE_HOME/history" || HISTFILE="$HOME/.history"
+[[ -n "$XDG_CACHE_HOME" ]] &&
+  HISTFILE="$XDG_CACHE_HOME/history" ||
+  HISTFILE="$HOME/.history"
 
 # Don't store duplicates or lines starting with space
 HISTCONTROL=erasedups:ignoreboth
 
-# Ignore one and two character commands, as well as some common commands
+# Ignore 1-3 character commands, as well as some common commands
 HISTIGNORE="?:??:clr:cls:exit:quit:history"
 
 # History file size
@@ -32,7 +34,7 @@ PROMPT_COMMAND="history -a"
 # Append to history file instead of overwriting
 shopt -s histappend
 
-# Put failed history substitution back on prompt
+# Put failed history substitution back in prompt
 shopt -s histreedit
 
 # Don't execute history substitution immediately
@@ -47,23 +49,27 @@ shopt -s globstar
 # Case insensitive globbing
 shopt -s nocaseglob
 
-# Don't complete empty prompt
+# Don't show completions for an empty prompt
 shopt -s no_empty_cmd_completion
 
-# Automatically cd into directories
+# If command is directory, cd into it
 [[ "${BASH_VERSINFO[0]}" -ge 4 ]] && shopt -s autocd
 
 # Allow programmable completion of aliases
 [[ "${BASH_VERSINFO[0]}" -ge 5 ]] && shopt -s progcomp_alias
 
-[[ -f "$XDG_CONFIG_HOME/prompts/prompt.bash" ]] && . "$XDG_CONFIG_HOME/prompts/prompt.bash"
+[[ -f "$XDG_CONFIG_HOME/prompts/prompt.bash" ]] &&
+  . "$XDG_CONFIG_HOME/prompts/prompt.bash"
 
 for alias in "$XDG_CONFIG_HOME/aliases/"*; do
   [[ -f "$alias" ]] && . "$alias"
 done
 
-[[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] && eval "$(dircolors $XDG_CONFIG_HOME/dircolors/dircolors)"
+[[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] &&
+  eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
 
-[[ -f "/usr/share/nvm/init-nvm.sh" ]] && . "/usr/share/nvm/init-nvm.sh"
+[[ -f "/usr/share/nvm/init-nvm.sh" ]] &&
+  . "/usr/share/nvm/init-nvm.sh"
 
+# Just to have #? set to 0
 :
