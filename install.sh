@@ -23,20 +23,6 @@ else
 fi
 
 core_packages=(
-  base
-  base-devel
-  linux
-  linux-firmware
-  linux-headers
-  amd-ucode
-  efibootmgr
-  os-prober
-  grub
-
-  # Man
-  man-db
-  man-pages
-
   # Pacman
   pacman-contrib
   pkgfile
@@ -90,8 +76,8 @@ video_packages=(
 network_packages=(
   networkmanager
 
-  openssh
-  wget  # Download
+  # openssh
+  # wget  # Download
   whois # Query DNS
   wol   # Wake-on-lan
 )
@@ -107,7 +93,6 @@ fs_packages=(
   rsync      # Incremental file transfers
   udisks2
   udiskie # Automounting daemon
-
 )
 
 printer_packages=(
@@ -149,7 +134,10 @@ desktop_packages=(
   xclip
 
   # Display manager
-  ly
+  # ly
+  sddm
+  qt6-5compat
+  qt6-multimedia
 
   # i3 and tools
   arandr
@@ -235,3 +223,15 @@ yay -Syu --needed --noconfirm \
   "${fonts_packages[@]}" \
   "${fancy_packages[@]}" \
   "${dev_packages[@]}"
+
+# Stow installed?
+hash -r
+if ! command -v stow &>/dev/null; then
+  yay -S --needed --noconfirm stow
+  hash -r
+fi
+
+# TODO: Stow!
+
+sudo systemctl enable --now sddm
+sudo systemctl enable --now reflector.timer
