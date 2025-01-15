@@ -1,26 +1,16 @@
 #!/usr/bin/env bash
 
-# First, install yay
-if ! command -v yay &>/dev/null; then
-  sudo pacman -S --needed --noconfirm base-devel git
-  temp_yay_dir=$(mktemp -d)
-  git clone "https://aur.archlinux.org/yay-bin.git" "${temp_yay_dir}"
-  cd "${temp_yay_dir}" || exit
-  makepkg -si
-  cd - || exit
-  hash -r
-
-  if ! command -v yay &>/dev/null; then
-    echo "Something went wrong, couldn't install yay"
-    exit 1
-  fi
-
-  unset temp_yay_dir
-
-  echo -e "\nyay installed. Yay!!!!n"
-else
-  echo -e "\nyay already installed. Yay!!!!\n"
-fi
+# OBJECTIVES
+# - Install packages
+#
+# - Stow dotfiles
+#   - Need stow for that
+#   - What modules to install?
+#   - How to handle files already present
+#
+# - Install etc files
+#
+# - Start services
 
 core_packages=(
   # Pacman
@@ -211,27 +201,132 @@ dev_packages=(
   qemu-base
 )
 
-yay -Syu --needed --noconfirm \
-  "${core_packages[@]}" \
-  "${audio_packages[@]}" \
-  "${video_packages[@]}" \
-  "${network_packages[@]}" \
-  "${bluetooth_packages[@]}" \
-  "${fs_packages[@]}" \
-  "${printer_packages[@]}" \
-  "${desktop_packages[@]}" \
-  "${fonts_packages[@]}" \
-  "${fancy_packages[@]}" \
-  "${dev_packages[@]}"
+export selected_profile
+export install_etc=0
 
-# Stow installed?
-hash -r
-if ! command -v stow &>/dev/null; then
-  yay -S --needed --noconfirm stow
-  hash -r
-fi
+parse_args() {
+  # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    "-p" | "--profile")
+      selected_profile="$2"
+      shift 2
+      ;;
+    "-e" | "--etc")
+      install_etc=1
+      shift
+      ;;
+    "--*" | "-*")
+      echo "ERR: Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1")
+      shift 1
+      ;;
+    esac
+  done
+}
 
-# TODO: Stow!
+install_yay() {
+  if ! command -v yay &>/dev/null; then
+    echo -e "\n### INSTALLING YAY DEPENDENCIES (needs privileges) ###\n"
+    sudo pacman -S --needed --noconfirm base-devel git
+    hash -r
 
-sudo systemctl enable --now sddm
-sudo systemctl enable --now reflector.timer
+    echo -e "\n### INSTALLING YAY ###\n"
+    temp_yay_dir=$(mktemp -d)
+    git clone "https://aur.archlinux.org/yay-bin.git" "${temp_yay_dir}"
+    cd "${temp_yay_dir}" || exit 60
+    makepkg -si
+    hash -r
+    cd - || exit 60
+  else
+    echo -e "\n### YAY ALREADY INSTALLED ###\n"
+  fi
+}
+
+install_packages() {
+  install_optional_packages() {
+    echo
+    read -p "Need $1? [y/n]" -n 1 -r
+    echo
+    shift
+
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      yay -S --needed --noconfirm "$@"
+    fi
+  }
+
+  case ${selected_profile} in
+  "core")
+    yay -S --needed --noconfirm \
+      "${core_packages[@]}" \
+      "${network_packages[@]}" \
+      "${fs_packages[@]}" \
+      "${dev_packages[@]}"
+    ;;
+  "desktop")
+    yay -S --needed --noconfirm \
+      "${core_packages[@]}" \
+      "${network_packages[@]}" \
+      "${fs_packages[@]}" \
+      "${audio_packages[@]}" \
+      "${video_packages[@]}" \
+      "${desktop_packages[@]}" \
+      "${fonts_packages[@]}" \
+      "${fancy_packages[@]}"
+
+    install_optional_packages "bluetooth" "${bluetooth_packages[@]}"
+    install_optional_packages "a printer/scanner" "${printer_packages[@]}"
+    ;;
+  *) echo "WARN: Unknown profile, ignoring" ;;
+  esac
+}
+
+install_stow() {
+  if ! command -v stow &>/dev/null; then
+    echo -e "\n### INSTALLING STOW ###\n"
+    yay -S --needed --noconfirm stow
+    hash -r
+  else
+    echo -e "\n### STOW ALREADY INSTALLED ###\n"
+  fi
+}
+
+install_dotfiles() {
+  install_stow
+
+  install_dotfile_packages() {
+    if stow -nvt "${HOME}" "$@"; then
+      stow -vt "${HOME}" "$@" && echo -e "\n### PACKAGES INSTALLED ###\n"
+    else
+      echo -e "\n### FAILED TO INSTALL PACKAGES ###\n"
+    fi
+  }
+
+  case ${selected_profile} in
+  "core") install_dotfile_packages core bash zsh ;;
+  "desktop") install_dotfile_packages core bash zsh neovim desktop ;;
+  *) echo "WARN: Unknown profile, ignoring" ;;
+  esac
+
+}
+
+install_etc_files() {
+  echo "NOT IMPLEMENTED"
+}
+
+start_systemd_services() {
+  echo "NOT IMPLEMENTED"
+}
+
+parse_args "$@"
+
+# Always check for yay first
+install_yay
+
+install_dotfiles
+install_packages
+
+[[ ${install_etc} -ne 0 ]] && install_etc_files

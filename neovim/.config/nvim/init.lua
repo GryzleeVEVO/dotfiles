@@ -34,3 +34,11 @@ require("lazy").setup({
     notify = false,
   },
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Sync Lazy plugins in background",
+
+  callback = function()
+    require("lazy").sync({ show = false })
+  end,
+})

@@ -3,7 +3,7 @@ return {
   "folke/todo-comments.nvim",
   version = "*",
 
-  event = "VimEnter",
+  event = "BufEnter",
 
   dependencies = {
     "nvim-lua/plenary.nvim",

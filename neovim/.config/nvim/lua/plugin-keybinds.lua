@@ -26,12 +26,14 @@ return {
   end,
 
   neotree = function()
-    map("n", "<leader>e", ":Neotree toggle<CR>", {
+    map("n", "<leader>e", "<cmd>Neotree toggle<CR>", {
       desc = "Open [e]xplorer",
+      silent = true,
     })
 
-    map("n", "<leader>E", ":Neotree toggle current <CR>", {
+    map("n", "<leader>E", "<cmd>Neotree toggle current <CR>", {
       desc = "Open [E]xplorer on current window",
+      silent = true,
     })
   end,
 
