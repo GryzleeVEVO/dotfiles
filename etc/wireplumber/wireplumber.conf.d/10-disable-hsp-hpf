@@ -1,0 +1,12 @@
+# https://wiki.archlinux.org/title/bluetooth_headset#Disable_PipeWire_HSP/HFP_profile
+# Disable HSP/HFP (hands-free mode) profiles and automatic switching of
+# profiles, since they have lower quality audio. Only caveat: it disables the
+# headset microphone.
+
+wireplumber.settings = {
+  bluetooth.autoswitch-to-headset-profile = false
+}
+
+monitor.bluez.properties = {
+  bluez5.roles = [ a2dp_sink a2dp_source ]
+}

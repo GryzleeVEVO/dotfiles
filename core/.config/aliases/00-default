@@ -20,6 +20,10 @@ alias py='python'
 # A vim-like TUI file explorer
 alias ra='ranger'
 
+# Tmux is a terminal multiplexer
+alias t='tmux'
+alias ta='tmux attach'
+
 # ------------------------------------------------------------------------------
 # Administration                                                               |
 # ------------------------------------------------------------------------------

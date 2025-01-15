@@ -111,6 +111,14 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, { desc = "[T]oggle inlay [H]ints" })
           end
+
+          -- Toggle
+          if client and client.name == "clangd" then
+            map("n", "<leader>h", "<cmd>ClangdSwitchSourceHeader<CR>", {
+              desc = "C/C++: Switch [h]eaders",
+              silent = true,
+            })
+          end
         end,
       })
     end,

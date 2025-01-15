@@ -4,6 +4,8 @@ return {
   -- List of LSP installed by Mason
   servers = {
     bashls = {},
+    docker_compose_language_service = {},
+    dockerls = {},
     gopls = {},
     html = {},
     java_language_server = {},
@@ -15,7 +17,9 @@ return {
 
   -- List of LSP *not* installed by Mason
   local_servers = {
-    clangd = {},
+    clangd = {
+      cmd = { "clangd", "--background-index", "--clang-tidy" },
+    },
   },
 
   -- List of formatters configured by Conform
@@ -23,13 +27,16 @@ return {
     bash = { "shfmt" },
     c = { "clang_format", lsp_format = "never" },
     cpp = { "clang_format", lsp_format = "never" },
-    html = { "prettierd", "prettier" },
-    css = { "prettierd", "prettier" },
+    css = { "prettierd" },
+    html = { "prettierd" },
+    javascript = { "prettierd" },
+    javascriptreact = { "prettierd" },
+    json = { "prettierd" },
     lua = { "stylua" },
-    javascript = { "prettierd", "prettier" },
-    json = { "prettierd", "prettier" },
+    python = { "autopep8" },
     sh = { "shfmt" },
-    typescript = { "prettierd", "prettier" },
+    typescript = { "prettierd" },
+    typescriptreact = { "prettierd" },
     zsh = { "shfmt" },
   },
 
@@ -45,6 +52,7 @@ return {
     "cpp",
     "css",
     "csv",
+    "dockerfile",
     "html",
     "java",
     "javascript",
@@ -55,12 +63,17 @@ return {
     "make",
     "python",
     "typescript",
+    "yaml",
   },
 
   -- Linters to be used by nvim-lint
   linters = {
-    typescript = { "eslint_d" },
     bash = { "shellcheck" },
+    javascript = { "eslint_d" },
+    javascriptreact = { "eslint_d" },
+    python = { "flake8" },
+    typescript = { "eslint_d" },
+    typescriptreact = { "eslint_d" },
   },
 
   -- This linters will not be installed by Mason

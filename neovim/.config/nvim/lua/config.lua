@@ -106,9 +106,19 @@ o.clipboard = "unnamedplus"
 
 au("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
-  group = ag("qol-highlight-yank", { clear = true }),
+  group = ag("qol-highlight", { clear = true }),
 
   callback = function()
     vim.highlight.on_yank()
   end,
+})
+
+-- MISC
+
+au({ "BufRead", "BufNewFile" }, {
+  desc = "Fix filetype for Docker Compose files",
+  group = ag("qol-filetypes", { clear = true }),
+  pattern = "*docker-compose*.{yml,yaml}",
+
+  command = "set filetype=yaml.docker-compose",
 })
