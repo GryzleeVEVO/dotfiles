@@ -9,7 +9,7 @@ return {
     gopls = {},
     html = {},
     java_language_server = {},
-    jsonls = {},
+    jsonls = { },
     lua_ls = {},
     pyright = {},
     ts_ls = {},

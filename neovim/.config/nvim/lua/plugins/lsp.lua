@@ -31,6 +31,26 @@ return {
       },
       -- Add LSP completion to cmp
       "hrsh7th/cmp-nvim-lsp",
+
+      -- Pull SchemaStore for JSON, YAML, TOML... tag info
+      {
+
+        "b0o/schemastore.nvim",
+        config = function()
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+          capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+          tools.servers.jsonls = {
+            capabilities = capabilities,
+            settings = {
+              json = {
+                schemas = require("schemastore").json.schemas(),
+                validate = { enable = true },
+              },
+            },
+          }
+        end,
+      },
     },
 
     config = function()
