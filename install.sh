@@ -295,6 +295,13 @@ install_stow() {
 }
 
 install_dotfiles() {
+  mkdir -p "$HOME/.config" \
+    "$HOME/.cache" \
+    "$HOME/.local" \
+    "$HOME/.local/bin" \
+    "$HOME/.local/share" \
+    "$HOME/.local/state"
+
   install_stow
 
   install_dotfile_packages() {

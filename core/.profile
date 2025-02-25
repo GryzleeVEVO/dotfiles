@@ -38,6 +38,9 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 # JetBrains
 export PATH="$PATH:$XDG_DATA_HOME/JetBrains/Toolbox/scripts"
 
+# Less
+export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
+
 # Node JS
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NODE_REPL_HISTORY="$XDG_CACHE_HOME/node_repl_history"
@@ -48,6 +51,7 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 
 # Python
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PYTHON_HISTORY="$XDG_CACHE_HOME/python_history" # For Python >= 3.13
 
 # Qt
 export QT_QPA_PLATFORMTHEME="qt6ct"
