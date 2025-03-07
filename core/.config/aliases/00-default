@@ -56,7 +56,7 @@ alias :wq='exit'
 
 alias h='history'
 
-alias ls='ls --human-readable --classify --group-directories-first --color=auto'
+alias ls='ls --human-readable --classify --group-directories-first --color=auto --hyperlink=auto'
 alias l='ls'
 alias la='ls --almost-all'
 alias ll='ls -l --almost-all'

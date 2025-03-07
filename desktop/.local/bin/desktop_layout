@@ -2,7 +2,7 @@
 
 # Set screen layout for external displays only
 xrandr \
-    --output eDP --off \
+    --output eDP-1 --off \
     --output DP-1-0 --off \
     --output DP-1-1 --off \
     --output DP-1-2 --primary --mode 2560x1440 --pos 1920x0 --rotate normal \

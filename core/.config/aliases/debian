@@ -1,5 +1,27 @@
 #!/usr/bin/env sh
 
-if [ ! -f "/etc/debian-version" ]; then
+if [ ! -f "/etc/debian_version" ]; then
   return
 fi
+
+# p: install
+# prm: remove
+# pq: query all explicitly installed local packages
+# pqi: query info about a package
+# pqs: query installed package by name
+# pss: search in repositories by name
+# pcl: clean up non required packages
+# pcc: clean up cache
+# alias p='sudo apt update && sudo apt install --update'
+
+p() {
+	sudo apt upgrade --update --yes
+	[ $# -ne 0 ] && sudo apt install "$@"
+}
+alias prm='sudo apt remove --autoremove'
+alias pq="apt list --installed | grep [apt list --installed | grep --extended-regexp --invert-match '\[(.*,)*automatic]$'"
+alias pqi='apt show'
+#alias pqs=
+#alias pss=
+alias pcl='sudo apt autoremove'
+#alias pcc=

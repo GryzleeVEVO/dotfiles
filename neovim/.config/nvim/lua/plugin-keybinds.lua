@@ -18,7 +18,7 @@ return {
       ["<C-f>"] = mapping.scroll_docs(4),
 
       ["<C-y>"] = mapping.confirm({ select = true }),
-      ["<Enter>"] = mapping.confirm({ select = true }),
+      -- ["<Enter>"] = mapping.confirm({ select = true }),
 
       -- Open completions menu
       ["<C-Space>"] = mapping.complete({}),
