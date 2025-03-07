@@ -15,7 +15,8 @@ fi
 # alias p='sudo apt update && sudo apt install --update'
 
 p() {
-	sudo apt upgrade --update --yes
+	sudo apt update
+	sudo apt upgrade --yes
 	[ $# -ne 0 ] && sudo apt install "$@"
 }
 alias prm='sudo apt remove --autoremove'
