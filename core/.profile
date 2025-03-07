@@ -69,3 +69,4 @@ export PAGER='less'
 
 # Load bashrc in case login is also interactive
 [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+
