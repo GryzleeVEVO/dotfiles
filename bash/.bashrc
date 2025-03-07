@@ -8,6 +8,9 @@
 # Use vim keybindings. Mapping is configured by readline.
 set -o vi
 
+# We don't need tty flow control (Ctrl-S/Ctrl-Q)
+stty -ixon -ixoff
+
 # Update LINES and COLUMNS after each command
 shopt -s checkwinsize
 
@@ -16,17 +19,17 @@ shopt -s checkwinsize
   HISTFILE="$XDG_CACHE_HOME/history" ||
   HISTFILE="$HOME/.history"
 
-# Don't store duplicates or lines starting with space
-HISTCONTROL=erasedups:ignoreboth
-
-# Ignore 1-3 character commands, as well as some common commands
-HISTIGNORE="?:??:clr:cls:exit:quit:history"
-
 # History file size
 HISTFILESIZE=50000
 
 # History buffer size
 HISTSIZE=10000
+
+# Ignore 1-3 character commands, as well as some common commands
+HISTIGNORE="?:??:???:clear:exit:quit:history"
+
+# Don't store duplicates or lines starting with space
+HISTCONTROL=erasedups:ignoreboth
 
 # Append to history every time the prompt is redrawn
 PROMPT_COMMAND="history -a"
