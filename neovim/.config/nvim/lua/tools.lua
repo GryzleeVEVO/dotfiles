@@ -3,23 +3,23 @@
 return {
   -- List of LSP installed by Mason
   servers = {
-    -- bashls = {},
-    -- docker_compose_language_service = {},
-    -- dockerls = {},
-    -- gopls = {},
-    -- html = {},
-    -- java_language_server = {},
-    -- jsonls = { },
-    -- lua_ls = {},
-    -- pyright = {},
-    -- ts_ls = {},
+    bashls = {},
+    docker_compose_language_service = {},
+    dockerls = {},
+    gopls = {},
+    html = {},
+    java_language_server = {},
+    jsonls = {},
+    lua_ls = {},
+    pyright = {},
+    ts_ls = {},
   },
 
   -- List of LSP *not* installed by Mason
   local_servers = {
-    -- clangd = {
-    --   cmd = { "clangd", "--background-index", "--clang-tidy" },
-    -- },
+    clangd = {
+      cmd = { "clangd", "--background-index", "--clang-tidy" },
+    },
   },
 
   -- List of formatters configured by Conform
