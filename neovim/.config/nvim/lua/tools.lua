@@ -24,20 +24,20 @@ return {
 
   -- List of formatters configured by Conform
   formatters = {
-    -- bash = { "shfmt" },
-    -- c = { "clang_format", lsp_format = "never" },
-    -- cpp = { "clang_format", lsp_format = "never" },
-    -- css = { "prettierd" },
-    -- html = { "prettierd" },
-    -- javascript = { "prettierd" },
-    -- javascriptreact = { "prettierd" },
-    -- json = { "prettierd" },
-    -- lua = { "stylua" },
-    -- python = { "autopep8" },
-    -- sh = { "shfmt" },
-    -- typescript = { "prettierd" },
-    -- typescriptreact = { "prettierd" },
-    -- zsh = { "shfmt" },
+    bash = { "shfmt" },
+    c = { "clang_format", lsp_format = "never" },
+    cpp = { "clang_format", lsp_format = "never" },
+    css = { "prettierd" },
+    html = { "prettierd" },
+    javascript = { "prettierd" },
+    javascriptreact = { "prettierd" },
+    json = { "prettierd" },
+    lua = { "stylua" },
+    python = { "autopep8" },
+    sh = { "shfmt" },
+    typescript = { "prettierd" },
+    typescriptreact = { "prettierd" },
+    zsh = { "shfmt" },
   },
 
   -- This formatters will not be installed by Mason
@@ -68,12 +68,12 @@ return {
 
   -- Linters to be used by nvim-lint
   linters = {
-    -- bash = { "shellcheck" },
-    -- javascript = { "eslint_d" },
-    -- javascriptreact = { "eslint_d" },
-    -- python = { "flake8" },
-    -- typescript = { "eslint_d" },
-    -- typescriptreact = { "eslint_d" },
+    bash = { "shellcheck" },
+    javascript = { "eslint_d" },
+    javascriptreact = { "eslint_d" },
+    python = { "flake8" },
+    typescript = { "eslint_d" },
+    typescriptreact = { "eslint_d" },
   },
 
   -- This linters will not be installed by Mason
