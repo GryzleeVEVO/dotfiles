@@ -59,7 +59,7 @@ set vi-ins-mode-string "\1\e[6 q\2"
 set keymap vi-insert
 
 # History search
-"\C-J": history-search-backwrd
+"\C-J": history-search-backward
 "\C-K": history-search-forward
 
 # Arrows
