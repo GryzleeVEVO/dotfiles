@@ -78,6 +78,7 @@ au("BufWritePre", {
   pattern = "",
 
   callback = function()
+    if vim.g.disable_autoformat then return end
     local cursor = vim.fn.getpos(".")
     cmd([[%s/\s\+$//e]])
     vim.fn.setpos(".", cursor)

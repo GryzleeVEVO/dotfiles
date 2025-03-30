@@ -7,7 +7,7 @@ return {
 
   dependencies = {
     "williamboman/mason.nvim",
-    "rshkarin/mason-nvim-lint",
+    -- "rshkarin/mason-nvim-lint",
   },
 
   events = { "BufEnter" },
@@ -16,12 +16,13 @@ return {
     local lint = require("lint")
     lint.linters_by_ft = tools.linters
 
-    require("mason-nvim-lint").setup({
-      ignore_install = tools.linters_ignore_install,
-    })
+    -- FIXME: Don't auto install linters
+    -- require("mason-nvim-lint").setup({
+    --   ignore_install = tools.linters_ignore_install,
+    -- })
 
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-      desc = "Run linter for current filetye",
+      desc = "Run linter for current filetype when opening it",
 
       callback = function()
         lint.try_lint()
