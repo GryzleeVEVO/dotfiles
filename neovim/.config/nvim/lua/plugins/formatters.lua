@@ -7,30 +7,32 @@ return {
 
   dependencies = {
     "williamboman/mason.nvim",
-    "zapling/mason-conform.nvim",
   },
 
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
 
-  config = function()
-    require("conform").setup({
-      formatters_by_ft = tools.formatters,
+  opts = {
+    formatters_by_ft = tools.formatters,
 
-      default_format_opts = {
-        lsp_format = "fallback",
-        stop_after_first = true,
-      },
+    default_format_opts = {
+      lsp_format = "fallback",
+      stop_after_first = true,
+    },
 
-      format_on_save = {
-        timeout_ms = 500,
-      },
+    format_on_save = function()
+      -- TODO: Add toggle autoformat
+      if vim.g.disable_autoformat then
+        return
+      end
 
-      notify_on_error = true,
-    })
+      return { timeout_ms = 500 }
+    end,
 
-    require("mason-conform").setup({
-      ignore_install = tools.formaters_ignore_install,
-    })
+    notify_on_error = true,
+  },
+
+  init = function()
+    vim.g.disable_autoformat = false
   end,
 }

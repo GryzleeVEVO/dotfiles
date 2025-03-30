@@ -1,13 +1,35 @@
--- Download and configure this servers with Mason
 local map = vim.keymap.set
 local au = vim.api.nvim_create_autocmd
 local ag = vim.api.nvim_create_augroup
 local tools = require("tools")
 local keybinds = require("plugin-keybinds")
 
-local ensure_installed = {}
-for k, _ in pairs(tools.servers) do
-  ensure_installed[#ensure_installed + 1] = k
+--- Register a new LSP server
+---
+--- @param server string Name of server
+local function registerLsp(server)
+  local lsp = require('lspconfig')
+  local cmp = require("cmp_nvim_lsp")
+
+  -- Let LSP know cmp is available and set up default capabilities
+  local capabilities = vim.tbl_deep_extend("force",
+    vim.lsp.protocol.make_client_capabilities(),
+    cmp.default_capabilities())
+
+  -- Recursively merge the default capabilities with this server's capabilities
+  local config = tools.servers[server] or {}
+  config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+
+  -- Add Schemastore schemas for JSON. YAML already has Schemastore support
+  if server == "jsonls" then
+    config.settings.json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    }
+  end
+
+  -- Run setup
+  lsp[server].setup(config)
 end
 
 return {
@@ -33,64 +55,30 @@ return {
       "hrsh7th/cmp-nvim-lsp",
 
       -- Pull SchemaStore for JSON, YAML, TOML... tag info
-      {
-
-        "b0o/schemastore.nvim",
-        config = function()
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-          tools.servers.jsonls = {
-            capabilities = capabilities,
-            settings = {
-              json = {
-                schemas = require("schemastore").json.schemas(),
-                validate = { enable = true },
-              },
-            },
-          }
-        end,
-      },
+      "b0o/schemastore.nvim",
     },
 
     config = function()
-      local cmp = require("cmp_nvim_lsp")
-      local lspconfig = require("lspconfig")
-      local attach_ag = ag("lsp-config-attach", { clear = true })
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      -- Let LSP know cmp is available
-      capabilities = vim.tbl_deep_extend("force", capabilities, cmp.default_capabilities())
-
-      -- Set up Mason and install missing tools
+      -- Set up Mason and register LSPs
       require("mason").setup()
-
       require("mason-lspconfig").setup({
-        -- ensure_installed = ensure_installed
         ensure_installed = {},
         automatic_installation = false,
-        handlers = {
-          function(server)
-            local config = tools.servers[server] or {}
-            config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-            lspconfig[server].setup(config)
-          end,
-        },
+        handlers = { registerLsp },
       })
 
-      -- Set up local tools
-      for server, config in pairs(tools.local_servers) do
-        config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-        lspconfig[server].setup(config)
+      -- We'll need to run the handler manually for tools not managed by Mason
+      for _, server in ipairs(tools.local_servers) do
+        registerLsp(server)
       end
 
       -- Setup attach behaviour
       au("LspAttach", {
-        group = attach_ag,
         desc = "Configure attached LSP",
 
-        callback = function(event)
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
+        group = ag("lsp-config-attach", { clear = true }),
+        callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
           keybinds.lsp()
 
@@ -100,27 +88,30 @@ return {
             local detach_ag = ag("lsp-config-detach", { clear = true })
 
             au({ "CursorHold", "CursorHoldI" }, {
-              group = highlight_ag,
               desc = "Highlight references when cursor is on a symbol",
-              buffer = event.buf,
+
+              group = highlight_ag,
+              buffer = ev.buf,
               callback = vim.lsp.buf.document_highlight,
             })
 
             au({ "CursorMoved", "CursorMovedI" }, {
-              group = highlight_ag,
               desc = "Clear highlighted references",
-              buffer = event.buf,
+
+              group = highlight_ag,
+              buffer = ev.buf,
               callback = vim.lsp.buf.clear_references,
             })
 
             au("LspDetach", {
-              group = detach_ag,
               desc = "Remove reference highlight autogroup from buffer",
-              callback = function(event2)
+
+              group = detach_ag,
+              callback = function(ev2)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds({
                   group = "lsp-config-highlight",
-                  buffer = event2.buf,
+                  buffer = ev2.buf,
                 })
               end,
             })
@@ -129,7 +120,7 @@ return {
           -- Toggle inlay hints (like field names)
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map("n", "<leader>th", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }))
             end, { desc = "[T]oggle inlay [H]ints" })
           end
 
