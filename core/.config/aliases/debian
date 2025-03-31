@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 if [ ! -f "/etc/debian_version" ]; then
-  return
+	return
 fi
 
 # p: install
