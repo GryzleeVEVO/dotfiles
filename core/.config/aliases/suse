@@ -1,1 +1,30 @@
 #!/usr/bin/env sh
+
+check_suse() {
+    if [ -f /etc/os-release ]; then
+        name="$(cat /etc/os-release | grep '^NAME' | cut -d '=' -f 2 | tr -d '"')"
+
+        if echo $name | grep -qi "suse" ; then
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
+if ! check_suse; then
+    return
+fi
+
+p() {
+    local ZYPP_PCK_PRELOAD=1
+    sudo zypper update --no-confirm
+    [ $# -ne 0 ] && sudo zypper install "$@"
+}
+
+alias prm='sudo zypper remove'
+alias pq='sudo zypper search --installed-only | grep -v i+'
+alias pqs='sudo zypper search --installed-only'
+alias pss='sudo zypper search'
+#alias pcl
+#alias pcc

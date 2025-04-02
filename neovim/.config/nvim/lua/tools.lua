@@ -76,6 +76,7 @@ return {
     "java",
     "javascript",
     "jsdoc",
+    "json",
     "lua",
     "luadoc",
     "luap",
