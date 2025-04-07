@@ -4,23 +4,23 @@ if [[ ! -f "/etc/arch-release" ]]; then
   return
 fi
 
-# p: install
-# prm: remove
-# pq: query all explicitly installed local packages
-# pqi: query info about a package
-# pqs: query installed package by name
-# pss: search in repositories by name
-# pcl: clean up non required packages
-# pcc: clean up cache
 
 if command -v yay >/dev/null; then
+  # p: install
   alias p='yay -Syu'
+  # prm: remove
   alias prm='yay -Rs'
+  # pq: query all explicitly installed local packages
   alias pq='yay -Qe'
+  # pqi: query info about a package
   alias pqi="yay -Qi"
+  # pqs: query installed package by name
   alias pqs='yay -Qss'
+  # pss: search in repositories by name
   alias pss='yay -Ss'
+  # pcl: clean up non required packages
   alias pcl='yay -Rs $(yay -Qdtq)'
+  # pcc: clean up cache
   alias pcc='yay -Scc'
 elif command -v pacman >/dev/null; then
   alias p='sudo pacman -Syu'

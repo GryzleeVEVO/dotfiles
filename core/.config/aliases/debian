@@ -5,24 +5,29 @@ if [ ! -f "/etc/debian_version" ]; then
 fi
 
 # p: install
-# prm: remove
-# pq: query all explicitly installed local packages
-# pqi: query info about a package
-# pqs: query installed package by name
-# pss: search in repositories by name
-# pcl: clean up non required packages
-# pcc: clean up cache
-# alias p='sudo apt update && sudo apt install --update'
-
 p() {
 	sudo apt update
 	sudo apt upgrade --yes
 	[ $# -ne 0 ] && sudo apt install "$@"
 }
+
+# prm: remove
 alias prm='sudo apt remove --autoremove'
-alias pq="apt list --installed | grep [apt list --installed | grep --extended-regexp --invert-match '\[(.*,)*automatic]$'"
+
+# pq: query all explicitly installed local packages
+alias pq='apt-mark showmanual'
+
+# pqi: query info about a package
 alias pqi='apt show'
-#alias pqs=
-#alias pss=
+
+# pqs: query installed package by name
+alias pqs='apt list --installed | grep '
+
+# pss: search in repositories by name
+alias pss='apt search'
+
+# pcl: clean up non required packages
 alias pcl='sudo apt autoremove'
-#alias pcc=
+
+# pcc: clean up cache
+alias pcc='sudo apt clean'
