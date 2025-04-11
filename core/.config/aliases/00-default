@@ -24,6 +24,9 @@ alias ra='ranger'
 alias t='tmux'
 alias ta='tmux attach'
 
+# Do we have neovim? Use that instead of vim
+command -v nvim >&/dev/null && alias vim='nvim'
+
 # ------------------------------------------------------------------------------
 # Administration                                                               |
 # ------------------------------------------------------------------------------
