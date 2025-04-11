@@ -71,16 +71,10 @@ done
 [[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] &&
   eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
 
-# [[ -f "/usr/share/nvm/init-nvm.sh" ]] &&
-#   . "/usr/share/nvm/init-nvm.sh"
-
-# fnm
-FNM_PATH="/home/gryzlee/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+# Load completions for some programs
+if command -v fnm >& /dev/null; then
+	eval "$(fnm completions --shell bash)"
 fi
 
 # Just to have #? set to 0
 :
-
