@@ -1,7 +1,7 @@
 return {
   -- Text parser. Better syntax highlighting, indentation, code navigation...
   "nvim-treesitter/nvim-treesitter",
-  version = "*",
+  -- version = "*",
 
   build = ":TSUpdate",
   main = "nvim-treesitter.configs", -- Call setup on this module
@@ -33,5 +33,16 @@ return {
 
     -- Don't autofold on open
     vim.opt.foldlevel = 99
+
+    vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+      desc = "Disable treesitter highlighting for CSV files",
+      group = vim.api.nvim_create_augroup("qol-filetypes", { clear = true }),
+
+      callback = function(event)
+        if vim.bo[event.buf].filetype == "csv" then
+          vim.cmd([[:TSBufDisable highlight]])
+        end
+      end,
+    })
   end,
 }

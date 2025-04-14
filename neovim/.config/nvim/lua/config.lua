@@ -54,6 +54,12 @@ o.linebreak = true
 -- Minimum number of lines below or above cursor
 o.scrolloff = 10
 
+-- Show diagnostic messages alongside code
+vim.diagnostic.config({
+  virtual_text = true, -- This shows the diagnostic message after the line
+  virtual_lines = false, -- This shows it under the line pointing at the problem
+})
+
 --------------------------------------------------------------------------------
 -- INDENTATION AND FORMATTING
 
@@ -78,7 +84,9 @@ au("BufWritePre", {
   pattern = "",
 
   callback = function()
-    if vim.g.disable_autoformat then return end
+    if vim.g.disable_autoformat then
+      return
+    end
     local cursor = vim.fn.getpos(".")
     cmd([[%s/\s\+$//e]])
     vim.fn.setpos(".", cursor)
@@ -110,7 +118,7 @@ au("TextYankPost", {
   group = ag("qol-highlight", { clear = true }),
 
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 

@@ -81,6 +81,7 @@ client.urgent           $dark_red   $dark_red   $fg             $bg1            
 # Use floating by default for some apps
 for_window [class="^pavucontrol$"] floating enable
 for_window [class="^gnome-calculator$"] floating enable
+for_window [class="^gnome-screenshot$"] floating enable
 for_window [class="^Blueman-manager$"] floating enable
 
 # ------------------------------------------------------------------------------
@@ -202,7 +203,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "set_backlight dec"
 
 bindsym XF86Calculator exec --no-startup-id "gnome-calculator"
 
-bindsym Print exec --no-startup-id "gnome-screenshot -i
+bindsym Print exec --no-startup-id "gnome-screenshot --interactive"
 
 # The display switch key is hardcoded to Win+p (the shortcut in windows to
 # change display settings) instead of emmiting its own keycode :D
