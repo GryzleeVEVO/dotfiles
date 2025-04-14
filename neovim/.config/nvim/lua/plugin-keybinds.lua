@@ -45,8 +45,11 @@ return {
     })
   end,
 
-  -- LSP related keybindings
-  lsp = function()
+  --- LSP related keybindings
+  ---
+  --- @param client vim.lsp.Client
+  --- @param event vim.api.keyset.create_autocmd.callback_args
+  lsp = function(client, event)
     local builtin = require("telescope.builtin")
 
     map("n", "gd", builtin.lsp_definitions, {
@@ -96,6 +99,21 @@ return {
     map({ "n", "x" }, "<leader>a", buf.code_action, {
       desc = "[C]ode [A]ction",
     })
+
+    -- Toggle inlay hints (like field names)
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+      map("n", "<leader>th", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+      end, { desc = "[T]oggle inlay [H]ints" })
+    end
+
+    -- Toggle
+    if client.name == "clangd" then
+      map("n", "<leader>h", "<cmd>ClangdSwitchSourceHeader<CR>", {
+        desc = "C/C++: Switch [h]eaders",
+        silent = true,
+      })
+    end
   end,
 
   -- Keybinings that open telescope pickers

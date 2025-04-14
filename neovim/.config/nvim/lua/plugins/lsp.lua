@@ -1,4 +1,7 @@
-local map = vim.keymap.set
+-- TODO: Since 0.11 Neovim has native support for LSPs, so nvim-lspconfig is no
+-- longer strictly required as a plugin. However lspconfig is still usefull
+-- since it provides sensible defaults.
+
 local au = vim.api.nvim_create_autocmd
 local ag = vim.api.nvim_create_augroup
 local tools = require("tools")
@@ -8,13 +11,11 @@ local keybinds = require("plugin-keybinds")
 ---
 --- @param server string Name of server
 local function registerLsp(server)
-  local lsp = require('lspconfig')
+  local lsp = require("lspconfig")
   local cmp = require("cmp_nvim_lsp")
 
   -- Let LSP know cmp is available and set up default capabilities
-  local capabilities = vim.tbl_deep_extend("force",
-    vim.lsp.protocol.make_client_capabilities(),
-    cmp.default_capabilities())
+  local capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp.default_capabilities())
 
   -- Recursively merge the default capabilities with this server's capabilities
   local config = tools.servers[server] or {}
@@ -22,6 +23,10 @@ local function registerLsp(server)
 
   -- Add Schemastore schemas for JSON. YAML already has Schemastore support
   if server == "jsonls" then
+    if not config.settings then
+      config.settings = {}
+    end
+
     config.settings.json = {
       schemas = require("schemastore").json.schemas(),
       validate = { enable = true },
@@ -32,9 +37,54 @@ local function registerLsp(server)
   lsp[server].setup(config)
 end
 
+--- Run after an LSP is attached
+---
+--- @param event vim.api.keyset.create_autocmd.callback_args
+local function onLspAttach(event)
+  local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+  if client == nil then
+    return
+  end
+
+  keybinds.lsp(client, event)
+
+  -- Enable reference highlighting
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+    local highlight_ag = ag("lsp-config-highlight", { clear = false })
+
+    au({ "CursorHold", "CursorHoldI" }, {
+      desc = "Highlight references when cursor is on a symbol",
+      group = highlight_ag,
+      buffer = event.buf,
+
+      callback = vim.lsp.buf.document_highlight,
+    })
+
+    au({ "CursorMoved", "CursorMovedI" }, {
+      desc = "Clear highlighted references",
+      group = highlight_ag,
+      buffer = event.buf,
+
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+end
+
+--- Run after an LSP is detached
+---
+--- @param event vim.api.keyset.create_autocmd.callback_args
+local function onLspDetach(event)
+  vim.lsp.buf.clear_references()
+  vim.api.nvim_clear_autocmds({
+    group = "lsp-config-highlight",
+    buffer = event.buf,
+  })
+end
+
 return {
   {
-    -- Install and configure language servers
+    -- Sensible configurations for language servers
     "neovim/nvim-lspconfig",
     version = "*",
 
@@ -43,14 +93,13 @@ return {
         -- Package manager for LSPs
         "williamboman/mason.nvim",
         version = "*",
-
-        config = true,
       },
       {
         -- Utilities for configued LSPs installed by Mason
         "williamboman/mason-lspconfig.nvim",
         version = "*",
       },
+
       -- Add LSP completion to cmp
       "hrsh7th/cmp-nvim-lsp",
 
@@ -72,66 +121,17 @@ return {
         registerLsp(server)
       end
 
-      -- Setup attach behaviour
+      -- Setup attach and detach behaviour
       au("LspAttach", {
         desc = "Configure attached LSP",
-
         group = ag("lsp-config-attach", { clear = true }),
-        callback = function(ev)
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        callback = onLspAttach,
+      })
 
-          keybinds.lsp()
-
-          -- Enable reference highlighting
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-            local highlight_ag = ag("lsp-config-highlight", { clear = false })
-            local detach_ag = ag("lsp-config-detach", { clear = true })
-
-            au({ "CursorHold", "CursorHoldI" }, {
-              desc = "Highlight references when cursor is on a symbol",
-
-              group = highlight_ag,
-              buffer = ev.buf,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            au({ "CursorMoved", "CursorMovedI" }, {
-              desc = "Clear highlighted references",
-
-              group = highlight_ag,
-              buffer = ev.buf,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            au("LspDetach", {
-              desc = "Remove reference highlight autogroup from buffer",
-
-              group = detach_ag,
-              callback = function(ev2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({
-                  group = "lsp-config-highlight",
-                  buffer = ev2.buf,
-                })
-              end,
-            })
-          end
-
-          -- Toggle inlay hints (like field names)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map("n", "<leader>th", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }))
-            end, { desc = "[T]oggle inlay [H]ints" })
-          end
-
-          -- Toggle
-          if client and client.name == "clangd" then
-            map("n", "<leader>h", "<cmd>ClangdSwitchSourceHeader<CR>", {
-              desc = "C/C++: Switch [h]eaders",
-              silent = true,
-            })
-          end
-        end,
+      au("LspDetach", {
+        desc = "Clean up after an LSP has been detached",
+        group = ag("lsp-config-detach", { clear = true }),
+        callback = onLspDetach,
       })
     end,
   },
