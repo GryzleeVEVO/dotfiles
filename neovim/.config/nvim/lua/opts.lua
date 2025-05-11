@@ -20,7 +20,7 @@ o.undofile = true
 o.number = true
 o.relativenumber = true
 
--- Always draw sign column (column left of the numbers, where diagnostic icons are shown)
+-- Always draw diagnostic gutter
 o.signcolumn = "yes"
 
 -- Draw ruler columns

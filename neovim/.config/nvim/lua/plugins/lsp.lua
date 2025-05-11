@@ -1,7 +1,4 @@
 local tools = require("tools")
-
-local au = vim.api.nvim_create_autcmd
-local ag = vim.api.nvim_create_augroup
 local lsp = vim.lsp
 
 return {
@@ -31,7 +28,7 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup()
-    end
+    end,
   },
   {
     -- Support for Neovim API for LuaLS

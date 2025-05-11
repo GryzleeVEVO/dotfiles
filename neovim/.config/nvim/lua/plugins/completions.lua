@@ -1,6 +1,21 @@
 return {
-  "saghen/blink.cmp",
-  version = "*",
+  {
+    "saghen/blink.cmp",
+    version = "*",
 
-  opts = {},
+    dependencies = {
+      { "rafamadriz/friendly-snippets" },
+    },
+
+    --- @module "blink.cmp"
+    --- @type blink.cmp.Config
+    opts = {
+      signature = {
+        enabled = true,
+        window = {
+          show_documentation = false,
+        },
+      },
+    },
+  },
 }

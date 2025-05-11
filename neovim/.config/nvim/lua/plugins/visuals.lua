@@ -1,36 +1,60 @@
-return {{
-  "rebelot/kanagawa.nvim",
-
-  priority = 1000,
-
-  opts = {
-    dimInactive = true,
-  },
-
-  init = function()
-    vim.opt.termguicolors = true
-    vim.opt.background = "dark"
-    vim.cmd([[ colorscheme kanagawa-dragon ]])
-  end,
-},
+return {
   {
+    -- Color scheme
+    "rebelot/kanagawa.nvim",
+
+    priority = 1000,
+
+    opts = {
+      dimInactive = true,
+    },
+
+    init = function()
+      vim.opt.termguicolors = true
+      vim.opt.background = "dark"
+      vim.cmd([[ colorscheme kanagawa-dragon ]])
+    end,
+  },
+  {
+    -- Show indentation marks
     "lukas-reineke/indent-blankline.nvim",
 
     main = "ibl",
     opts = {},
   },
   {
+    -- Fancy status bar
     "nvim-lualine/lualine.nvim",
 
     dependencies = {
-      "nvim-tree/nvim-web-devicons"
+      "nvim-tree/nvim-web-devicons",
     },
 
-    opts = {}
+    opts = {},
   },
   {
+    -- Show notifications on bottom left
     "j-hui/fidget.nvim",
 
-    opts = {}
+    opts = {},
+  },
+  {
+    -- Fancier Markdown documents
+    "MeanderingProgrammer/render-markdown.nvim",
+
+    ft = "markdown",
+
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+
+    opts = {},
+  },
+  {
+    -- Show git diff in gutter
+    "lewis6991/gitsigns.nvim",
+
+    opts = {},
   },
 }
