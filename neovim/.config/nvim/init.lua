@@ -1,4 +1,6 @@
-require("config")
+require("opts")
+require("diagnostics")
+require("autocmds")
 require("keybinds")
 
 -- Bootstrap lazy.nvim
@@ -18,27 +20,17 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy.nvim
 require("lazy").setup({
   spec = {
+    -- All plugins are in lua/plugins
     { import = "plugins" },
   },
-
   checker = {
-    -- Automatically check for plugin updates
+    -- Automatically check for updates
     enabled = true,
   },
-
   change_detection = {
     -- Don't nag with config change messages
     notify = false,
   },
-})
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "Sync Lazy plugins in background",
-
-  callback = function()
-    require("lazy").sync({ show = false })
-  end,
 })
