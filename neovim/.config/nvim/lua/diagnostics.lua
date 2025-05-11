@@ -1,4 +1,20 @@
 vim.diagnostic.config({
-  virtual_text = true, -- Show diagnostics after text
-  virtual_lines = false, -- Show diagnostics below text
+  virtual_lines = {
+    current_line = true,
+  },
+
+  -- virtual_text = {
+  --   current_line = false,
+  -- },
+
+  severity_sort = true,
+
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅚",
+      [vim.diagnostic.severity.WARN] = "󰀪",
+      [vim.diagnostic.severity.INFO] = "󰋽",
+      [vim.diagnostic.severity.HINT] = "󰌶",
+    },
+  },
 })

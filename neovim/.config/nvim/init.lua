@@ -1,3 +1,7 @@
+-- Before doing anything, disable NetRW. We'll re-enable part of it later
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 require("opts")
 require("diagnostics")
 require("autocmds")
