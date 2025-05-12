@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 alias g='git'
+alias gst='git status'
 alias ga='git add --all'
 alias gc='git commit --all --message'
 alias gb='git checkout'

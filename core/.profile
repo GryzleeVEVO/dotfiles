@@ -46,18 +46,16 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NODE_REPL_HISTORY="$XDG_CACHE_HOME/node_repl_history"
 export NVM_DIR="$XDG_DATA_HOME/nvm"
 export FNM_PATH="/home/gryzlee/.local/share/fnm"
-
 export PATH="$PATH:$FNM_PATH"
 
 if command -v fnm >& /dev/null; then
 	eval "`fnm env`"
 fi
 
-
 # Nvidia
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 
-# Python
+# Python (note: maybe substitute pyenv for UV)
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON_HISTORY="$XDG_CACHE_HOME/python_history" # For Python >= 3.13
 export PYENV_ROOT="$HOME/.local/share/pyenv"
@@ -77,7 +75,11 @@ export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
-# Add path for user bins
+# Texlive
+export PATH="$PATH:/usr/local/texlive/2025/bin/x86_64-linux"
+export MANPATH="$MANPATH:/usr/local/texlive/2025/texmf-dist/doc/man"
+
+# Add path for user bins. Takes priority over any other path
 export PATH="$HOME/.local/bin:$PATH"
 
 # Default programs
