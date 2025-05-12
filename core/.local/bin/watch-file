@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Watch file and trigger action when modified
+
+[ $# -lt 2 ] && "Usage: watch-file files command" && exit 1
+
+filelist="$1"
+run_command="$2"
+
+while true
+do
+    inotifywait -e close_write "$filelist"
+    eval "$run_command"
+done
