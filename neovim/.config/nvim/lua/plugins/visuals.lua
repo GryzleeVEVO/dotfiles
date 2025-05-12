@@ -33,7 +33,7 @@ return {
     opts = {},
   },
   {
-    -- Show notifications on bottom left
+    -- Show notifications on bottom right
     "j-hui/fidget.nvim",
 
     opts = {},
@@ -54,6 +54,17 @@ return {
   {
     -- Show git diff in gutter
     "lewis6991/gitsigns.nvim",
+
+    opts = {},
+  },
+  {
+    "folke/todo-comments.nvim",
+
+    event = "VimEnter",
+
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
 
     opts = {},
   },
