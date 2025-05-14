@@ -11,9 +11,13 @@ map({ "n", "v", "i" }, "<right>", "", { desc = "Disable arrows" })
 map({ "n", "v", "i" }, "<up>", "", { desc = "Disable arrows" })
 map({ "n", "v", "i" }, "<down>", "", { desc = "Disable arrows" })
 
-map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", {
+  desc = "Clear search highlight",
+})
 
-map("n", "<C-q>", "<C-w><C-q>", { desc = "Close window" })
+map("n", "<C-q>", "<C-w><C-q>", {
+  desc = "Close window",
+})
 
 -- When an LSP is attached, add this keybinds
 local lsp_gr = ag("user-lsp-attach", { clear = true })
@@ -22,6 +26,8 @@ au({ "LspAttach" }, {
   desc = "Set up keybindings after attaching an LSP",
   group = lsp_gr,
   callback = function(ev)
+    local builtin = require("telescope.builtin")
+
     map({ "n" }, "<F2>", vim.lsp.buf.rename, {
       buffer = ev.buf,
       desc = "[LSP] Rename",
@@ -33,8 +39,31 @@ au({ "LspAttach" }, {
     })
 
     map({ "n", "x" }, "<leader>d", vim.diagnostic.open_float, {
-      buffer = ev.buf,
       desc = "[LSP] Show diagnostic pop-up",
+    })
+
+    map({ "n" }, "<leader>D", builtin.diagnostics, {
+      desc = "[LSP] Diagnostics list",
+    })
+
+    map({ "n" }, "gd", builtin.lsp_definitions, {
+      desc = "[LSP] Go to definition",
+    })
+
+    map({ "n" }, "gD", vim.lsp.buf.declaration, {
+      desc = "[LSP] Go to declaration",
+    })
+
+    map({ "n" }, "gr", builtin.lsp_references, {
+      desc = "[LSP] Show references",
+    })
+
+    map({ "n" }, "gi", builtin.lsp_implementations, {
+      desc = "[LSP] Go to implementation",
+    })
+
+    map({ "n" }, "<leader>s", builtin.lsp_document_symbols, {
+      desc = "[LSP] Document symbols",
     })
   end,
 })
