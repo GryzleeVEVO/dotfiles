@@ -30,11 +30,19 @@ require("lazy").setup({
     { import = "plugins" },
   },
   checker = {
-    -- Automatically check for updates
+    -- Automatically check for updates, just don't bother
     enabled = true,
+    notify = false,
   },
   change_detection = {
     -- Don't nag with config change messages
     notify = false,
   },
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Update plugins automatically",
+  callback = function()
+    require("lazy").update({ show = false })
+  end,
 })
