@@ -6,7 +6,25 @@ return {
   },
 
   config = function()
-    require("telescope").setup({})
+    local actions = require("telescope.actions")
+
+    require("telescope").setup({
+      defaults = {
+        mappings = {
+          i = {
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-y>"] = actions.select_default,
+          },
+        },
+      },
+
+      pickers = {
+        find_files = {
+          previewer = false,
+        },
+      },
+    })
     local builtin = require("telescope.builtin")
 
     vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, {
