@@ -12,5 +12,17 @@ return {
     vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, {
       desc = "[Telescope] Find files",
     })
+
+    vim.keymap.set({ "n" }, "<leader>gl", builtin.git_commits, {
+      desc = "[Telescope] Git log",
+    })
+
+    vim.keymap.set({ "n" }, "<leader>gb", builtin.git_branches, {
+      desc = "[Telescope] Git branches",
+    })
+
+    vim.keymap.set({ "n" }, "<leader>gd", builtin.git_status, {
+      desc = "[Telescope] Git status diff",
+    })
   end,
 }
