@@ -20,24 +20,30 @@ map("n", "<C-q>", "<C-w><C-q>", {
 })
 
 -- When an LSP is attached, add this keybinds
-local lsp_gr = ag("user-lsp-attach", { clear = true })
+local lsp_gr = ag("lsp-attach-keybinds", { clear = true })
 
 au({ "LspAttach" }, {
   desc = "Set up keybindings after attaching an LSP",
   group = lsp_gr,
   callback = function(ev)
     local builtin = require("telescope.builtin")
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local inlayHintSupported = client
+      and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, ev.buf)
 
+    -- Default: grn
     map({ "n" }, "<F2>", vim.lsp.buf.rename, {
       buffer = ev.buf,
       desc = "[LSP] Rename",
     })
 
+    -- Default: gra
     map({ "n", "x" }, "<leader>a", vim.lsp.buf.code_action, {
       buffer = ev.buf,
       desc = "[LSP] Code Action",
     })
 
+    -- Default: <C-w>d
     map({ "n", "x" }, "<leader>d", vim.diagnostic.open_float, {
       desc = "[LSP] Show diagnostic pop-up",
     })
@@ -46,6 +52,7 @@ au({ "LspAttach" }, {
       desc = "[LSP] Diagnostics list",
     })
 
+    -- Default: grn
     map({ "n" }, "gd", builtin.lsp_definitions, {
       desc = "[LSP] Go to definition",
     })
@@ -54,7 +61,8 @@ au({ "LspAttach" }, {
       desc = "[LSP] Go to declaration",
     })
 
-    map({ "n" }, "gr", builtin.lsp_references, {
+    -- Default: grr
+    map({ "n" }, "gR", builtin.lsp_references, {
       desc = "[LSP] Show references",
     })
 
@@ -62,8 +70,21 @@ au({ "LspAttach" }, {
       desc = "[LSP] Go to implementation",
     })
 
+    -- Default: gO
     map({ "n" }, "<leader>s", builtin.lsp_document_symbols, {
       desc = "[LSP] Document symbols",
     })
+
+    map({ "n" }, "<leader>S", builtin.lsp_dynamic_workspace_symbols, {
+      desc = "[LSP] Workspace symbols symbols",
+    })
+
+    if inlayHintSupported then
+      map({ "n" }, "<leader>th", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }))
+      end, {
+        desc = "[LSP] Toggle inlay hints",
+      })
+    end
   end,
 })
