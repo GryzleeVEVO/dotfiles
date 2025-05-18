@@ -1,28 +1,52 @@
 {
-  "additional-repositories": ["multilib"],
-  "archinstall-language": "English",
-  "audio_config": {
-    "audio": "pipewire"
-  },
-  "bootloader": "Grub",
+  "version": "3.0.1",
   "config_version": "3.0.1",
-  "disk_config": {
-    "config_type": "pre_mounted_config",
-    "mountpoint": "/mnt"
-  },
-  "disk_encryption": null,
-  "hostname": "turboportatilaco",
-  "kernels": ["linux"],
+
+  "archinstall-language": "English",
   "locale_config": {
     "kb_layout": "es",
     "sys_enc": "UTF-8",
     "sys_lang": "en_GB.UTF-8"
   },
-  "mirror_config": null,
+
+  "timezone": "Europe/Madrid",
+  "ntp": true,
+
+  "hostname": "turboportatilaco",
+
+  "bootloader": "Grub",
+  "kernels": ["linux"],
+  "uki": false,
+
+  "disk_config": {
+    "config_type": "pre_mounted_config",
+    "mountpoint": "/mnt"
+  },
+  "disk_encryption": null,
+  "swap": false,
+
+  "profile_config": {
+    "gfx_driver": null,
+    "greeter": null,
+    "profile": {
+      "custom_settings": {},
+      "details": [],
+      "main": "Minimal"
+    }
+  },
+
+  "audio_config": {
+    "audio": "pipewire"
+  },
+
   "network_config": {
     "type": "nm"
   },
-  "ntp": true,
+
+  "mirror_config": null,
+  "additional-repositories": ["multilib"],
+  "parallel_downloads": 150,
+
   "packages": [
     "linux-headers",
     "amd-ucode",
@@ -38,19 +62,6 @@
     "neovim",
     "zsh"
   ],
-  "parallel downloads": 150,
-  "profile_config": {
-    "gfx_driver": null,
-    "greeter": null,
-    "profile": {
-      "custom_settings": {},
-      "details": [],
-      "main": "Minimal"
-    }
-  },
-  "save_config": null,
-  "swap": false,
-  "timezone": "Europe/Madrid",
-  "uki": false,
-  "version": "3.0.1"
+
+  "save_config": null
 }

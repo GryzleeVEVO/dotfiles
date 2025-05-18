@@ -88,3 +88,50 @@ au({ "LspAttach" }, {
     end
   end,
 })
+
+-- Plugin-specific keybinds
+return {
+  blink = {
+    preset = "default",
+
+    ["<C-j>"] = { "select_next", "fallback" },
+    ["<C-k>"] = { "select_prev", "fallback" },
+  },
+
+  nvim_tree = function()
+    local api = require("nvim-tree.api")
+    vim.keymap.set({ "n" }, "<leader>e", api.tree.toggle, { desc = "Toggle side explorer" })
+  end,
+
+  telescope_picker_mappings = function()
+    local actions = require("telescope.actions")
+
+    return {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-y>"] = actions.select_default,
+      },
+    }
+  end,
+
+  telescope_picker_openers = function()
+    local builtin = require("telescope.builtin")
+
+    vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, {
+      desc = "[Telescope] Find files",
+    })
+
+    vim.keymap.set({ "n" }, "<leader>gl", builtin.git_commits, {
+      desc = "[Telescope] Git log",
+    })
+
+    vim.keymap.set({ "n" }, "<leader>gb", builtin.git_branches, {
+      desc = "[Telescope] Git branches",
+    })
+
+    vim.keymap.set({ "n" }, "<leader>gd", builtin.git_status, {
+      desc = "[Telescope] Git status diff",
+    })
+  end,
+}

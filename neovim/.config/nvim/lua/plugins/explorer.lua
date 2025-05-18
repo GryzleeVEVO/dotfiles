@@ -9,8 +9,6 @@ return {
 
   config = function()
     require("nvim-tree").setup()
-    local api = require("nvim-tree.api")
-
-    vim.keymap.set({ "n" }, "<leader>e", api.tree.toggle, { desc = "Toggle side explorer" })
+    require("keybinds").nvim_tree()
   end,
 }

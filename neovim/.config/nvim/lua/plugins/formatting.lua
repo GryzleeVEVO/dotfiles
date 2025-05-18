@@ -8,7 +8,7 @@ return {
     cmd = { "ConformInfo" },
 
     opts = {
-      formatters_by_ft = tools.formatters,
+      formatters_by_ft = tools.conform_formatters,
 
       default_format_opts = {
         lsp_format = "fallback",
@@ -19,7 +19,6 @@ return {
         if vim.g.enable_autoformat then
           return { timeout_ms = 500 }
         end
-        return {}
       end,
 
       notify_on_error = true,

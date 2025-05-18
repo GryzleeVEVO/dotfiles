@@ -1,33 +1,22 @@
 return {
-  -- LSP
-  -- Configuration overrides can be set in the lsp/ directory
-
-  -- Enable LSP for this locally installed servers
-  local_servers = {},
-
-  -- LSPs installed with Mason are auto-enabled
-
-  -- FORMATTERS
+  -- Local LSP servers to be enabled (those installed by Mason get enabled on start)
+  local_lsp_servers = {},
 
   -- Formatters per filetype
-  formatters = {
+  conform_formatters = {
     lua = { "stylua" },
   },
 
-  -- LINTERS
-
-  -- Linters without LSP capabilities per filetype
+  -- Non LSP linters to be registered for nvim-lint
   linters = {},
 
-  -- TREESITTER
-
   -- Disable this Treesitter parsers completely
-  disable_treesitter = {
+  disable_treesitter_parser = {
     "latex", -- Need to complile grammar manually
   },
 
-  -- Disable highlighting for these parsers
-  disable_highlight = {
+  -- Disable highlighting for these Treesitter parsers
+  disable_treesitter_highlight = {
     "csv", -- No rainbow colours :(
   },
 }
