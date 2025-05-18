@@ -10,7 +10,7 @@ return {
     config = function()
       -- Enable local servers. The configuration is the merger of lspconfig's
       -- config and the ones in the lsp directory
-      for _, server in ipairs(tools.local_servers) do
+      for _, server in ipairs(tools.local_lsp_servers) do
         lsp.enable(server)
       end
     end,

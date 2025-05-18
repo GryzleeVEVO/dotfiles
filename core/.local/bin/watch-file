@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 # Watch file and trigger action when modified
+# TODO: This needs some serious work. Or just use an existing tool idk
 
 [ $# -lt 2 ] && "Usage: watch-file files command" && exit 1
 
