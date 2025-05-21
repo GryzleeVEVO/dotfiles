@@ -22,11 +22,10 @@ au({ "BufWritePre" }, {
   pattern = "",
   callback = function()
     if vim.g.enable_autoformat then
-      return
+      local cursor = vim.fn.getpos(".")
+      cmd([[%s/\s\+$//e]])
+      vim.fn.setpos(".", cursor)
     end
-    local cursor = vim.fn.getpos(".")
-    cmd([[%s/\s\+$//e]])
-    vim.fn.setpos(".", cursor)
   end,
 })
 
