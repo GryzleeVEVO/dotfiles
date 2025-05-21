@@ -8,7 +8,9 @@ return {
   },
 
   config = function()
-    require("nvim-tree").setup()
+    require("nvim-tree").setup({
+      view = { number = true, relativenumber = true },
+    })
     require("keybinds").nvim_tree()
   end,
 }
