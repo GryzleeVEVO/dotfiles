@@ -31,8 +31,6 @@ stow -vt $HOME --adopt package...
 git restore -- package...
 ```
 
-This repository also includes a `user_configuration.json` for [archinstall](https://github.com/archlinux/archinstall) in order to speed up reinstalling the system.
-
 ## Packages
 
 The dotfiles are grouped into packages:
