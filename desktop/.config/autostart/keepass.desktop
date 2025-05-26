@@ -35,9 +35,9 @@ Comment=Community-driven port of the Windows application “KeePass Password Saf
 Comment[da]=Fællesskabsdrevet port af Windows-programmet “KeePass Password Safe”
 Comment[et]=Kogukonna arendatav port Windowsi programmist KeePass Password Safe
 Comment[ru]=Разработанный сообществом порт Windows-приложения KeePass Password Safe
-Exec=sh -c "secret-tool lookup keepassxc password | keepassxc --pw-stdin $HOME/.secret/passwords.kdbx"
-TryExec=keepassxc
-TryExec=secret-tool
+# Use either the libsecret API or kwallet
+#Exec=sh -c "secret-tool lookup keepassxc password | keepassxc --pw-stdin ~/.secret/passwords.kdbx"
+Exec=sh -c "kwallet-query -f keepassxc -r password kdewallet | keepassxc --pw-stdin ~/.secret/btspasswords.kdbx"
 Icon=keepassxc
 StartupWMClass=keepassxc
 StartupNotify=true
