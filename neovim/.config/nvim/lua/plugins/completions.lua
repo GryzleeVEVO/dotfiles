@@ -4,12 +4,27 @@ return {
     version = "*",
 
     dependencies = {
-      { "rafamadriz/friendly-snippets" },
+      {
+        "L3MON4D3/LuaSnip",
+        version = "*",
+
+        dependencies = {
+          "rafamadriz/friendly-snippets",
+        },
+
+        run = "make install_jsregexp",
+
+        config = function()
+          require("luasnip.loaders.from_vscode").lazy_load({})
+        end,
+      },
     },
 
     --- @module "blink.cmp"
     --- @type blink.cmp.Config
     opts = {
+      snippets = { preset = "luasnip" },
+
       keymap = require("keybinds").blink,
 
       signature = {
