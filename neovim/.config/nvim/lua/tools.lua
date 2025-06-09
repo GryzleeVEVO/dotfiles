@@ -4,16 +4,18 @@ return {
 
   -- Formatters per filetype
   conform_formatters = {
-    sh = { "shfmt" },
     bash = { "shfmt" },
-
+    css = { "prettierd" },
+    html = { "prettierd" },
+    javascript = { "prettierd" },
     json = { "prettierd" },
-
+    jsx = { "prettierd" },
     lua = { "stylua" },
-
     python = { "autopep8" },
-
+    sh = { "shfmt" },
+    typescript = { "prettierd" },
     xml = { "xmlformatter" },
+    yaml = { "prettierd" },
   },
 
   -- Non LSP linters to be registered for nvim-lint
