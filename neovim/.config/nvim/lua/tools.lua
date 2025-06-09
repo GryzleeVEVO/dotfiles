@@ -5,6 +5,8 @@ return {
   -- Formatters per filetype
   conform_formatters = {
     lua = { "stylua" },
+    xml = { "xmlformatter" },
+    json = { "prettierd" },
   },
 
   -- Non LSP linters to be registered for nvim-lint
