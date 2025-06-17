@@ -122,6 +122,12 @@ return {
       desc = "[Telescope] Find files",
     })
 
+    vim.keymap.set({ "n" }, "<leader>F", function()
+      builtin.find_files({ hidden = true })
+    end, {
+      desc = "[Telescope] Find files (including hidden)",
+    })
+
     vim.keymap.set({ "n" }, "<leader>gl", builtin.git_commits, {
       desc = "[Telescope] Git log",
     })
