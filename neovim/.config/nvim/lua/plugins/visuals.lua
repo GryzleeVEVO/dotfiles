@@ -1,18 +1,31 @@
 return {
+  -- {
+  --   -- Color scheme
+  --   "rebelot/kanagawa.nvim",
+  --
+  --   priority = 1000,
+  --
+  --   opts = {
+  --     dimInactive = true,
+  --   },
+  --
+  --   init = function()
+  --     vim.opt.termguicolors = true
+  --     vim.opt.background = "dark"
+  --     vim.cmd([[ colorscheme kanagawa-dragon ]])
+  --   end,
+  -- },
+  -- Using Lazy
   {
-    -- Color scheme
-    "rebelot/kanagawa.nvim",
+    "navarasu/onedark.nvim",
 
     priority = 1000,
 
-    opts = {
-      dimInactive = true,
-    },
-
-    init = function()
-      vim.opt.termguicolors = true
-      vim.opt.background = "dark"
-      vim.cmd([[ colorscheme kanagawa-dragon ]])
+    config = function()
+      require("onedark").setup({
+        style = "darker",
+      })
+      require("onedark").load()
     end,
   },
   {
