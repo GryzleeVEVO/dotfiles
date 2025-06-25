@@ -16,6 +16,7 @@ return {
     typescript = { "prettierd" },
     xml = { "xmlformatter" },
     yaml = { "prettierd" },
+    zsh = { "shfmt" },
   },
 
   -- Non LSP linters to be registered for nvim-lint

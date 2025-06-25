@@ -6,147 +6,93 @@
 [[ -z "$PS1" ]] && return
 
 # # Use vi mode. Mapping is configured at the end
-bindkey -v
-export KEYTIMEOUT=1
+# export KEYTIMEOUT=1
 
-# We don't need tty flow control (Ctrl-S/Ctrl-Q)
-stty -ixon
+bindkey -v                    # Use vi keybindings
+stty -ixon -ixoff             # Disable tty flow (Ctrl-S/Ctrl-Q)
+setopt hist_ignore_all_dups   # Don't store dupliactes
+setopt hist_ignore_space      # Don't save lines starting with whitespace
+setopt hist_reduce_blanks     # Trim extra whitespace
+setopt inc_append_history     # Append to history
+setopt hist_verify            # Do not run commands on substitution
+setopt correct                # Suggest spelling correction for commands
+setopt autocd                 # If command is a directory, cd into it
+setopt auto_pushd             # Push directory to stack on cd
+setopt cdable_vars            # Allow using variables as directories for cd
+setopt cd_silent pushd_silent # Do not print directory on cd or pushd/popd
+setopt globstarshort          # ** always searches recursively
+setopt nocaseglob             # Case-insensitive glob
+setopt nomatch                # Fail on no match for glob
+
+zmodload -i zsh/complist                                      # Preload completion list
+autoload -Uz compinit && compinit                             # Enable autocompletion
+zstyle ':completion:*' menu select                            # Menu completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' # Case and hyphen/underscore insensitive completion
 
 # History file
 [[ -n "$XDG_CACHE_HOME" ]] &&
     HISTFILE="$XDG_CACHE_HOME/history" ||
     HISTFILE="$HOME/.history"
 
-# History file size
-SAVEHIST=50000
+SAVEHIST=50000 # History file size
+HISTSIZE=10000 # History buffer size
 
-# History buffer size
-HISTSIZE=10000
-
-# Don't store these commands
+# Ignore 1-3 character commands, as well as some common commands
 HISTORY_IGNORE="(?|??|???|cls|clr|clear|quit|exit|history)"
 
-# Don't store duplicates or lines starting with space
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
+# Faster mode switching in vi mode
+export KEYTIMEOUT=1
 
-# Remove extra whitespace
-setopt hist_reduce_blanks
-
-# Append to history file instead of overwriting
-setopt inc_append_history
-
-# Don't execute history expansion immediately
-setopt hist_verify
-
-################################################################################
-# PROMPT                                                                       #
-################################################################################
-
-# Enable colors
-autoload -U colors && colors
-
-# Enable prompt substitutions
-setopt prompt_subst
-
-# Set up VCS info
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%b%u) '
-zstyle ':vcs_info:*' unstagedstr ' *'
-zstyle ':vcs_info:*' check-for-changes true
-
-# Prompt: [x] user@host ~/path/to/dir (branch *) %                          MODE
-PS1='%(?.%F{10}.%F{9})[%?] '
-PS1+='%F{14}%n'
-[[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && PROMPT+='%\@%m'
-PS1+='%F{4} %~ '
-PS1+='%F{8}${vcs_info_msg_0_}'
-PS1+='%f%% '
-
-# Execute each time prompt is redrawn
-precmd() {
-    vcs_info
-}
-
-################################################################################
-# HISTORY                                                                      #
-################################################################################
-
-################################################################################
-# COMPLETION, AUTOCOMPLETION AND SPELLING                                      #
-################################################################################
-
-# Enable completion
-autoload -Uz compinit
-compinit
-zmodload -i zsh/complist
-
-# Use menu completion
-zstyle ':completion:*' menu select
-
-# Case-insensitive completion
-# Treat hyphens and underscores as equal
-#zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}'
+# # Enable colors
+# autoload -U colors && colors
+#
+# # Enable prompt substitutions
+# setopt prompt_subst
+#
+# # Set up VCS info
+# autoload -Uz vcs_info
+# zstyle ':vcs_info:*' formats '(%b%u) '
+# zstyle ':vcs_info:*' unstagedstr ' *'
+# zstyle ':vcs_info:*' check-for-changes true
+#
+# # Prompt: [x] user@host ~/path/to/dir (branch *) %                          MODE
+# PS1='%(?.%F{10}.%F{9})[%?] '
+# PS1+='%F{14}%n'
+# [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && PROMPT+='%\@%m'
+# PS1+='%F{4} %~ '
+# PS1+='%F{8}${vcs_info_msg_0_}'
+# PS1+='%f%% '
+#
+# # Execute each time prompt is redrawn
+# precmd() {
+#     vcs_info
+# }
 
 # Colorize directories
 # Colorize completion prefix
 #zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 #zstyle -e ':completion:*' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==35}")';
 
-# Suggest spelling corrections for commands
-setopt correct
-
-################################################################################
-# DIRECTORY NAVIGATION                                                         #
-################################################################################
-
-# Automatically cd into directories
-setopt autocd
-
-# Automatically push directories onto the stack
-setopt auto_pushd
-
-# Enable cd'ing using variables
-setopt cdable_vars
-
-# Don't print directory after cd'ing or popping a directory from the stack
-setopt cd_silent pushd_silent
-
-################################################################################
-# EXPASION AND GLOBBING                                                        #
-################################################################################
-
-# Enable extended globbing
-setopt globstarshort
-
-# Case insensitive globbing
-setopt nocaseglob
-
-# Throw an error if a glob doesn't match anything
-setopt nomatch
-
 ################################################################################
 # KEY BINDINGS                                                                 #
 ################################################################################
 
-#
-# # Use vim keybindings to navigate suggestions
-# zmodload zsh/complist
-# bindkey -M menuselect 'h' vi-backward-char
-# bindkey -M menuselect 'k' vi-up-line-or-history
-# bindkey -M menuselect 'l' vi-forward-char
-# bindkey -M menuselect 'j' vi-down-line-or-history
-
-if [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
-
 # Load aliases
-# .aliases needs $0 to be the name of the shell
-unsetopt function_argzero
-
 for alias in "$XDG_CONFIG_HOME/aliases/"*; do
-    [[ -f "$alias" ]] && source "$alias"
+    [[ -f "$alias" ]] && . "$alias"
 done
 
-setopt function_argzero
+# Load syntax highlighting
+if [[ -f $XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source $XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# Load autosuggestions
+if [[ -f $XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source $XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# Load completions for some programs
+if command -v fnm >&/dev/null; then
+    eval "$(fnm completions --shell zsh)"
+fi

@@ -14,7 +14,7 @@ check_suse || return
 p() {
     # Enable parallel downloads and use modern media backend
     local ZYPP_PCK_PRELOAD=1 ZYPP_CURL2=1
-    sudo zypper update --no-confirm
+    sudo zypper dist-upgrade --no-confirm
     [ $# -ne 0 ] && sudo zypper install "$@"
 }
 
