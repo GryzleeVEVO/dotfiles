@@ -8,7 +8,7 @@ dynamic_title = true
 
 [font]
 normal = { family = "Inconsolata Nerd Font" }
-size = 11
+size = 14
 
 [colors]
 transparent_background_colors = true
