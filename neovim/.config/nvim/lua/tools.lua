@@ -11,6 +11,7 @@ return {
     json = { "prettierd" },
     jsx = { "prettierd" },
     lua = { "stylua" },
+    ocaml = { "ocamlformat" },
     python = { "autopep8" },
     sh = { "shfmt" },
     sql = { "pgformatter" },
@@ -31,5 +32,9 @@ return {
   -- Disable highlighting for these Treesitter parsers
   disable_treesitter_highlight = {
     "csv", -- No rainbow colours :(
+  },
+
+  disable_treesitter_indent = {
+    "ocaml", -- Weird indenting when typing keywords
   },
 }

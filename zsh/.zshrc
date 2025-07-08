@@ -24,10 +24,10 @@ setopt globstarshort          # ** always searches recursively
 setopt nocaseglob             # Case-insensitive glob
 setopt nomatch                # Fail on no match for glob
 
-zmodload -i zsh/complist                                      # Preload completion list
-autoload -Uz compinit && compinit                             # Enable autocompletion
-zstyle ':completion:*' menu select                            # Menu completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' # Case and hyphen/underscore insensitive completion
+zmodload -i zsh/complist                                       # Preload completion list
+autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zcompdump # Enable autocompletion
+zstyle ':completion:*' menu select                             # Menu completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}'  # Case and hyphen/underscore insensitive completion
 
 # History file
 [[ -n "$XDG_CACHE_HOME" ]] &&
@@ -41,58 +41,33 @@ HISTSIZE=10000 # History buffer size
 HISTORY_IGNORE="(?|??|???|cls|clr|clear|quit|exit|history)"
 
 # Faster mode switching in vi mode
-export KEYTIMEOUT=1
+export KEYTIMEOUT=1 # Faster
 
-# # Enable colors
-# autoload -U colors && colors
-#
-# # Enable prompt substitutions
-# setopt prompt_subst
-#
-# # Set up VCS info
-# autoload -Uz vcs_info
-# zstyle ':vcs_info:*' formats '(%b%u) '
-# zstyle ':vcs_info:*' unstagedstr ' *'
-# zstyle ':vcs_info:*' check-for-changes true
-#
-# # Prompt: [x] user@host ~/path/to/dir (branch *) %                          MODE
-# PS1='%(?.%F{10}.%F{9})[%?] '
-# PS1+='%F{14}%n'
-# [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && PROMPT+='%\@%m'
-# PS1+='%F{4} %~ '
-# PS1+='%F{8}${vcs_info_msg_0_}'
-# PS1+='%f%% '
-#
-# # Execute each time prompt is redrawn
-# precmd() {
-#     vcs_info
-# }
-
-# Colorize directories
-# Colorize completion prefix
-#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-#zstyle -e ':completion:*' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==35}")';
-
-################################################################################
-# KEY BINDINGS                                                                 #
-################################################################################
+source_first_found() {
+    for file in "$@"; do
+        [[ -f "$file" ]] && source "$file" && return 0
+    done
+    return 1
+}
 
 # Load aliases
 for alias in "$XDG_CONFIG_HOME/aliases/"*; do
     [[ -f "$alias" ]] && . "$alias"
 done
 
-# Load syntax highlighting
-if [[ -f $XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source $XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# Load fish-like syntax highlighting
+source_first_found \
+    "$XDG_DATA_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+    "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# Load autosuggestions
-if [[ -f $XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-    source $XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+# Load fish-like autosuggestions
+source_first_found \
+    "$XDG_DATA_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+    "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Load completions for some programs
-if command -v fnm >&/dev/null; then
-    eval "$(fnm completions --shell zsh)"
-fi
+command -v fnm >&/dev/null && eval "$(fnm completions --shell zsh)"
+
+unset -f source_first_found
+
+eval "$(starship init zsh)"

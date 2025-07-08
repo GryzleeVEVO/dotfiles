@@ -13,7 +13,10 @@ return {
       enable = true,
       disable = tools.disable_treesitter_highlight,
     },
-    indent = { enable = true },
+    indent = {
+      enable = true,
+      disable = tools.disable_treesitter_indent,
+    },
   },
 
   init = function()
