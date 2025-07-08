@@ -1,0 +1,25 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+format = '''$username $directory$all$character'''
+
+
+[character]
+success_symbol = '[%](bold green)'
+
+[package]
+format = "[$symbol ]($style)"
+
+[python]
+symbol = ' '
+
+[username]
+format = '[$user](blue bold)'
+show_always = true
+
+[battery]
+disabled = true
+
+[netns]
+disabled = true
