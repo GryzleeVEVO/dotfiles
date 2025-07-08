@@ -6,3 +6,6 @@ nvim/.config/nvim/plugin
 .zcompdump
 .zsh_plugins.zsh
 lazy-lock.json
+
+# Ignore any file with ending with .private
+*.private

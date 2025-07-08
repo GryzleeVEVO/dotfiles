@@ -13,6 +13,7 @@ return {
     lua = { "stylua" },
     python = { "autopep8" },
     sh = { "shfmt" },
+    sql = { "pgformatter" },
     typescript = { "prettierd" },
     xml = { "xmlformatter" },
     yaml = { "prettierd" },

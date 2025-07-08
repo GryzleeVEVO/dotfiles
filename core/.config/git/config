@@ -48,3 +48,5 @@
 	sa = stash apply
 	sp = stash pop
 
+[include]
+	path = "config.private"

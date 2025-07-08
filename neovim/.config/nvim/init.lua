@@ -4,6 +4,7 @@ vim.g.loaded_netrwPlugin = 1
 
 require("opts")
 require("globals")
+require("commands")
 require("diagnostics")
 require("autocmds")
 require("keybinds")
