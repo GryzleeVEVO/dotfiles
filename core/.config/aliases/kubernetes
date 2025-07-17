@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+command -v kubecolor &>/dev/null && alias kubectl="kubecolor"
+
+alias k='kubectl'
