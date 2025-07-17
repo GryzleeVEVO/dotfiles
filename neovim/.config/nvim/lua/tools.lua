@@ -14,7 +14,7 @@ return {
     ocaml = { "ocamlformat" },
     python = { "autopep8" },
     sh = { "shfmt" },
-    sql = { "pgformatter" },
+    sql = { "pg_format" },
     typescript = { "prettierd" },
     xml = { "xmlformatter" },
     yaml = { "prettierd" },

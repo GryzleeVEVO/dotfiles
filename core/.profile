@@ -38,6 +38,10 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 # JetBrains
 export PATH="$PATH:$XDG_DATA_HOME/JetBrains/Toolbox/scripts"
 
+# Kubernetes
+export KUBECONFIG="$XDG_CONFIG_HOME/kube"
+export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
+
 # Less
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 
