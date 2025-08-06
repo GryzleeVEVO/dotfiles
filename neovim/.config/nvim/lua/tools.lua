@@ -1,6 +1,8 @@
 return {
   -- Local LSP servers to be enabled (those installed by Mason get enabled on start)
-  local_lsp_servers = {},
+  local_lsp_servers = {
+    "ocamllsp",
+  },
 
   -- Formatters per filetype
   conform_formatters = {
@@ -17,7 +19,7 @@ return {
     sql = { "pg_format" },
     typescript = { "prettierd" },
     xml = { "xmlformatter" },
-    yaml = { "prettierd" },
+    yaml = { "yamlfix" },
     zsh = { "shfmt" },
   },
 

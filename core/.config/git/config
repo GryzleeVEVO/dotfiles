@@ -20,9 +20,7 @@
 	autoupdate = 1
 
 [url "git@github.com:"]
-	; insteadOf = https://github.com
 	insteadOf = gh:
-
 
 [filter "lfs"]
 	required = true
@@ -31,22 +29,14 @@
 	process = git-lfs filter-process
 
 [alias]
-	a = add --all
-	b = branch
-	bdel = branch --delete
-	c = commit --all --message
 	amend = commit --amend --message
-	f = fetch
 	bch = checkout
-	badd = checkout -b
-	bnew = badd
-	m = merge
-	p = push
-	pp = pull
+	bdel = branch --delete
+	bnew = bcheckout -b
 	nuke = reset --hard HEAD
-	s = stash
-	sa = stash apply
-	sp = stash pop
+	unstage = reset HEAD --
+	untrack = rm --cached
 
 [include]
+	# Add uncommited config
 	path = "config.private"

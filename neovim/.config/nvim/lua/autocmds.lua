@@ -38,13 +38,6 @@ au({ "TextYankPost" }, {
   end,
 })
 
-au({ "BufRead", "BufNewFile" }, {
-  desc = "Set correct filetype for Docker Compose files",
-  group = qol_gr,
-  pattern = "*docker-compose*.{yml,yaml}",
-  command = "set filetype=yaml.docker-compose",
-})
-
 au({ "LspAttach" }, {
   desc = "Set up stuff on a newly attached LSP",
   group = lsp_gr,

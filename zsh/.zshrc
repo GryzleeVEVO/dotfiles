@@ -70,4 +70,5 @@ command -v fnm >&/dev/null && eval "$(fnm completions --shell zsh)"
 
 unset -f source_first_found
 
-eval "$(starship init zsh)"
+command -v starship >&/dev/null && eval "$(starship init zsh)"
+command -v opam &>/dev/null && eval "$(opam env)"
