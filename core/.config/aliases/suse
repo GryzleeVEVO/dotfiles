@@ -2,7 +2,7 @@
 
 check_suse() {
     if [ -f /etc/os-release ]; then
-        echo "$(cat /etc/os-release | grep '^NAME' | cut -d '=' -f 2 | tr -d '"')" | grep -qi "suse" && return 0
+        cat /etc/os-release | grep '^NAME' | cut -d '=' -f 2 | tr -d '"' | grep -qi "suse" && return 0
     fi
 
     return 1
@@ -19,7 +19,7 @@ p() {
 }
 
 # prm: remove
-alias prm='sudo zypper remove'
+alias prm='sudo zypper remove --clean-deps'
 
 # pq: query all explicitly installed local packages
 alias pq='zypper search --installed-only | grep -v i+'
@@ -38,3 +38,5 @@ alias pcl='echo "Zypper does not have an easy way to do this, :("'
 
 # pcc: clean up cache
 alias pcc='sudo zypper clean --all'
+
+unset -f check_suse
