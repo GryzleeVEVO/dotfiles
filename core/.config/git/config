@@ -32,7 +32,7 @@
 	amend = commit --amend --message
 	bch = checkout
 	bdel = branch --delete
-	bnew = bcheckout -b
+	bnew = checkout -b
 	nuke = reset --hard HEAD
 	unstage = reset HEAD --
 	untrack = rm --cached
