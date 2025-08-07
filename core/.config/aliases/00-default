@@ -27,6 +27,8 @@ alias ta='tmux attach'
 # Do we have neovim? Use that instead of vim
 command -v nvim >&/dev/null && alias vim='nvim'
 
+command -v rsync >&/dev/null && alias rsync='rsync -v'
+
 # ------------------------------------------------------------------------------
 # Administration                                                               |
 # ------------------------------------------------------------------------------
