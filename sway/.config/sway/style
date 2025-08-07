@@ -1,0 +1,25 @@
+set $font_mono "pango:JetBrains Mono 10"
+set $wallpaper "$HOME/Imágenes/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
+
+# Main font
+font $font_mono
+
+output * bg $wallpaper fill
+
+# Gaps
+gaps inner 8
+
+# Hide gaps when there's only one window
+smart_gaps on
+smart_borders on
+
+# Hide window titles, show thin border
+for_window [class="^.*"] border pixel 1
+
+# Use floating by default for some apps
+for_window [class="^pavucontrol$"] floating enable
+for_window [class="^gnome-calculator$"] floating enable
+for_window [class="^gnome-screenshot$"] floating enable
+for_window [class="^Blueman-manager$"] floating enable
+
+# vim: set ft=swayconfig:

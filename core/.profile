@@ -13,6 +13,11 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export ANDROID_HOME="$XDG_DATA_HOME/Android/Sdk"
 export ANDROID_USER_HOME="$XDG_DATA_HOME/Android"
 
+# Ansible
+export ANSIBLE_HOME="${XDG_CONFIG_HOME}/ansible"
+export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible.cfg"
+export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME}/ansible/galaxy_cache"
+
 # Docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
