@@ -5,7 +5,8 @@ set $browser firefox
 set $private-browser firefox --private-window
 set $menu wmenu-run
 set $calc gnome-calculator
-set $screenshot gnome-screenshot --interactive
+set $screenshot flameshot gui
+set $lock swaylock -f -c 000000 -i $wallpaper
 
 set $font_mono "pango:JetBrains Mono 10"
 set $wallpaper "$HOME/Imágenes/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
@@ -21,49 +22,51 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+
+# Start wallet
+exec /usr/lib/pam_kwallet_init
+#exec /usr/bin/kwalletd6
+
 # Autostart .desktop files
 exec dex --autostart --environment sway
 
-# Start wallet
-exec /usr/bin/kwalletd6
-exec /usr/lib/pam_kwallet_init
-
 # Start notification daemon
 exec mako
+
+# Enable clipboard
+exec wl-paste --watch cliphist store
 
 bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 "$lock" \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep "$lock"
 
-input * {
+input "type:keyboard" {
     xkb_layout "es"
 }
 
-#
-# Scratchpad:
-#
-# Sway has a "scratchpad", which is a bag of holding for windows.
-# You can send windows there and get them back later.
-
-# Move the currently focused window to the scratchpad
-#bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-
-#bindsym $mod+minus scratchpad show
-
+input type:touchpad {
+    accel_profile "flat"
+    pointer_accel 0.5
+    click_method "clickfinger"
+    tap enabled
+    natural_scroll enabled
+    drag enabled
+    drag_lock enabled
+}
 
 bar {
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    #status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    status_command while (echo "BAT $(cat /sys/class/power_supply/BAT0/capacity)% \| $(date +'%Y-%m-%d %X')"); do sleep 1; done
 
     colors {
         statusline #ffffff

@@ -7,7 +7,7 @@ font $font_mono
 output * bg $wallpaper fill
 
 # Gaps
-gaps inner 8
+gaps inner 0
 
 # Hide gaps when there's only one window
 smart_gaps on
@@ -21,5 +21,6 @@ for_window [class="^pavucontrol$"] floating enable
 for_window [class="^gnome-calculator$"] floating enable
 for_window [class="^gnome-screenshot$"] floating enable
 for_window [class="^Blueman-manager$"] floating enable
+for_window [class="^keepassxc$"] floating enable
 
 # vim: set ft=swayconfig:

@@ -15,17 +15,25 @@ return {
   --     vim.cmd([[ colorscheme kanagawa-dragon ]])
   --   end,
   -- },
-  -- Using Lazy
+  -- {
+  --   "navarasu/onedark.nvim",
+  --
+  --   priority = 1000,
+  --
+  --   config = function()
+  --     require("onedark").setup({
+  --       style = "darker",
+  --     })
+  --     require("onedark").load()
+  --   end,
+  -- },
   {
-    "navarasu/onedark.nvim",
+    "EdenEast/nightfox.nvim",
 
-    priority = 1000,
-
-    config = function()
-      require("onedark").setup({
-        style = "darker",
-      })
-      require("onedark").load()
+    init = function()
+      vim.opt.termguicolors = true
+      vim.opt.background = "dark"
+      vim.cmd([[colorscheme carbonfox]])
     end,
   },
   {
