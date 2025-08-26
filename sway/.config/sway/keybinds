@@ -13,7 +13,9 @@ bindsym $mod+Shift+r    restart
 bindsym --locked $mod+Shift+e 	exec swaynag \
     -t warning \
     -m 'Quit?' \
-    -B 'Yes, exit sway' 'swaymsg exit'
+    -B 'Log out' 'swaymsg exit' \
+    -B 'Shut down' 'systemctl poweroff' \
+    -B 'Restart' 'systemctl restart'
 
 # Move to window
 bindsym $mod+h focus left
@@ -75,17 +77,17 @@ bindsym $mod+Shift+KP_9 move container to workspace number $ws9
 bindsym $mod+Shift+KP_0 move container to workspace number $ws10
 
 # Resize
-# bindsym $mod+Mod1+h resize shrink width 5 px or 5 ppt
-# bindsym $mod+Mod1+j resize grow height 5 px or 5 ppt
-# bindsym $mod+Mod1+k resize shrink height 5 px or 5 ppt
-# bindsym $mod+Mod1+l resize grow width 5 px or 5 ppt
+bindsym $mod+Mod1+h resize shrink width 5 px or 5 ppt
+bindsym $mod+Mod1+j resize grow height 5 px or 5 ppt
+bindsym $mod+Mod1+k resize shrink height 5 px or 5 ppt
+bindsym $mod+Mod1+l resize grow width 5 px or 5 ppt
 
 bindsym $mod+r mode "resize"
 mode "resize" {
-    bindsym h resize shrink width 10px
-    bindsym j resize grow height 10px
-    bindsym k resize shrink height 10px
-    bindsym l resize grow width 10px
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
     # Return to default mode
     bindsym Return mode "default"
