@@ -1,5 +1,8 @@
 set $mod Mod4
 
+set $font_mono "pango:JetBrains Mono 10"
+set $wallpaper "$HOME/Imágenes/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
+
 set $term alacritty
 set $browser firefox
 set $private-browser firefox --private-window
@@ -7,9 +10,6 @@ set $menu wmenu-run
 set $calc gnome-calculator
 set $screenshot flameshot gui
 set $lock swaylock -f -c 000000 -i $wallpaper
-
-set $font_mono "pango:JetBrains Mono 10"
-set $wallpaper "$HOME/Imágenes/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
 
 set $ws1 "1"
 set $ws2 "2"
@@ -22,12 +22,12 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+# Launch dbus
 exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
 # Start wallet
 exec /usr/lib/pam_kwallet_init
-#exec /usr/bin/kwalletd6
 
 # Autostart .desktop files
 exec dex --autostart --environment sway
@@ -35,9 +35,13 @@ exec dex --autostart --environment sway
 # Start notification daemon
 exec mako
 
+# Autotiling
+exec autotiling-rs
+
 # Enable clipboard
 exec wl-paste --watch cliphist store
 
+# Display
 bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable
 
@@ -58,21 +62,6 @@ input type:touchpad {
     natural_scroll enabled
     drag enabled
     drag_lock enabled
-}
-
-bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-    status_command while (echo "BAT $(cat /sys/class/power_supply/BAT0/capacity)% \| $(date +'%Y-%m-%d %X')"); do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
 }
 
 include "style"

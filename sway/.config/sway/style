@@ -23,4 +23,17 @@ for_window [class="^gnome-screenshot$"] floating enable
 for_window [class="^Blueman-manager$"] floating enable
 for_window [class="^keepassxc$"] floating enable
 
+bar {
+    position top
+
+    # Workspaces, battery life, time and tray icons
+    status_command while (echo "BAT $(cat /sys/class/power_supply/BAT0/capacity)% \| $(date +'%Y-%m-%d %X')"); do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
 # vim: set ft=swayconfig:
