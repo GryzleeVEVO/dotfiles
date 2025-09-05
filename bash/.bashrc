@@ -46,9 +46,12 @@ done
 [[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] &&
   eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
 
-# Load completions for some programs
 if command -v fnm >&/dev/null; then
   eval "$(fnm completions --shell bash)"
+fi
+
+if command -v opam >&/dev/null; then
+  eval "$(opam env)"
 fi
 
 # Just to have #? set to 0
