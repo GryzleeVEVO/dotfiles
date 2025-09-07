@@ -3,10 +3,14 @@ return {
 
   dependencies = {
     "nvim-lua/plenary.nvim",
+
+    "nvim-telescope/telescope-ui-select.nvim",
   },
 
   config = function()
-    require("telescope").setup({
+    local telescope = require("telescope")
+
+    telescope.setup({
       defaults = {
         mappings = require("keybinds").telescope_picker_mappings(),
       },
@@ -16,8 +20,14 @@ return {
           previewer = false,
         },
       },
+
+      extensions = {
+        ["ui-select"] = require("telescope.themes").get_dropdown({}),
+      },
     })
 
-    require("keybinds").telescope_picker_openers()
+    telescope.load_extension("ui-select")
+
+    require("keybinds").telescope_pickers()
   end,
 }

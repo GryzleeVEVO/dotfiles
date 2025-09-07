@@ -1,33 +1,6 @@
 return {
-  -- {
-  --   -- Color scheme
-  --   "rebelot/kanagawa.nvim",
-  --
-  --   priority = 1000,
-  --
-  --   opts = {
-  --     dimInactive = true,
-  --   },
-  --
-  --   init = function()
-  --     vim.opt.termguicolors = true
-  --     vim.opt.background = "dark"
-  --     vim.cmd([[ colorscheme kanagawa-dragon ]])
-  --   end,
-  -- },
-  -- {
-  --   "navarasu/onedark.nvim",
-  --
-  --   priority = 1000,
-  --
-  --   config = function()
-  --     require("onedark").setup({
-  --       style = "darker",
-  --     })
-  --     require("onedark").load()
-  --   end,
-  -- },
   {
+    -- Colorscheme
     "EdenEast/nightfox.nvim",
 
     init = function()
@@ -79,6 +52,7 @@ return {
     opts = {},
   },
   {
+    -- To-do comments. Duh.
     "folke/todo-comments.nvim",
 
     event = "VimEnter",

@@ -16,8 +16,9 @@ return {
     end,
   },
   {
-    -- Tooling package manager. Yes, we are pulling a package manager with a
-    -- package manager that can install package managers
+    -- Tooling package manager. Yes, we're installing a package manager with a
+    -- package manager, which itself uses other package managers in order to
+    -- install packages
     "mason-org/mason.nvim",
 
     dependencies = {
