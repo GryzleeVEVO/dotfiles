@@ -1,6 +1,6 @@
 return {
-  -- Autoclose parentheses, tags, etc...
   {
+    -- Autoclose parentheses, tags, etc...
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
@@ -9,10 +9,17 @@ return {
     "windwp/nvim-ts-autotag",
     opts = {},
   },
-  -- Generate doc comments
-  "danymat/neogen",
+  {
+    -- Generate documentation
+    "danymat/neogen",
 
-  opts = {
-    snippet_engine = "luasnip",
+    opts = {
+      snippet_engine = "luasnip",
+    },
+  },
+  {
+    "kylechui/nvim-surround",
+
+    opts = {},
   },
 }

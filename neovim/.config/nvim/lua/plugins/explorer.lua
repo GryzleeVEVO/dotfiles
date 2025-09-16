@@ -8,9 +8,20 @@ return {
   },
 
   config = function()
+    local api = require("nvim-tree.api")
+
     require("nvim-tree").setup({
       view = { number = true, relativenumber = true },
+      on_attach = function(bufnr)
+        api.config.mappings.default_on_attach(bufnr)
+        vim.keymap.set({ "n" }, "<F2>", api.fs.rename, {
+          desc = "[nvim-tree] Rename",
+        })
+      end,
     })
-    require("keybinds").nvim_tree()
+
+    vim.keymap.set({ "n" }, "<leader>e", api.tree.toggle, {
+      desc = "[nvim-tree] Toggle side explorer",
+    })
   end,
 }

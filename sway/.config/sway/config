@@ -8,7 +8,7 @@ set $browser firefox
 set $private-browser firefox --private-window
 set $menu wmenu-run
 set $calc gnome-calculator
-set $screenshot flameshot gui
+set $screenshot slurp | grim -g - - | swappy -f -
 set $lock swaylock -f -c 000000 -i $wallpaper
 
 set $ws1 "1"
@@ -43,7 +43,14 @@ exec wl-paste --watch cliphist store
 
 # Display
 bindswitch --reload --locked lid:on output eDP-1 disable
-bindswitch --reload --locked lid:off output eDP-1 enable
+bindswitch --reload --locked lid:off output eDP-1 enable pos 0 0
+
+# Bind main workspaces to external monitor
+workspace 1 output HDMI-A-1
+workspace 2 output HDMI-A-1
+
+# and 10 to the laptop output
+workspace 10 output eDP-1
 
 exec swayidle -w \
          timeout 300 "$lock" \

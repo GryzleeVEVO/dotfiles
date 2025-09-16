@@ -24,11 +24,14 @@ return {
     --- @type blink.cmp.Config
     opts = {
       snippets = { preset = "luasnip" },
-
-      keymap = require("keybinds").blink,
-
+      keymap = {
+        blink = {
+          preset = "default",
+          ["<C-j>"] = { "select_next", "fallback" },
+          ["<C-k>"] = { "select_prev", "fallback" },
+        },
+      },
       signature = {
-        -- Show signature while filling a functiofunction
         enabled = true,
         window = {
           show_documentation = false,
