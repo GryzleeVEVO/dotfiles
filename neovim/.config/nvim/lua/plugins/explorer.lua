@@ -1,10 +1,10 @@
 return {
-  "nvim-tree/nvim-tree.lua",
+  "nvim-tree/nvim-tree.lua", -- File explorer
 
   lazy = false,
 
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons", -- Dependency
   },
 
   config = function()
@@ -14,14 +14,11 @@ return {
       view = { number = true, relativenumber = true },
       on_attach = function(bufnr)
         api.config.mappings.default_on_attach(bufnr)
-        vim.keymap.set({ "n" }, "<F2>", api.fs.rename, {
-          desc = "[nvim-tree] Rename",
-        })
+
+        vim.keymap.set({ "n" }, "<F2>", api.fs.rename, { desc = "[nvim-tree] Rename" })
       end,
     })
 
-    vim.keymap.set({ "n" }, "<leader>e", api.tree.toggle, {
-      desc = "[nvim-tree] Toggle side explorer",
-    })
+    vim.keymap.set({ "n" }, "<leader>e", api.tree.toggle, { desc = "[nvim-tree] Toggle side explorer" })
   end,
 }

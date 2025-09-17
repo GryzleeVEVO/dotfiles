@@ -1,7 +1,6 @@
 return {
   {
-    -- Colorscheme
-    "EdenEast/nightfox.nvim",
+    "EdenEast/nightfox.nvim", -- Colorscheme
 
     init = function()
       vim.opt.termguicolors = true
@@ -10,55 +9,47 @@ return {
     end,
   },
   {
-    -- Show indentation marks
-    "lukas-reineke/indent-blankline.nvim",
+    "lukas-reineke/indent-blankline.nvim", -- Indentation marks
 
     main = "ibl",
     opts = {},
   },
   {
-    -- Fancy status bar
-    "nvim-lualine/lualine.nvim",
+    "nvim-lualine/lualine.nvim", -- Status bar
 
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons", -- Dependency
     },
 
     opts = {},
   },
   {
-    -- Show notifications on bottom right
-    "j-hui/fidget.nvim",
+    "j-hui/fidget.nvim", --  Notifications
 
     opts = {},
   },
   {
-    -- Fancier Markdown documents
-    "MeanderingProgrammer/render-markdown.nvim",
+    "MeanderingProgrammer/render-markdown.nvim", -- Markdown pretty printing
 
     ft = "markdown",
 
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
+      "nvim-treesitter/nvim-treesitter", -- Dependency
+      "nvim-tree/nvim-web-devicons", -- Dependency
     },
 
     opts = {},
   },
   {
-    -- Show git diff in gutter
-    "lewis6991/gitsigns.nvim",
+    "lewis6991/gitsigns.nvim", -- Git icons
 
     opts = {},
   },
   {
-    -- To-do comments. Duh.
-    "folke/todo-comments.nvim",
-
-    event = "VimEnter",
+    "folke/todo-comments.nvim", -- Highlight TODO comments
 
     dependencies = {
-      "nvim-lua/plenary.nvim",
+      "nvim-lua/plenary.nvim", -- Dependency
     },
 
     opts = {},

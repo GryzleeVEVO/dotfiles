@@ -17,8 +17,8 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>", {
 
 map("n", "<C-q>", "<C-w><C-q>", { desc = "Close window" })
 
-map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
-map({ "n", "v" }, "<leader>p", [["_dP]], { desc = "Paste without yanking" })
+-- map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
+-- map({ "n", "v" }, "<leader>p", [["_dP]], { desc = "Paste without yanking" })
 
 -- When an LSP is attached, add this keybinds
 local lsp_gr = ag("lsp-attach-keybinds", { clear = true })

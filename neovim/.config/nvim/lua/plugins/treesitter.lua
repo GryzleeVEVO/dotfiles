@@ -1,7 +1,7 @@
 local tools = require("tools")
 
 return {
-  "nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter", -- Parser
 
   build = ":TSUpdate",
 

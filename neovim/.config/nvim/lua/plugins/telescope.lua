@@ -1,10 +1,9 @@
 return {
-  "nvim-telescope/telescope.nvim",
+  "nvim-telescope/telescope.nvim", -- Search and pick menu
 
   dependencies = {
-    "nvim-lua/plenary.nvim",
-
-    "nvim-telescope/telescope-ui-select.nvim",
+    "nvim-lua/plenary.nvim", -- Depenency
+    "nvim-telescope/telescope-ui-select.nvim", -- Use Telescope UI for some native actions
   },
 
   config = function()
@@ -36,17 +35,16 @@ return {
 
     telescope.load_extension("ui-select")
 
-    vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, {
-      desc = "[Telescope] Find files",
-    })
+    vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, { desc = "[Telescope] Find files" })
 
-    vim.keymap.set({ "n" }, "<leader>/", builtin.live_grep, {
-      desc = "[Telescope] Find string",
-    })
+    vim.keymap.set({ "n" }, "<leader>/", builtin.live_grep, { desc = "[Telescope] Find string" })
 
-    vim.keymap.set({ "n" }, "<leader>s", builtin.lsp_document_symbols, {
-      desc = "[Telescope] Show current document symbols",
-    })
+    vim.keymap.set(
+      { "n" },
+      "<leader>s",
+      builtin.lsp_document_symbols,
+      { desc = "[Telescope] Show current document symbols" }
+    )
 
     vim.keymap.set(
       { "n" },

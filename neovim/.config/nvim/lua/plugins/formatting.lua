@@ -2,7 +2,7 @@ local tools = require("tools")
 
 return {
   {
-    "stevearc/conform.nvim",
+    "stevearc/conform.nvim", -- Detect and run formatters
 
     event = { "BufWritePre" },
     cmd = { "ConformInfo", "Format" },
@@ -39,7 +39,10 @@ return {
         end
 
         conform.format({ async = true, range = range })
-      end, { range = true })
+      end, {
+        desc = "Format buffer",
+        range = true,
+      })
     end,
   },
   {

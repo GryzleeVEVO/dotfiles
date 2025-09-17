@@ -3,27 +3,21 @@ local lsp = vim.lsp
 
 return {
   {
-    -- From 0.11, nvim-lspconfig is only a repository with sensible default
-    -- configs
-    "neovim/nvim-lspconfig",
+    "neovim/nvim-lspconfig", -- Sane defaults for LSPs
 
     config = function()
-      -- Enable local servers. The configuration is the merger of lspconfig's
-      -- config and the ones in the lsp directory
+      -- Enable LSPs that are not handled by mason
       for _, server in ipairs(tools.local_lsp_servers) do
         lsp.enable(server)
       end
     end,
   },
   {
-    -- Tooling package manager. Yes, we're installing a package manager with a
-    -- package manager, which itself uses other package managers in order to
-    -- install packages
-    "mason-org/mason.nvim",
+    "mason-org/mason.nvim", -- Tooling package manager
 
     dependencies = {
-      "mason-org/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
+      "mason-org/mason-lspconfig.nvim", -- Automatically set up tools installed with Mason
+      "neovim/nvim-lspconfig", -- Load before Mason
     },
 
     config = function()
@@ -32,8 +26,7 @@ return {
     end,
   },
   {
-    -- Support for Neovim API for LuaLS
-    "folke/lazydev.nvim",
+    "folke/lazydev.nvim", -- Support for nvim lua API
 
     ft = "lua",
 
