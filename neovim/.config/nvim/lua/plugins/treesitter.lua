@@ -6,6 +6,7 @@ return {
   build = ":TSUpdate",
 
   main = "nvim-treesitter.configs",
+
   opts = {
     auto_install = true,
     ignore_install = tools.disable_treesitter_parser,

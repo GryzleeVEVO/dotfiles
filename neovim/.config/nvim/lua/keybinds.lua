@@ -6,16 +6,16 @@ local ag = vim.api.nvim_create_augroup
 g.mapleader = " "
 g.localmapleader = " "
 
-map({ "n", "v", "i" }, "<left>", "", { desc = "Disable arrows" })
-map({ "n", "v", "i" }, "<right>", "", { desc = "Disable arrows" })
-map({ "n", "v", "i" }, "<up>", "", { desc = "Disable arrows" })
-map({ "n", "v", "i" }, "<down>", "", { desc = "Disable arrows" })
+map({ "n", "v", "i" }, "<left>", "<nop>", { desc = "[Custom] Disable arrows" })
+map({ "n", "v", "i" }, "<right>", "<nop>", { desc = "[Custom] Disable arrows" })
+map({ "n", "v", "i" }, "<up>", "<nop>", { desc = "[Custom] Disable arrows" })
+map({ "n", "v", "i" }, "<down>", "<nop>", { desc = "[Custom] Disable arrows" })
 
-map("n", "<Esc>", "<cmd>nohlsearch<CR>", {
-  desc = "Clear search highlight",
-})
+map({ "n", "v", "i" }, "q", "<nop>", { desc = "[Custom] Disable macros and cmdline history" })
 
-map("n", "<C-q>", "<C-w><C-q>", { desc = "Close window" })
+map({ "n" }, "<Esc>", "<cmd>nohlsearch<CR>", { desc = "[Custom] Clear search highlight" })
+
+map("n", "<C-q>", "<C-w><C-q>", { desc = "[Custom] Close window" })
 
 -- map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
 -- map({ "n", "v" }, "<leader>p", [["_dP]], { desc = "Paste without yanking" })

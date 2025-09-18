@@ -36,6 +36,7 @@ return {
     telescope.load_extension("ui-select")
 
     vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, { desc = "[Telescope] Find files" })
+    vim.keymap.set({ "n" }, "<leader>b", builtin.buffers, { desc = "[Telescope] Show open buffers" })
 
     vim.keymap.set({ "n" }, "<leader>/", builtin.live_grep, { desc = "[Telescope] Find string" })
 
@@ -52,5 +53,7 @@ return {
       builtin.lsp_dynamic_workspace_symbols,
       { desc = "[Telescope] Show workspace symbols" }
     )
+
+    vim.keymap.set({ "n" }, "<leader>?", builtin.keymaps, { desc = "[Telescope] Show  keymaps" })
   end,
 }

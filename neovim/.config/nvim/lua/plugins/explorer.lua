@@ -14,8 +14,10 @@ return {
       view = { number = true, relativenumber = true },
       on_attach = function(bufnr)
         api.config.mappings.default_on_attach(bufnr)
+        -- g? for help
 
         vim.keymap.set({ "n" }, "<F2>", api.fs.rename, { desc = "[nvim-tree] Rename" })
+        vim.keymap.set({ "n" }, "gd", api.tree.change_root_to_node, { desc = "[nvim-tree] CD into directory" })
       end,
     })
 
