@@ -1,0 +1,6 @@
+[Unit]
+Description=Update tldr's cache
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/tldr --update

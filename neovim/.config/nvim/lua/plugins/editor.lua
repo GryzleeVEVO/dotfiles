@@ -1,11 +1,13 @@
 return {
   {
     "windwp/nvim-autopairs", -- Autopair characters
+
     event = "InsertEnter",
     opts = {},
   },
   {
     "windwp/nvim-ts-autotag", -- Autopair tags
+
     opts = {},
   },
   {

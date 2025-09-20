@@ -3,8 +3,8 @@ local tools = require("tools")
 return {
   "nvim-treesitter/nvim-treesitter", -- Parser
 
+  lazy = false,
   build = ":TSUpdate",
-
   main = "nvim-treesitter.configs",
 
   opts = {

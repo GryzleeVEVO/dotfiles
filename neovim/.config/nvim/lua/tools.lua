@@ -23,9 +23,6 @@ return {
     zsh = { "shfmt" },
   },
 
-  -- Non LSP linters to be registered for nvim-lint
-  linters = {},
-
   -- Disable this Treesitter parsers completely
   disable_treesitter_parser = {
     "latex", -- Need to complile grammar manually
