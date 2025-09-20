@@ -1,9 +1,7 @@
-set $font_mono "pango:JetBrains Mono 10"
-set $wallpaper "$HOME/Imágenes/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
-
 # Main font
 font $font_mono
 
+# Wallpaper
 output * bg $wallpaper fill
 
 # Gaps
@@ -17,14 +15,22 @@ smart_borders on
 for_window [class="^.*"] border pixel 1
 
 # Use floating by default for some apps
-for_window [class="^pavucontrol$"] floating enable
+
+# Wayland
+for_window [app_id="^blueman-manager$"] floating enable
+for_window [app_id="^org.gnome.Calculator$"] floating enable
+for_window [app_id="^org.gnome.Screenshot$"] floating enable
+for_window [app_id="^org.kde.kcalc$"] floating enable
+for_window [app_id="^org.keepassxc.KeePassXC$"] floating enable
 for_window [app_id="^org.pulseaudio.pavucontrol$"] floating enable
+
+# Xorg
+for_window [class="^Blueman-manager$"] floating enable
 for_window [class="^gnome-calculator$"] floating enable
 for_window [class="^gnome-screenshot$"] floating enable
-for_window [class="^Blueman-manager$"] floating enable
-for_window [app_id="^blueman-manager$"] floating enable
+for_window [class="^kcalc$"] floating enable
 for_window [class="^keepassxc$"] floating enable
-for_window [app_id="^org.keepassxc.KeePassXC$"] floating enable
+for_window [class="^pavucontrol$"] floating enable
 
 bar {
     position top

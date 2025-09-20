@@ -1,8 +1,8 @@
-bindsym $mod+Return exec $term
-bindsym $mod+n exec $browser
-bindsym $mod+Shift+n exec $private-browser
-bindsym $mod+d exec $menu
-bindsym $mod+c exec cliphist list | wmenu | cliphist decode | wl-copy
+bindsym $mod+Return     exec $term
+bindsym $mod+n          exec $browser
+bindsym $mod+Shift+n    exec $private-browser
+bindsym $mod+d          exec $menu
+bindsym $mod+c          exec $clipboard
 
 bindsym $mod+Shift+q    kill
 bindsym $mod+F11        fullscreen toggle
@@ -132,7 +132,7 @@ bindsym --locked XF86AudioPrev          exec playerctl previous
 bindsym --locked XF86AudioStop          exec playerctl stop
 
 # App launcher keys
-bindsym XF86Calculator exec --no-startup-id $calc
-bindsym Print exec $screenshot
+bindsym XF86Calculator  exec --no-startup-id $calc
+bindsym Print           exec $screenshot
 
 # vim: set ft=swayconfig:

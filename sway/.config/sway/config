@@ -3,13 +3,15 @@ set $mod Mod4
 set $font_mono "pango:JetBrains Mono 10"
 set $wallpaper "$HOME/Imágenes/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
 
+# Default programs
 set $term alacritty
 set $browser firefox
 set $private-browser firefox --private-window
 set $menu wmenu-run
-set $calc gnome-calculator
+set $calc kcalc
 set $screenshot slurp | grim -g - - | swappy -f -
 set $lock swaylock -f -c 000000 -i $wallpaper
+set $clipboard cliphist list | wmenu | cliphist decode | wl-copy
 
 set $ws1 "1"
 set $ws2 "2"
@@ -49,7 +51,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable pos 0 0
 workspace 1 output HDMI-A-1
 workspace 2 output HDMI-A-1
 
-# and 10 to the laptop output
+# and 10 to the laptop output (if enabled)
 workspace 10 output eDP-1
 
 exec swayidle -w \
