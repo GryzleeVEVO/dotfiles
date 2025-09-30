@@ -26,6 +26,10 @@ return {
         find_files = {
           previewer = false,
         },
+        diagnostics = {
+          previewer = false,
+          theme = "ivy",
+        },
       },
 
       extensions = {

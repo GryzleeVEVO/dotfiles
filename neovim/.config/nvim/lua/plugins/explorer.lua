@@ -1,6 +1,8 @@
 return {
   "nvim-tree/nvim-tree.lua", -- File explorer
 
+  enabled = false,
+
   lazy = false,
 
   dependencies = {
