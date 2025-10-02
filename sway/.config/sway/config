@@ -48,11 +48,11 @@ bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable pos 0 0
 
 # Bind main workspaces to external monitor
-workspace 1 output HDMI-A-1
-workspace 2 output HDMI-A-1
+workspace $ws1 output HDMI-A-1
+workspace $ws2 output HDMI-A-1
 
 # and 10 to the laptop output (if enabled)
-workspace 10 output eDP-1
+workspace $ws10 output eDP-1
 
 exec swayidle -w \
          timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
