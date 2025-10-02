@@ -19,13 +19,27 @@ map({ "n", "v", "i" }, "<down>", "<nop>", {
   desc = "[Custom] Disable arrows",
 })
 
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", {
+  expr = true,
+  desc = "[Custom] Move down one line even if wrapped, ignore if count provided",
+})
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", {
   expr = true,
   desc = "[Custom] Move up one line even if wrapped, ignore if count provided",
 })
-map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", {
-  expr = true,
-  desc = "[Custom] Move up one line even if wrapped, ignore if count provided",
+
+map({ "v" }, "<", "<gv", {
+  desc = "[Custom] Keep selection when indenting",
+})
+map({ "v" }, ">", ">gv", {
+  desc = "[Custom] Keep selection when indenting",
+})
+
+map({ "v" }, "<c-j>", ":m '>+1<CR>gv=gv", {
+  desc = "[Custom] Move entire selection",
+})
+map({ "v" }, "<c-k>", ":m '<-2<CR>gv=gv", {
+  desc = "[Custom] Move entire selection",
 })
 
 map({ "n", "v" }, "H", "^", {
