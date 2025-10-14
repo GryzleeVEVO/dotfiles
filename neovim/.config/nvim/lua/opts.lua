@@ -51,3 +51,6 @@ o.smartcase = true
 -- Always split right and below
 o.splitright = true
 o.splitbelow = true
+
+-- Enable spell checking
+o.spell = true

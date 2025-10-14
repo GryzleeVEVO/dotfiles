@@ -23,6 +23,7 @@ map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", {
   expr = true,
   desc = "[Custom] Move down one line even if wrapped, ignore if count provided",
 })
+
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", {
   expr = true,
   desc = "[Custom] Move up one line even if wrapped, ignore if count provided",
