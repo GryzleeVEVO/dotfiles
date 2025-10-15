@@ -1,6 +1,15 @@
 return {
   {
+
     "EdenEast/nightfox.nvim", -- Colorscheme
+
+    opts = {
+      options = {
+        styles = {
+          comments = "italic",
+        },
+      },
+    },
 
     init = function()
       vim.opt.termguicolors = true

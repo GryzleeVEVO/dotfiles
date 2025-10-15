@@ -57,7 +57,5 @@ return {
       builtin.lsp_dynamic_workspace_symbols,
       { desc = "[Telescope] Show workspace symbols" }
     )
-
-    vim.keymap.set({ "n" }, "<leader>?", builtin.keymaps, { desc = "[Telescope] Show  keymaps" })
   end,
 }

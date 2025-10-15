@@ -10,10 +10,12 @@ return {
   opts = {
     auto_install = true,
     ignore_install = tools.disable_treesitter_parser,
+
     highlight = {
       enable = true,
       disable = tools.disable_treesitter_highlight,
     },
+
     indent = {
       enable = true,
       disable = tools.disable_treesitter_indent,

@@ -3,6 +3,18 @@ return {
 
   event = "VeryLazy",
 
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      {
+        desc = "[Which-key] Open",
+      },
+    },
+  },
+
   opts = {
     preset = "helix",
   },
