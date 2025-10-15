@@ -19,12 +19,22 @@ map({ "n", "v", "i" }, "<down>", "<nop>", {
   desc = "[Custom] Disable arrows",
 })
 
-map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", {
+map({ "n", "v" }, "j", function()
+  if vim.g.wrapped_lines_jk and vim.v.count == 0 then
+    return "gj"
+  end
+  return "j"
+end, {
   expr = true,
   desc = "[Custom] Move down one line even if wrapped, ignore if count provided",
 })
 
-map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", {
+map({ "n", "v" }, "k", function()
+  if vim.g.wrapped_lines_jk and vim.v.count == 0 then
+    return "gk"
+  end
+  return "k"
+end, {
   expr = true,
   desc = "[Custom] Move up one line even if wrapped, ignore if count provided",
 })
