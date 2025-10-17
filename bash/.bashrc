@@ -7,7 +7,7 @@
 
 set -o vi                                                    # Use vi keybindings
 stty -ixon -ixoff                                            # Disable tty flow (Ctrl-S/Ctrl-Q)
-shopt -s cdspell                                             # Try to autocorrect mispelt directories
+shopt -s cdspell                                             # Try to autocorrect misspelt directories
 shopt -s checkwinsize                                        # Update LINES and COLUMNS after every command
 shopt -s globstar                                            # Use ** to glob recursively
 shopt -s histappend                                          # Append to history
@@ -15,7 +15,7 @@ shopt -s histreedit                                          # Don't clear promp
 shopt -s histverify                                          # Do not run commands on substitution
 shopt -s no_empty_cmd_completion                             # Don't autocomplete for an empty prompt
 shopt -s nocaseglob                                          # Case-insensitive glob
-[[ "${BASH_VERSINFO[0]}" -ge 4 ]] && shopt -s autocd         # If command is a diretory, cd into it
+[[ "${BASH_VERSINFO[0]}" -ge 4 ]] && shopt -s autocd         # If command is a directory, cd into it
 [[ "${BASH_VERSINFO[0]}" -ge 5 ]] && shopt -s progcomp_alias # Try to autocomplete for aliases
 
 # History file

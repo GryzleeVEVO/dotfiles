@@ -36,7 +36,7 @@ bar {
     position top
 
     # Workspaces, battery life, time and tray icons
-    status_command while (echo "BAT $(cat /sys/class/power_supply/BAT0/capacity)% \| $(date +'%Y-%m-%d %X')"); do sleep 1; done
+    status_command $HOME/.local/bin/swaybar_status.sh
 
     colors {
         statusline #ffffff
