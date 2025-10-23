@@ -43,16 +43,11 @@ for alias in "$XDG_CONFIG_HOME/aliases/"*; do
 done
 
 # Load colours
-[[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] &&
-  eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
+[[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] && eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
 
-if command -v fnm >&/dev/null; then
-  eval "$(fnm completions --shell bash)"
-fi
+command -v fnm >&/dev/null && eval "$(fnm completions --shell bash)"
 
-if command -v opam >&/dev/null; then
-  eval "$(opam env)"
-fi
+command -v opam >&/dev/null && eval "$(opam env)"
 
 # Just to have #? set to 0
 :

@@ -2,6 +2,7 @@ bindsym $mod+Return     exec $term
 bindsym $mod+n          exec $browser
 bindsym $mod+Shift+n    exec $private-browser
 bindsym $mod+d          exec $menu
+bindsym $mod+Shift+d    exec $HOME/chatpgt.sh
 bindsym $mod+c          exec $clipboard
 
 bindsym $mod+Shift+q    kill
@@ -16,7 +17,7 @@ bindsym --locked $mod+Shift+e exec swaynag \
     -B 'Lock' "$lock" \
     -B 'Log out' 'swaymsg exit' \
     -B 'Suspend' 'systemctl suspend' \
-    -B 'Restart' 'systemctl restart' \
+    -B 'Restart' 'systemctl reboot' \
     -B 'Shut down' 'systemctl poweroff'
 
 # Move to window
