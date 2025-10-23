@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-# https://wiki.archlinux.org/title/Polybar#Running_with_a_window_manager
-
-polybar-msg cmd quit
-polybar &
