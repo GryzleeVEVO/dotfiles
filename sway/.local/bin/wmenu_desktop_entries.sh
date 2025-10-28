@@ -1,40 +1,19 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-IFS=$'\n\t'
 
-search_dirs=(
-	"$HOME/.local/share/applications"
-	"/usr/share/applications"
-	"/usr/local/share/applications"
-	"/var/lib/flatpak/exports/share/applications"
-)
-
+DEST_FILE="$XDG_CACHE_HOME/wmenu-desktop-entries"
 declare -A app_map
 
-while IFS= read -r -d '' file; do
-	if grep -qi '^NoDisplay=true' "$file" ||
-		! grep -qi '^Type=.*Application.*$' "$file" ||
-		grep -qi "^OnlyShowIN=KDE$" "$file"; then
-		continue
-	fi
+if ! [ -f "$DEST_FILE" ] || ! [ -s "$DEST_FILE" ]; then
+	"$HOME/.local/bin/wmenu_create_cache.sh"
+fi
 
-	name=$(grep -m1 -E '^Name=' "$file" 2>/dev/null | sed 's/^Name=//')
-
-	if [[ -z "$name" ]]; then
-		name=$(basename "$file" .desktop)
-	fi
-
-	app_map["$name"]="$file"
-done < <(
-	for dir in "${search_dirs[@]}"; do
-		if ! [[ -d "$dir" ]]; then
-			continue
-		fi
-
-		find -L "$dir" -type f -maxdepth 1 -name '*.desktop' -print0 2>/dev/null
-	done
-)
+while IFS= read -r line; do
+	name=${line% /*}
+	path=${line##* }
+	app_map["$name"]="$path"
+done <"$DEST_FILE"
 
 if [[ ${#app_map[@]} -eq 0 ]]; then
 	exit 1

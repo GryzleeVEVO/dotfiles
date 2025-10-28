@@ -1,0 +1,6 @@
+[Unit]
+Description=Update cache for wmenu-desktop-entries
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/wmenu-create-cache.sh

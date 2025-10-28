@@ -2,7 +2,7 @@ bindsym $mod+Return     exec $term
 bindsym $mod+n          exec $browser
 bindsym $mod+Shift+n    exec $private-browser
 bindsym $mod+d          exec $menu
-bindsym $mod+Shift+d    exec $HOME/chatpgt.sh
+bindsym $mod+Shift+d    exec $dmenu
 bindsym $mod+c          exec $clipboard
 
 bindsym $mod+Shift+q    kill

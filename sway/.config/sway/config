@@ -8,6 +8,7 @@ set $term alacritty
 set $browser firefox
 set $private-browser firefox --private-window
 set $menu wmenu-run
+set $dmenu $HOME/.local/bin/wmenu_desktop_entries.sh
 set $calc kcalc
 set $screenshot slurp | grim -g - - | swappy -f -
 set $lock swaylock -f -c 000000 -i $wallpaper
