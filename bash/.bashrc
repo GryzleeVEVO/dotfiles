@@ -45,9 +45,5 @@ done
 # Load colours
 [[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] && eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
 
-command -v fnm >&/dev/null && eval "$(fnm completions --shell bash)"
-
-command -v opam >&/dev/null && eval "$(opam env)"
-
 # Just to have #? set to 0
 :

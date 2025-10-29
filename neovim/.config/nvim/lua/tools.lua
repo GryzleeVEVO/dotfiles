@@ -2,6 +2,7 @@ return {
   -- Local LSP servers to be enabled (those installed by Mason get enabled on start)
   local_lsp_servers = {
     "ocamllsp",
+    "rust_analyzer",
   },
 
   -- Formatters per filetype
