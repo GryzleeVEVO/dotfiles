@@ -22,7 +22,7 @@ p() {
 alias prm='sudo zypper remove --clean-deps'
 
 # pq: query all explicitly installed local packages
-alias pq='zypper search --installed-only | grep -v i+'
+alias pq="zypper search --installed-only | grep -v '^i\+ '"
 
 # pqi: query info about a package
 alias pqi='zypper info'

@@ -14,6 +14,7 @@ set $screenshot slurp | grim -g - - | swappy -f -
 set $lock swaylock -f -c 000000 -i $wallpaper
 set $clipboard cliphist list | wmenu | cliphist decode | wl-copy
 
+# Workspaces
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -56,9 +57,9 @@ workspace $ws2 output HDMI-A-1
 workspace $ws10 output eDP-1
 
 exec swayidle -w \
-         timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         timeout 600 "$lock" \
-         before-sleep "$lock"
+         timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+         # timeout 600 "$lock" \
+         # before-sleep "$lock"
 
 input "type:keyboard" {
     xkb_layout "es"

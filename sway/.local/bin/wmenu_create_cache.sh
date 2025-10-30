@@ -14,7 +14,7 @@ declare -A app_map
 while IFS= read -r -d '' file; do
 	if grep -qi '^NoDisplay=true' "$file" ||
 		! grep -qi '^Type=.*Application.*$' "$file" ||
-		grep -qi "^OnlyShowIN=KDE$" "$file"; then
+		grep -qi "^OnlyShowIn=.*KDE.*$" "$file"; then
 		continue
 	fi
 
