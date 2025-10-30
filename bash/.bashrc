@@ -33,17 +33,28 @@ HISTIGNORE="?:??:???:clear:exit:quit:history"
 # Append to history every time the prompt is redrawn
 PROMPT_COMMAND="history -a"
 
-# Load prompt
+# Custom prompt
 [[ -f "$XDG_CONFIG_HOME/prompts/prompt.bash" ]] &&
   . "$XDG_CONFIG_HOME/prompts/prompt.bash"
 
-# Load aliases
+# Custom aliases
 for alias in "$XDG_CONFIG_HOME/aliases/"*; do
   [[ -f "$alias" ]] && . "$alias"
 done
 
-# Load colours
+# Custom dircolors
 [[ -f "$XDG_CONFIG_HOME/dircolors/dircolors" ]] && eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors/dircolors)"
+
+# Load completions
+if command -v kubectl &>/dev/null; then
+  source <(kubectl completion bash)
+  complete -o default -F __start_kubectl k
+fi
+
+if command -v docker &>/dev/null; then
+  source <(docker completion bash)
+  complete -o default -F __start_docker d
+fi
 
 # Just to have #? set to 0
 :
