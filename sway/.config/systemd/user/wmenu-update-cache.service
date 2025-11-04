@@ -2,5 +2,7 @@
 Description=Update cache for wmenu-desktop-entries
 
 [Service]
+Environment=XDG_CACHE_HOME=%h/.cache
+Environment=HOME=%h
 Type=oneshot
-ExecStart=%h/.local/bin/wmenu-create-cache.sh
+ExecStart=%h/.local/bin/wmenu_create_cache.sh

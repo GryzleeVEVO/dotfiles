@@ -4,7 +4,6 @@ Description=Update cache for wmenu-desktop-entries
 [Timer]
 OnBootSec=5min
 OnUnitActiveSec=1h
-ExecStart=$HOME/.local/bin/wmenu-create-cache.sh
 
 [Install]
 WantedBy=timers.target
