@@ -26,13 +26,14 @@ return {
 
   -- Disable this Treesitter parsers completely
   disable_treesitter_parser = {
-    "latex", -- Need to complile grammar manually
+    "latex", -- Need to compile grammar manually
   },
 
   -- Disable highlighting for these Treesitter parsers
   disable_treesitter_highlight = {
     "csv", -- No rainbow colours :(
     "jinja", -- Broken
+    "tmux", -- Broken
   },
 
   disable_treesitter_indent = {

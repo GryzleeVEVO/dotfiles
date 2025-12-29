@@ -1,5 +1,5 @@
 vim.diagnostic.config({
-  virtual_text = {},
+  -- virtual_text = {},
 
   severity_sort = true,
 
