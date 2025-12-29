@@ -6,7 +6,7 @@ return {
     "neovim/nvim-lspconfig", -- Sane defaults for LSPs
 
     config = function()
-      -- Enable LSPs that are not handled by mason
+      -- Enable LSPs that are not handled by Mason
       for _, server in ipairs(tools.local_lsp_servers) do
         lsp.enable(server)
       end

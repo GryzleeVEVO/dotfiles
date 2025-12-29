@@ -6,7 +6,7 @@ end, {
   desc = "Toggle formatting",
 })
 
-command("ToggleWreppedLinesHandling", function()
+command("ToggleWrappedLinesHandling", function()
   vim.g.wrapped_lines_hjkl = true
 end, {
   desc = "Toggle if j/k should behave like prefixed with g",

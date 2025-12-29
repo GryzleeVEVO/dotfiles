@@ -52,5 +52,5 @@ o.smartcase = true
 o.splitright = true
 o.splitbelow = true
 
--- Enable spell checking
-o.spell = true
+-- Disable spell checking
+o.spell = false

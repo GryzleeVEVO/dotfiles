@@ -49,7 +49,7 @@ return {
       signature = {
         enabled = true, -- Show function signature when filling in arguments
         window = {
-          show_documentation = false, -- Do not show docs by default
+          show_documentation = true, -- Show docs by default
         },
       },
 

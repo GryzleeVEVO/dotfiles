@@ -7,10 +7,9 @@ return {
 
   lazy = false,
 
-  config = function()
-    local oil = require("oil")
-    oil.setup({})
+  opts = {},
 
-    vim.keymap.set({ "n" }, "<leader>e", "<cmd>:Oil<CR>", { desc = "[Oil] Open explorer" })
-  end,
+  keys = {
+    { "<leader>e", "<cmd>Oil<cr>", desc = "[Oil] Open explorer" },
+  },
 }
