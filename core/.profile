@@ -57,10 +57,6 @@ export NVM_DIR="$XDG_DATA_HOME/nvm"
 export FNM_PATH="/home/gryzlee/.local/share/fnm"
 export PATH="$PATH:$FNM_PATH"
 
-if command -v fnm >&/dev/null; then
-	eval "$(fnm env)"
-fi
-
 # Nvidia
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 
@@ -72,10 +68,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON_HISTORY="$XDG_CACHE_HOME/python_history" # For Python >= 3.13
 export PYENV_ROOT="$HOME/.local/share/pyenv"
 export PATH="$PATH:$PYENV_ROOT/bin"
-
-if command -v pyenv >&/dev/null; then
-	eval "$(pyenv init -)"
-fi
 
 # Qt
 export QT_QPA_PLATFORMTHEME="qt6ct"
