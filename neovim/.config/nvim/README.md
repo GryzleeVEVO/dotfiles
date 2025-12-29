@@ -1,6 +1,6 @@
 # Gryzlee's incredibly subpar Neovim setup
 
-This Neovim config uses [lazy.nvim](https://github.com/folke/lazy.nvim) as a plugin manager. All plugin specs are in the `lua/plugins` directory, which is organized by topic instead of by plugin, since many of them depend on each other anyway in order to set them up.
+This Neovim config uses [lazy.nvim](https://github.com/folke/lazy.nvim) as a plugin manager. All plugin specs are in the `lua/plugins` directory.
 
 This config assumes you are using Neovim >=0.11, which implements a native LSP client.
 
