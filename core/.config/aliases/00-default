@@ -17,9 +17,6 @@ alias m='make'
 
 alias py='python'
 
-# A vim-like TUI file explorer
-alias ra='ranger'
-
 # Tmux is a terminal multiplexer
 alias t='tmux'
 alias ta='tmux attach'
@@ -38,9 +35,6 @@ command -v rsync >&/dev/null && alias rsync='rsync -v'
 # Preserve user environment. The extra space allows the next commands to
 # be aliases too
 alias sudo='sudo --preserve-env '
-
-# Edit with sudo privileges while keeping the editor user config
-alias sudoe="sudoedit"
 
 # ------------------------------------------------------------------------------
 # Everything else                                                              |
