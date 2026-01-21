@@ -2,6 +2,8 @@ return {
   -- Colorscheme
   "EdenEast/nightfox.nvim",
 
+  enabled = false,
+
   opts = {
     options = {
       styles = {
