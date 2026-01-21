@@ -4,6 +4,7 @@ return {
   "nvim-treesitter/nvim-treesitter", -- Parser
 
   lazy = false,
+  branch = "master",
   build = ":TSUpdate",
   main = "nvim-treesitter.configs",
 

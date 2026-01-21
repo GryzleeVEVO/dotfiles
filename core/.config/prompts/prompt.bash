@@ -5,35 +5,35 @@ PROMPT_DIRTRIM=3
 
 # Print git repository status. If there are uncommited files, mark it
 __prompt_git_status__() {
-  local GIT_DIRTY GIT_BRANCH
+  local git_dirty git_branch
 
   if [[ $(git status --porcelain 2>/dev/null) ]]; then
-    GIT_DIRTY=" *"
+    git_dirty=" *"
   else
-    GIT_DIRTY=""
+    git_dirty=""
   fi
 
-  GIT_BRANCH="$(git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/( \1${GIT_DIRTY}) /")"
+  git_branch="$(git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/( \1${git_dirty}) /")"
 
-  echo -e "${GIT_BRANCH}"
+  echo -e "${git_branch}"
 }
 
 # Returns colored exit status between brackets
 __prompt_exit_status__() {
-  local EXIT="$?" COLOR_EXIT
+  local exit="$?" color_exit
 
-  if [[ $EXIT = 0 ]]; then
-    COLOR_EXIT="$(tput setaf 118)"
+  if [[ $exit = 0 ]]; then
+    color_exit="$(tput setaf 118)"
   else
-    COLOR_EXIT="$(tput setaf 196)"
+    color_exit="$(tput setaf 196)"
   fi
 
-  echo -e "${COLOR_EXIT}[${EXIT}]$(tput sgr0)"
+  echo -e "${color_exit}[${exit}]$(tput sgr0)"
 }
 
 # Returns venv status, if enabled. Requires VIRTUAL_ENV_DISABLE_PROMPT
 __prompt_venv_status__() {
-  if ! [[ -z "$VIRTUAL_ENV" ]]; then
+  if [[ -n "$VIRTUAL_ENV" ]]; then
     echo -e "( ${VIRTUAL_ENV_PROMPT} $(python --version | cut -d ' ' -f 2)) "
   fi
 }
@@ -76,7 +76,7 @@ PS1+='└─$ '
 
 # Set window title
 case "$TERM" in
-xterm* | rxvt*)
+xterm* | rxvt* | alacritty )
   PS1="\[\e]0;\u@\h: \w\a\]$PS1"
   ;;
 *) ;;

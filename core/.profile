@@ -29,7 +29,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 # Golang
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
-
+export PATH="$PATH:$GOPATH/bin"
 # GTK
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 

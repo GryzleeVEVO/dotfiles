@@ -5,6 +5,10 @@ return {
     "rust_analyzer",
   },
 
+  mason_lsp_servers = {
+    "bashls",
+  },
+
   -- Formatters per filetype
   conform_formatters = {
     bash = { "shfmt" },
@@ -17,7 +21,7 @@ return {
     ocaml = { "ocamlformat" },
     python = { "autopep8" },
     sh = { "shfmt" },
-    sql = { "sql_formatter" },
+    sql = { "pg_format" },
     typescript = { "prettierd" },
     xml = { "xmlformatter" },
     yaml = { "yamlfix" },
