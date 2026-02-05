@@ -34,7 +34,9 @@ alias pqs='zypper search --installed-only'
 alias pss='zypper search'
 
 # pcl: clean up non required packages
-alias pcl='echo "Zypper does not have an easy way to do this, :("'
+pcl() {
+    sudo zypper rm --clean-deps "$(zypper packages --unneeded | tail -n +5 | cut -d ' ' -f 8)"
+}
 
 # pcc: clean up cache
 alias pcc='sudo zypper clean --all'

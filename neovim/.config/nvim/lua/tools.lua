@@ -24,7 +24,7 @@ return {
     sql = { "pg_format" },
     typescript = { "prettierd" },
     xml = { "xmlformatter" },
-    yaml = { "yamlfix" },
+    yaml = { "ansible-lint" },
     zsh = { "shfmt" },
   },
 

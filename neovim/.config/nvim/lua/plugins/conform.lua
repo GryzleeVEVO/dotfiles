@@ -36,7 +36,7 @@ return {
 
       format_on_save = function()
         if vim.g.enable_autoformat then
-          return { timeout_ms = 500 }
+          return { timeout_ms = 3000 }
         end
       end,
 

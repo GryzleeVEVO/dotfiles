@@ -72,6 +72,15 @@ map("n", "<C-q>", "<C-w><C-q>", {
   desc = "[Custom] Close window",
 })
 
+map("x", "<leader>p", '"_dp', {
+  desc = "Paste without overwriting paste buffer",
+  noremap = true,
+})
+map("x", "<leader>P", '"_dP', {
+  desc = "Paste without overwriting paste buffer",
+  noremap = true,
+})
+
 -- When an LSP is attached, add this keybinds
 local lsp_gr = ag("lsp-attach-keybinds", { clear = true })
 

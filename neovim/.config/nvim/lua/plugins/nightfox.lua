@@ -15,6 +15,6 @@ return {
   init = function()
     vim.opt.termguicolors = true
     vim.opt.background = "dark"
-    vim.cmd([[colorscheme carbonfox]])
+    vim.cmd("colorscheme carbonfox")
   end,
 }
