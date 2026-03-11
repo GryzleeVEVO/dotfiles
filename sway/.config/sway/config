@@ -27,16 +27,12 @@ set $ws9 "9"
 set $ws10 "10"
 
 # Launch dbus
-exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
-exec dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
-
-# Start wallet
-exec /usr/lib/pam_kwallet_init
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 
 # Autostart .desktop files
 exec dex --autostart --environment sway
 
-# Start notification daemon
+# Notification daemon
 exec mako
 
 # Autotiling
