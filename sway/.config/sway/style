@@ -33,15 +33,14 @@ for_window [class="^keepassxc$"] floating enable
 for_window [class="^pavucontrol$"] floating enable
 
 bar {
+    status_command i3status-rs
+
     position top
-
-    # Workspaces, battery life, time and tray icons
-    status_command $HOME/.local/bin/swaybar_status.sh
-
     colors {
-        statusline #ffffff
+        statusline #ebdbb2
         background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        focused_workspace #076678 #076678 #ebdbb2
+        inactive_workspace #323232 #323232 #5c5c5c
     }
 }
 

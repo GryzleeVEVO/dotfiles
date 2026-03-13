@@ -1,0 +1,43 @@
+[theme]
+theme = "native"
+
+[theme.overrides]
+warning_fg = "#d79921"
+critical_fg = "#cc241d"
+
+[[block]]
+block = "focused_window"
+[block.format]
+full = " $title.str() |"
+short = " $title.str(max_w:10) |"
+
+[[block]]
+block = "net"
+device = "tun0"
+format = " VPN UP "
+missing_format = " VPN DOWN "
+
+[[block]]
+block = "battery"
+charging_format = " $icon $percentage Charging "
+full_format = " $icon $percentage "
+
+[[block]]
+block = "sound"
+format = " $icon {$volume.eng(w:2) |}"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "sound"
+device_kind = "source"
+format = " $icon {$volume.eng(w:2) |}"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "time"
+interval = 1
+format = "$timestamp.datetime(f:' %Y-%m-%d %T') "
