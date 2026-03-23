@@ -1,4 +1,5 @@
 return {
+
   "nvim-telescope/telescope.nvim", -- Search and pick menu
 
   dependencies = {

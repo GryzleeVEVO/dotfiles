@@ -1,5 +1,7 @@
 local o = vim.opt
 
+--- General ---
+
 -- Enable mouse
 o.mouse = "a"
 
@@ -15,6 +17,22 @@ o.timeoutlen = 500
 
 -- Save undo history across sessions
 o.undofile = true
+
+-- Always split right and below
+o.splitright = true
+o.splitbelow = true
+
+-- Disable spell checking
+o.spell = false
+
+-- Case-insensitive search UNLESS term has caps
+o.ignorecase = true
+o.smartcase = true
+
+--- Visual ---
+
+-- Set terminal window title
+o.title = true
 
 -- Show relative numbers to the current line, which shows the absolute line number
 o.number = true
@@ -41,16 +59,3 @@ o.linebreak = true
 o.scrolloff = 10
 o.sidescrolloff = 10
 
--- Set window title
-o.title = true
-
--- Case-insensitive search UNLESS term has caps
-o.ignorecase = true
-o.smartcase = true
-
--- Always split right and below
-o.splitright = true
-o.splitbelow = true
-
--- Disable spell checking
-o.spell = false

@@ -3,12 +3,13 @@ local auclr = vim.api.nvim_clear_autocmds
 local ag = vim.api.nvim_create_augroup
 local cmd = vim.cmd
 
-local qol_gr = ag("qol-fixes", { clear = true })
-local lsp_gr = ag("lsp-attach-setup", { clear = true })
+local editor_group = ag("editor-quality-of-life", { clear = true })
+
+--- Editing ---
 
 au({ "BufEnter" }, {
   desc = "Do not insert comment prefix on line break",
-  group = qol_gr,
+  group = editor_group,
   pattern = "",
   -- c = autowrap comment comment with textwidth
   -- r = insert prefix after linebreak
@@ -18,7 +19,7 @@ au({ "BufEnter" }, {
 
 au({ "BufWritePre" }, {
   desc = "Remove trailing whitespace before saving",
-  group = qol_gr,
+  group = editor_group,
   pattern = "",
   callback = function()
     if vim.g.enable_autoformat then
@@ -29,42 +30,49 @@ au({ "BufWritePre" }, {
   end,
 })
 
+--- Visual ---
+
 au({ "TextYankPost" }, {
   desc = "Highlight yanked text",
-  group = qol_gr,
+  group = editor_group,
   pattern = "",
   callback = function()
     vim.hl.on_yank()
   end,
 })
 
+
+--- LSP ---
+
+local lsp_group = ag("lsp-attach-setup", { clear = true })
+
 au({ "LspAttach" }, {
-  desc = "Set up stuff on a newly attached LSP",
-  group = lsp_gr,
+  desc = "Configure newly attached LSP",
+  group = lsp_group,
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     local highlightSupported = client
       and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, ev.buf)
 
     if highlightSupported then
-      local lsp_hl_gr = ag("lsp-highlight", { clear = false })
+      local lsp_highlight_group = ag("lsp-highlight-setup", { clear = false })
 
       au({ "CursorHold", "CursorHoldI" }, {
-        desc = "Highlight references of symbol in cursor",
-        group = lsp_hl_gr,
+        desc = "Highlight references to symbol in cursor",
+        group = lsp_highlight_group,
         buffer = ev.buf,
         callback = vim.lsp.buf.document_highlight,
       })
 
       au({ "CursorMoved", "CursorMovedI" }, {
-        desc = "Highlight",
-        group = lsp_hl_gr,
+        desc = "Remove highlights to symbol when moving cursor",
+        group = lsp_highlight_group,
         buffer = ev.buf,
         callback = vim.lsp.buf.clear_references,
       })
 
       au({ "LspDetach" }, {
-        desc = "Clean up stuff after detaching an LSP",
+        desc = "Clean up highlight autocommands when detaching an LSP",
         callback = function(ev2)
           vim.lsp.buf.clear_references()
           auclr({ group = "lsp-highlight", buffer = ev2.buf })
@@ -72,4 +80,10 @@ au({ "LspAttach" }, {
       })
     end
   end,
+})
+
+au({ "LspAttach" }, {
+  desc = "Set up keybindings after attaching an LSP",
+  group = lsp_group,
+  callback = require("keybinds").lsp_keybinds_setup
 })

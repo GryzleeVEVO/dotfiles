@@ -1,46 +1,69 @@
-return {
-  -- Local LSP servers to be enabled (those installed by Mason get enabled on start)
-  local_lsp_servers = {
-    "ocamllsp",
-    "rust_analyzer",
-  },
+local M = {}
 
-  mason_lsp_servers = {
+-- List of tools to be installed automatically by Mason
+local tools = {
+  "lua_ls",
+  "stylua",
+  npm = {
+    "ansiblels",
     "bashls",
+    "prettierd",
   },
-
-  -- Formatters per filetype
-  conform_formatters = {
-    bash = { "shfmt" },
-    css = { "prettierd" },
-    html = { "prettierd" },
-    javascript = { "prettierd" },
-    json = { "prettierd" },
-    jsx = { "prettierd" },
-    lua = { "stylua" },
-    ocaml = { "ocamlformat" },
-    python = { "autopep8" },
-    sh = { "shfmt" },
-    sql = { "pg_format" },
-    typescript = { "prettierd" },
-    xml = { "xmlformatter" },
-    yaml = { "ansible-lint" },
-    zsh = { "shfmt" },
-  },
-
-  -- Disable this Treesitter parsers completely
-  disable_treesitter_parser = {
-    "latex", -- Need to compile grammar manually
-  },
-
-  -- Disable highlighting for these Treesitter parsers
-  disable_treesitter_highlight = {
-    "csv", -- No rainbow colours :(
-    "jinja", -- Broken
-    "tmux", -- Broken
-  },
-
-  disable_treesitter_indent = {
-    "ocaml", -- Weird indenting when typing keywords
+  python = {
+    "autopep8",
+    "basedpyright",
   },
 }
+
+-- List of formatters with their associated filetype
+local formatters = {
+  autopep8 = { "python" },
+  prettierd = { "css", "html", "javascript", "json", "jsx", "typescript" },
+  shfmt = { "bash", "zsh " },
+}
+
+-- List of parsers to install
+local treesitter = {
+  "jinja",
+  "jinja_inline",
+  "lua",
+  "luadoc",
+  "vimdoc",
+  "yaml",
+}
+
+M.mason_ensure_installed = (function(t)
+  local res = {}
+
+  for k, v in pairs(t) do
+    if type(k) == "number" and type(v) == "string" then
+      table.insert(res, v)
+    elseif vim.fn.executable(k) == 1 then
+      for _, tool in pairs(v) do
+        table.insert(res, tool)
+      end
+    end
+  end
+
+  return res
+end)(tools)
+
+M.conform_formatters = (function(f)
+  local res = {}
+
+  for tool, fts in pairs(f) do
+    for _, ft in ipairs(fts) do
+      if not res[ft] then
+        res[ft] = {}
+      end
+
+      table.insert(res[ft], tool)
+    end
+  end
+
+  return res
+end)(formatters)
+
+M.treesitter_ensure_installed = treesitter
+
+return M
