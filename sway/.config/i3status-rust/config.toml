@@ -19,7 +19,6 @@ missing_format = " VPN DOWN "
 
 [[block]]
 block = "battery"
-charging_format = " $icon $percentage Charging "
 full_format = " $icon $percentage "
 
 [[block]]

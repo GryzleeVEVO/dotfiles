@@ -1,2 +1,14 @@
 # Set default timeout to 10s
 default-timeout=10000
+
+background-color=#323232
+text-color=#ebdbb2
+
+[urgency=low]
+border-color=#323232
+
+[urgency=normal]
+border-color=#076678
+
+[urgency=critical]
+border-color=#d79921
