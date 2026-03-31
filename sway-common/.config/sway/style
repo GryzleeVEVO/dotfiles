@@ -1,0 +1,31 @@
+# Main font
+font $font_mono
+
+# Wallpaper
+output * bg $wallpaper fill
+
+# Gaps
+gaps inner 0
+
+# Hide gaps when there's only one window
+smart_gaps on
+smart_borders on
+
+# Hide window titles, show thin border
+for_window [class="^.*"] border pixel 1
+
+bar {
+    status_command i3status-rs
+
+    position top
+    colors {
+        statusline $fg_color
+        background $bg_color
+
+        # background/border/foreground
+        focused_workspace $bg_accent_color $bg_accent_color $fg_color
+        inactive_workspace $bg_color $bg_color $fg_inactive_color
+    }
+}
+
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:

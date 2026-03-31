@@ -1,15 +1,15 @@
-bindsym $mod+Return     exec $term
-bindsym $mod+n          exec $browser
-bindsym $mod+Shift+n    exec $private-browser
-bindsym $mod+d          exec $menu
-bindsym $mod+Shift+d    exec $dmenu
-bindsym $mod+c          exec $clipboard
+bindsym $mod+Return   exec $term
+bindsym $mod+n        exec $browser
+bindsym $mod+Shift+n  exec $private-browser
+bindsym $mod+d        exec $menu
+bindsym $mod+Shift+d  exec $dmenu
+bindsym $mod+c        exec $clipboard
 
-bindsym $mod+Shift+q    kill
-bindsym $mod+F11        fullscreen toggle
+bindsym $mod+Shift+q  kill
+bindsym $mod+F11      fullscreen toggle
 
-bindsym $mod+Shift+c    reload
-bindsym $mod+Shift+r    restart
+bindsym $mod+Shift+c  reload
+bindsym $mod+Shift+r  restart
 
 bindsym --locked $mod+Shift+e exec swaynag \
     -t warning \
@@ -113,8 +113,8 @@ bindsym $mod+e layout toggle split
 # Floating windows
 floating_modifier $mod normal
 
-bindsym $mod+Shift+space    floating toggle
-bindsym $mod+space          focus mode_toggle
+bindsym $mod+Shift+space  floating toggle
+bindsym $mod+space        focus mode_toggle
 
 # Volume
 bindsym --locked XF86AudioRaiseVolume   exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
@@ -136,4 +136,4 @@ bindsym --locked XF86AudioStop          exec playerctl stop
 bindsym XF86Calculator  exec --no-startup-id $calc
 bindsym Print           exec $screenshot
 
-# vim: set ft=swayconfig:
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:

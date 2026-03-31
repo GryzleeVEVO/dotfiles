@@ -72,6 +72,8 @@ local function enable_parser(e)
   local ts = require("nvim-treesitter")
   local lang = e.match
 
+  -- Otherwise, the whole buffer will be folded
+
   local ok, _ = pcall(vim.treesitter.start, e.buf, e.lang)
 
   if not ok then
@@ -97,10 +99,6 @@ return {
 
     ts.install(tools.treesitter_ensure_installed, { summary = false })
 
-    -- vim.opt.foldcolumn = "0"
-    -- vim.opt.foldtext = ""
-    -- vim.opt.foldlevel = 99
-
     vim.api.nvim_create_autocmd("FileType", {
       group = vim.api.nvim_create_augroup("treesitter_custom", { clear = true }),
       pattern = { "*" },
@@ -109,6 +107,10 @@ return {
 
     vim.api.nvim_create_user_command("TSStart", function()
       vim.treesitter.start()
+
+      vim.opt.foldcolumn = "0"
+      vim.opt.foldtext = ""
+      vim.opt.foldlevel = 99
 
       -- Folding
       vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"

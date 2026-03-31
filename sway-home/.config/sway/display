@@ -1,0 +1,22 @@
+set $laptop_display eDP-1
+set $primary_display DP-2
+set $secondary_display HDMI-A-1
+
+output $laptop_display {
+  enable pos 0 72
+}
+output $primary_display {
+  enable pos 1920 0 scale 1.25
+}
+output $secondary_display {
+  enable pos 3968 72
+}
+
+bindswitch --reload --locked lid:on   output $laptop_display disable
+bindswitch --reload --locked lid:off  output $laptop_display enable pos 0 72
+
+workspace $ws1  output $primary_display $secondary_display
+workspace $ws2  output $primary_display $secondary_display
+workspace $ws10 output $laptop_display $secondary_display
+
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:

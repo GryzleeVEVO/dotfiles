@@ -1,23 +1,9 @@
-# Main font
-font $font_mono
-
-# Wallpaper
-output * bg $wallpaper fill
-
-# Gaps
-gaps inner 0
-
-# Hide gaps when there's only one window
-smart_gaps on
-smart_borders on
-
-# Hide window titles, show thin border
-for_window [class="^.*"] border pixel 1
+# App-specific configuration
 
 # Use floating by default for some apps
-
 # Wayland
 for_window [app_id="^blueman-manager$"] floating enable
+for_window [app_id="^nm-connection-editor$"] floating enable
 for_window [app_id="^org.gnome.Calculator$"] floating enable
 for_window [app_id="^org.gnome.Screenshot$"] floating enable
 for_window [app_id="^org.kde.kcalc$"] floating enable
@@ -30,18 +16,7 @@ for_window [class="^gnome-calculator$"] floating enable
 for_window [class="^gnome-screenshot$"] floating enable
 for_window [class="^kcalc$"] floating enable
 for_window [class="^keepassxc$"] floating enable
+for_window [class="^nm-connection-editor$"] floating enable
 for_window [class="^pavucontrol$"] floating enable
 
-bar {
-    status_command i3status-rs
-
-    position top
-    colors {
-        statusline #ebdbb2
-        background #323232
-        focused_workspace #076678 #076678 #ebdbb2
-        inactive_workspace #323232 #323232 #5c5c5c
-    }
-}
-
-# vim: set ft=swayconfig:
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:
