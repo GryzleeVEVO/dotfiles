@@ -19,4 +19,4 @@ for_window [class="^keepassxc$"] floating enable
 for_window [class="^nm-connection-editor$"] floating enable
 for_window [class="^pavucontrol$"] floating enable
 
-# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 et:

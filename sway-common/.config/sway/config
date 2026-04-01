@@ -85,4 +85,4 @@ include "keybinds"
 include "display"
 include "apps"
 
-# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 et:

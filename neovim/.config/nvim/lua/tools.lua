@@ -24,13 +24,22 @@ local formatters = {
 
 -- List of parsers to install
 local treesitter = {
+  "bash",
+  "csv",
+  "git_config",
+  "ini",
   "jinja",
-  "jinja_inline",
+  "json",
   "lua",
   "luadoc",
+  "markdown",
+  "properties",
   "vimdoc",
+  "xml",
   "yaml",
 }
+
+--------------------------------------------------------------------------------
 
 M.mason_ensure_installed = (function(t)
   local res = {}

@@ -136,4 +136,4 @@ bindsym --locked XF86AudioStop          exec playerctl stop
 bindsym XF86Calculator  exec --no-startup-id $calc
 bindsym Print           exec $screenshot
 
-# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 et:
