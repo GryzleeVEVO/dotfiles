@@ -2,11 +2,13 @@ local M = {}
 
 -- List of tools to be installed automatically by Mason
 local tools = {
+  "docker_language_server",
   "lua_ls",
   "stylua",
   npm = {
     "ansiblels",
     "bashls",
+    "json-lsp",
     "prettierd",
   },
   python = {
@@ -34,6 +36,7 @@ local treesitter = {
   "luadoc",
   "markdown",
   "properties",
+  "python",
   "vimdoc",
   "xml",
   "yaml",

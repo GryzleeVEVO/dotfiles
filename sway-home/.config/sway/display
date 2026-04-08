@@ -17,6 +17,7 @@ bindswitch --reload --locked lid:off  output $laptop_display enable pos 0 72
 
 workspace $ws1  output $primary_display $secondary_display
 workspace $ws2  output $primary_display $secondary_display
+workspace $ws3  output $secondary_display $primary_display
 workspace $ws10 output $laptop_display $secondary_display
 
-# vim: set ft=swayconfig ts=2 sts=2 sw=2 expan2 sw=2 et:
+# vim: set ft=swayconfig ts=2 sts=2 sw=2 et:
