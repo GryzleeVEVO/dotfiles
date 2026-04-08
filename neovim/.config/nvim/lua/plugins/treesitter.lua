@@ -1,7 +1,6 @@
 local tools = require("tools")
 
 local function enable_parser(e)
-  -- local ok, _ = pcall(vim.treesitter.start, e.buf)
   local ok, _ = pcall(vim.treesitter.start)
 
   if not ok then
@@ -17,13 +16,13 @@ local function enable_parser(e)
   vim.wo[0][0].foldmethod = "expr"
 
   -- Indenting
-  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
 end
 
 return {
   "nvim-treesitter/nvim-treesitter",
 
-  commit = "f8bbc31",
+  commit = "90cd658",
   lazy = false,
   build = ":TSUpdate",
 

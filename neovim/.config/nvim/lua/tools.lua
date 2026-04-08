@@ -21,7 +21,7 @@ local tools = {
 local formatters = {
   autopep8 = { "python" },
   prettierd = { "css", "html", "javascript", "json", "jsx", "typescript" },
-  shfmt = { "bash", "zsh " },
+  shfmt = { "sh", "bash", "zsh" },
 }
 
 -- List of parsers to install

@@ -50,12 +50,12 @@ export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
 # Less
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
 
-# Node JS
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export NODE_REPL_HISTORY="$XDG_CACHE_HOME/node_repl_history"
-export NVM_DIR="$XDG_DATA_HOME/nvm"
-export FNM_PATH="/home/gryzlee/.local/share/fnm"
-export PATH="$PATH:$FNM_PATH"
+# # Node JS
+# export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+# export NODE_REPL_HISTORY="$XDG_CACHE_HOME/node_repl_history"
+# export NVM_DIR="$XDG_DATA_HOME/nvm"
+# export FNM_PATH="/home/gryzlee/.local/share/fnm"
+# export PATH="$PATH:$FNM_PATH"
 
 # Nvidia
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
