@@ -1,6 +1,6 @@
 local tools = require("tools")
 
-local function enable_parser(e)
+local function enable_parser()
   local ok, _ = pcall(vim.treesitter.start)
 
   if not ok then

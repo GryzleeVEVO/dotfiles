@@ -5,8 +5,8 @@
 # ------------------------------------------------------------------------------
 
 # xdg-open is similar to open on macOS
-alias o='xdg-open'
-alias open='xdg-open'
+alias o='XDG_CURRENT_DESKTOP=X-generic xdg-open'
+alias open='XDG_CURRENT_DESKTOP=X-generic xdg-open'
 
 # $EDITOR must be set
 alias e='$EDITOR'

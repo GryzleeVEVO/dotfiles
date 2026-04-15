@@ -4,7 +4,9 @@ local M = {}
 local tools = {
   "docker_language_server",
   "lua_ls",
+  "shellcheck",
   "stylua",
+  "systemd_lsp",
   npm = {
     "ansiblels",
     "bashls",
@@ -14,12 +16,14 @@ local tools = {
   python = {
     "autopep8",
     "basedpyright",
+    "ruff",
   },
 }
 
 -- List of formatters with their associated filetype
 local formatters = {
   autopep8 = { "python" },
+  ruff = { "python" },
   prettierd = { "css", "html", "javascript", "json", "jsx", "typescript" },
   shfmt = { "sh", "bash", "zsh" },
 }
