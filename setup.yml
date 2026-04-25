@@ -1,0 +1,120 @@
+- name: Set up new system
+  hosts: localhost
+  tasks:
+    - name: Install packages
+      become: true
+      community.general.pacman:
+        name:
+           # Basic packages
+          - base-devel
+          - bash-completion
+          - man-db
+          - man-pages
+          - pacman-contrib
+          - reflector
+          # Common use apps
+          - alacritty
+          - discord
+          - firefox
+          - keepassxc
+          - neovim
+          - tmux
+          - vlc
+          # Developement
+          - docker
+          - docker-compose
+          - git
+          - go
+          - jdk-openjdk
+          - npm
+          - rust
+          - uv
+          # CLI utilities
+          - chntpw
+          - fastfetch
+          - htop
+          - imagemagick
+          - nvtop
+          - plocate
+          - stow
+          - tealdeer
+          - tree-sitter-cli
+          - wol
+          # Tiling window manager
+          - autotiling-rs
+          - brightnessctl
+          - cliphist
+          - dex
+          - i3status-rust
+          - mako
+          - network-manager-applet
+          - nm-connection-editor
+          - pavucontrol
+          - sway
+          - swaybg
+          - swayidle
+          - swaylock
+          - wlr-randr
+          - wmenu
+          - playerctl
+          - wdisplays
+          - swappy
+          # Fonts
+          - noto-fonts-cjk
+          - noto-fonts-extra
+          - ttf-dejavu
+          - ttf-hack-nerd
+          - ttf-inconsolata-nerd
+          - ttf-jetbrains-mono
+          - ttf-liberation
+          - ttf-roboto
+        state: present
+        update_cache: true
+
+    - name: Set up custom makepkg config
+      become: true
+      ansible.builtin.copy:
+        src: ./etc/makepkg.conf.d/00-makepkg.conf
+        dest: /etc/makepkg.conf.d/00-makepkg.conf
+        mode: "0644"
+
+    - name: Clone aur.archlinux.org/yay-bin
+      become: true
+      ansible.builtin.git:
+        repo: https://aur.archlinux.org/yay-bin.git
+        dest: /tmp/yay-bin
+        version: master
+
+    - name: Install yay
+      ansible.builtin.command:
+        cmd: makepkg --syncdeps --install
+        chdir: /tmp/yay-bin/
+        creates: /usr/bin/yay
+
+    - name: Set up pacman.conf
+      become: true
+      ansible.builtin.replace:
+        path: /etc/pacman.conf
+        regexp: "{{ item.regexp }}"
+        replace: "{{ item.replace }}"
+      loop:
+        # Enable color
+        - regexp: '^#?Color'
+          replace: 'Color'
+        # Use 150 parallel downloads
+        - regexp: '^ParallelDownloads\s*=.*'
+          replace: 'ParallelDownloads = 150'
+        # Enable multilib
+        - regexp: '^#?\[multilib\]'
+          replace: '[multilib]'
+        - regexp: '(^\[multilib\]\n)(#\s*)?(Include\s*=\s*/etc/pacman\.d/mirrorlist)'
+          replace: '\1\3'
+
+
+
+    - name: Disable PC speaker
+      become: true
+      ansible.builtin.copy:
+        src: ./etc/modprobe.d/nobeep.conf
+        dest: /etc/modprobe.d/nobeep.conf
+        mode: "0644"

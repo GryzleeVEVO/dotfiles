@@ -31,6 +31,7 @@ local formatters = {
 -- List of parsers to install
 local treesitter = {
   "bash",
+  "cpp",
   "csv",
   "git_config",
   "ini",
