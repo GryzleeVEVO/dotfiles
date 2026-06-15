@@ -56,5 +56,9 @@ if command -v docker &>/dev/null; then
   complete -o default -F __start_docker d
 fi
 
+if command -v fzf --version &> /dev/null; then
+  eval "$(fzf --bash)"
+fi
+
 # Just to have #? set to 0
 :
