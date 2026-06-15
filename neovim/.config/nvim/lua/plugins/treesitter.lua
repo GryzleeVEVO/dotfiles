@@ -22,7 +22,6 @@ end
 return {
   "nvim-treesitter/nvim-treesitter",
 
-  commit = "90cd658",
   lazy = false,
   build = ":TSUpdate",
 

@@ -4,6 +4,7 @@ local M = {}
 local tools = {
   "docker_language_server",
   "lua_ls",
+  "pgformatter",
   "shellcheck",
   "stylua",
   "systemd_lsp",
@@ -18,13 +19,17 @@ local tools = {
     "basedpyright",
     "ruff",
   },
+  cargo = {
+    "jinja-lsp",
+  },
 }
 
 -- List of formatters with their associated filetype
 local formatters = {
   autopep8 = { "python" },
-  ruff = { "python" },
+  pg_format = { "sql" },
   prettierd = { "css", "html", "javascript", "json", "jsx", "typescript" },
+  ruff = { "python" },
   shfmt = { "sh", "bash", "zsh" },
 }
 
@@ -33,6 +38,7 @@ local treesitter = {
   "bash",
   "cpp",
   "csv",
+  "erlang",
   "git_config",
   "ini",
   "jinja",
@@ -42,6 +48,7 @@ local treesitter = {
   "markdown",
   "properties",
   "python",
+  "sql",
   "vimdoc",
   "xml",
   "yaml",
