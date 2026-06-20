@@ -1,6 +1,34 @@
 - name: Set up new system
   hosts: localhost
   tasks:
+    - name: Configure package manager
+      block:
+        - name: Set up pacman.conf
+          become: true
+          ansible.builtin.replace:
+            path: /etc/pacman.conf
+            regexp: "{{ item.regexp }}"
+            replace: "{{ item.replace }}"
+          loop:
+            # Enable color
+            - regexp: '^#?Color'
+              replace: 'Color'
+            # Use 150 parallel downloads
+            - regexp: '^ParallelDownloads\s*=.*'
+              replace: 'ParallelDownloads = 150'
+            # Enable multilib
+            - regexp: '^#?\[multilib\]'
+              replace: '[multilib]'
+            - regexp: '(^\[multilib\]\n)(#\s*)?(Include\s*=\s*/etc/pacman\.d/mirrorlist)'
+              replace: '\1\3'
+
+        - name: Set up custom makepkg config
+          become: true
+          ansible.builtin.copy:
+            src: ./etc/makepkg.conf.d/00-makepkg.conf
+            dest: /etc/makepkg.conf.d/00-makepkg.conf
+            mode: "0644"
+
     - name: Install packages
       become: true
       community.general.pacman:
@@ -71,46 +99,43 @@
         state: present
         update_cache: true
 
-    - name: Set up custom makepkg config
-      become: true
-      ansible.builtin.copy:
-        src: ./etc/makepkg.conf.d/00-makepkg.conf
-        dest: /etc/makepkg.conf.d/00-makepkg.conf
-        mode: "0644"
+    - name: Install AUR helper
+      block:
+        - name: Clone aur.archlinux.org/yay-bin
+          become: true
+          ansible.builtin.git:
+            repo: https://aur.archlinux.org/yay-bin.git
+            dest: /tmp/yay-bin
+            version: master
 
-    - name: Clone aur.archlinux.org/yay-bin
-      become: true
-      ansible.builtin.git:
-        repo: https://aur.archlinux.org/yay-bin.git
-        dest: /tmp/yay-bin
-        version: master
+        - name: Install yay
+          ansible.builtin.command:
+            cmd: makepkg --syncdeps --install
+            chdir: /tmp/yay-bin/
+            creates: /usr/bin/yay
 
-    - name: Install yay
-      ansible.builtin.command:
-        cmd: makepkg --syncdeps --install
-        chdir: /tmp/yay-bin/
-        creates: /usr/bin/yay
+    - name: Configure mkinitcpio
+      block:
+        - name: Set up /etc/mkinitcpio.conf
+          become: true
+          ansible.builtin.lineinfile:
+            path: /etc/mkinitcpio.conf
+            regexp: "{{ item.regexp }}"
+            line: "{{ item.line }}"
+          loop:
+            - regexp: '^MODULES='
+              line: 'MODULES=(amdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm)'
+            - regexp: '^HOOKS='
+              line: 'HOOKS=(base systemd plymouth autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck resume)'
+          register: mkinitcpio_conf
 
-    - name: Set up pacman.conf
-      become: true
-      ansible.builtin.replace:
-        path: /etc/pacman.conf
-        regexp: "{{ item.regexp }}"
-        replace: "{{ item.replace }}"
-      loop:
-        # Enable color
-        - regexp: '^#?Color'
-          replace: 'Color'
-        # Use 150 parallel downloads
-        - regexp: '^ParallelDownloads\s*=.*'
-          replace: 'ParallelDownloads = 150'
-        # Enable multilib
-        - regexp: '^#?\[multilib\]'
-          replace: '[multilib]'
-        - regexp: '(^\[multilib\]\n)(#\s*)?(Include\s*=\s*/etc/pacman\.d/mirrorlist)'
-          replace: '\1\3'
-
-
+        - name: Run mkinitcpio
+          become: true
+          ansible.builtin.command: mkinitcpio -P
+          when: mkinitcpio_conf.changed
+          register: mkinitcpio_out
+          changed_when: mkinitcpio_out.rc == 0
+          failed_when: mkinitcpio_out.rc != 0
 
     - name: Disable PC speaker
       become: true
