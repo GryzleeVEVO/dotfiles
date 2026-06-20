@@ -1,42 +1,47 @@
 [user]
-	name = Dorian Wozniak
-	email = dorian.wozniak@gmail.com
+name = Dorian Wozniak
+email = dorian.wozniak@gmail.com
 
 [init]
-	defaultBranch = main
+defaultBranch = main
 
 [core]
-	autocrlf = input
-	whitespace = -trailing-space
+autocrlf = input
+whitespace = -trailing-space
 
 [pull]
-	ff = only
+ff = only
 
 [advice]
-	addIgnoredFile = false
+addIgnoredFile = false
 
 [rerere]
-	enabled = 1
-	autoupdate = 1
+enabled = 1
+autoupdate = 1
 
 [url "git@github.com:"]
-	insteadOf = gh:
+insteadOf = gh:
 
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
 
 [alias]
-	amend = commit --amend --message
-	bch = checkout
-	bdel = branch --delete
-	bnew = checkout -b
-	nuke = reset --hard HEAD
-	unstage = reset HEAD --
-	untrack = rm --cached
+amend = commit --amend
+bch = checkout
+bdel = branch --delete
+bnew = checkout -b
+diffl = diff HEAD~1 HEAD
+diffs = diff --staged
+nuke = reset --hard HEAD
+unstage = reset HEAD --
+untrack = rm --cached
+
 
 [include]
-	# Add uncommited config
-	path = "config.private"
+# Add uncommited config
+path = "config.private"
+
+# vim: ts=2 sts=2 sw=2 et:
