@@ -1,6 +1,8 @@
 # Set default timeout to 10s
 default-timeout=10000
 
+font=DejaVu Sans 10
+
 background-color=#323232
 text-color=#ebdbb2
 
