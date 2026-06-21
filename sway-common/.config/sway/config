@@ -17,10 +17,11 @@ set $ws10 "10"
 set $font_mono "pango:JetBrains Mono 10"
 set $wallpaper "$HOME/Pictures/wallpapers/sebastian-svenson-d2w-_1LJioQ-unsplash.jpg"
 
-set $bg_color #323232
-set $bg_accent_color #076678
-set $fg_color #ebdbb2
-set $fg_inactive_color #5c5c5c
+set $bg_color #14161a
+set $bg_accent_color #1f3241
+set $bg_inactive_color #191c22
+set $fg_color #ffffff
+set $fg_inactive_color #888888
 
 # Default programs
 set $term alacritty

@@ -14,6 +14,16 @@ smart_borders on
 # Hide window titles, show thin border
 for_window [class="^.*"] border pixel 1
 
+# Colors
+#
+# class border/background/text/indicator/child_border
+client.focused          $bg_accent_color $bg_accent_color $fg_color #2e9ef4   #285577
+client.focused_inactive $bg_inactive_color $bg_inactive_color $fg_color #484e50   #5f676a
+client.unfocused        $bg_color $bg_color $fg_color #292d2e   #222222
+client.urgent           #2f343a #900000 $fg_color #900000   #900000
+client.placeholder      #000000 #0c0c0c $fg_color #000000   #0c0c0c
+client.background       #ffffff
+
 bar {
     status_command i3status-rs
 
@@ -24,7 +34,7 @@ bar {
 
         # background/border/foreground
         focused_workspace $bg_accent_color $bg_accent_color $fg_color
-        inactive_workspace $bg_color $bg_color $fg_inactive_color
+        inactive_workspace $bg_inactive_color $bg_inactive_color $fg_inactive_color
     }
 }
 
