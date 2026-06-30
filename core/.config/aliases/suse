@@ -2,7 +2,8 @@
 
 check_suse() {
     if [ -f /etc/os-release ]; then
-        cat /etc/os-release | grep '^NAME' | cut -d '=' -f 2 | tr -d '"' | grep -qi "suse" && return 0
+        cat /etc/os-release | grep '^NAME' | cut -d '=' -f 2 | tr -d '"' |
+            grep -qi "suse" && return 0
     fi
 
     return 1
@@ -13,7 +14,6 @@ check_suse || return
 # p: install
 p() {
     # Enable parallel downloads and use modern media backend
-    local ZYPP_PCK_PRELOAD=1 ZYPP_CURL2=1
     sudo zypper dist-upgrade --no-confirm --no-recommends
     [ $# -ne 0 ] && sudo zypper install "$@"
 }
@@ -35,7 +35,8 @@ alias pss='zypper search'
 
 # pcl: clean up non required packages
 pcl() {
-    sudo zypper rm --clean-deps "$(zypper packages --unneeded | tail -n +5 | cut -d ' ' -f 8)"
+    zypper packages --unneeded | tail -n +5 | cut -d ' ' -f 8 |
+        xargs --open-tty sudo zypper remove --clean-deps
 }
 
 # pcc: clean up cache

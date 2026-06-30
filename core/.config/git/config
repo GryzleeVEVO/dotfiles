@@ -39,7 +39,6 @@ nuke = reset --hard HEAD
 unstage = reset HEAD --
 untrack = rm --cached
 
-
 [include]
 # Add uncommited config
 path = "config.private"

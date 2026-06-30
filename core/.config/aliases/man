@@ -17,3 +17,8 @@ man() {
 		GROFF_NO_SGR=1 \
 		man "$@"
 }
+
+# Use vim a pager
+vman() {
+	man "$@" | nvim -c 'set ft=man' -
+}
