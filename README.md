@@ -36,15 +36,9 @@ git restore -- package...
 The dotfiles are grouped into packages:
 
 - **core**: The bare minimum I'd want on any system: a **`.profile`** with the right environment, **shell aliases**, and configuration for CLI and TUI programs, like **tmux**.
+- **bash**: Configuration specifific to `bash`.
 - **desktop**: Anything common to any desktop, mostly autostart and GUI programs.
 - **plasma**: Files specific to KDE Plasma, such as **key bindings** .
-- **bash** and **zsh**: Configurations for each shell.
 - **neovim**: My Neovim config. Complex enough to have its own [README](./neovim/.config/nvim/README.md).
 
 Aditionally, an **etc** directory is included, however it will be ignored by stow since etc files must be handled manually.
-
-## To do list
-
-- [ ] Finnaly fix the zsh config.
-- [ ] De-merge i3 from the desktop package.
-- [ ] Make an install script for etc files, including scripts to modify files that, due to security reasons, cannot be commited into a VCS.
