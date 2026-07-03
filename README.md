@@ -1,11 +1,4 @@
-```
-    __    _  _____ ____ __ __   ___   ___
-   /  \ ,' \/_  _// __// // /  / _/ ,' _/
-  / o |/ o | / / / _/ / // /_ / _/ _\ `.
- /__,' |_,' /_/ /_/  /_//___//___//___,'
-```
-
-# Gryzlee's spectacularly unimpressive dotfiles
+# My dotfiles
 
 ## Install
 
