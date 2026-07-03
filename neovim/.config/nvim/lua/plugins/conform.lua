@@ -1,21 +1,5 @@
 local tools = require("tools")
-
---- Format selection, or entire buffer if nothing selected
----@param args vim.api.keyset.create_user_command.command_args
-local function format(args)
-  local conform = require("conform")
-  local range = nil
-
-  if args.count ~= -1 then
-    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
-    range = {
-      start = { args.line1, 0 },
-      ["end"] = { args.line2, end_line:len() },
-    }
-  end
-
-  conform.format({ async = true, range = range })
-end
+local util = require("util")
 
 return {
   "stevearc/conform.nvim", -- Detect and run formatters
@@ -35,7 +19,7 @@ return {
       },
 
       format_on_save = function()
-        if vim.g.enable_autoformat then
+        if vim.g.autoformat then
           return { timeout_ms = 3000 }
         end
       end,
@@ -43,7 +27,7 @@ return {
       notify_on_error = true,
     })
 
-    vim.api.nvim_create_user_command("Format", format, {
+    vim.api.nvim_create_user_command("Format", util.format, {
       desc = "Format buffer",
       range = true,
     })

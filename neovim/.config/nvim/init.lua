@@ -38,10 +38,3 @@ require("lazy").setup({
     notify = false,
   },
 })
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "Update plugins automatically",
-  callback = function()
-    require("lazy").update({ show = false })
-  end,
-})

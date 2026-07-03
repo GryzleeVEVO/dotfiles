@@ -1,6 +1,5 @@
 return {
-  --  Notifications
-  "j-hui/fidget.nvim",
+  "j-hui/fidget.nvim", --  Notifications
 
   opts = {},
 }

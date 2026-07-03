@@ -1,7 +1,7 @@
 local lsp = vim.lsp
 
 return {
-  "b0o/schemastore.nvim",
+  "b0o/schemastore.nvim", -- Get schemas for JSON and YAML files
 
   config = function()
     local schema = require("schemastore")

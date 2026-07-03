@@ -1,5 +1,5 @@
 return {
-  "stevearc/oil.nvim",
+  "stevearc/oil.nvim", -- File explorer
 
   dependencies = {
     "nvim-web-devicons",

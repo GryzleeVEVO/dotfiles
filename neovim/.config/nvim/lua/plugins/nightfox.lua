@@ -1,6 +1,5 @@
 return {
-  -- Colorscheme
-  "EdenEast/nightfox.nvim",
+  "EdenEast/nightfox.nvim", -- Colorscheme
 
   enabled = false,
 

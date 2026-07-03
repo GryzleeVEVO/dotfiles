@@ -1,3 +1,5 @@
+local keybinds = require("keybinds")
+
 return {
 
   "nvim-telescope/telescope.nvim", -- Search and pick menu
@@ -10,7 +12,6 @@ return {
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
-    local builtin = require("telescope.builtin")
 
     telescope.setup({
       defaults = {
@@ -40,23 +41,6 @@ return {
 
     telescope.load_extension("ui-select")
 
-    vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, { desc = "[Telescope] Find files" })
-    vim.keymap.set({ "n" }, "<leader>b", builtin.buffers, { desc = "[Telescope] Show open buffers" })
-
-    vim.keymap.set({ "n" }, "<leader>/", builtin.live_grep, { desc = "[Telescope] Find string" })
-
-    vim.keymap.set(
-      { "n" },
-      "<leader>s",
-      builtin.lsp_document_symbols,
-      { desc = "[Telescope] Show current document symbols" }
-    )
-
-    vim.keymap.set(
-      { "n" },
-      "<leader>S",
-      builtin.lsp_dynamic_workspace_symbols,
-      { desc = "[Telescope] Show workspace symbols" }
-    )
+    keybinds.telescope_keybinds()
   end,
 }

@@ -5,6 +5,7 @@ vim.diagnostic.config({
   -- Show lines under offending line of code
   -- virtual_lines = {},
 
+  -- Overwrite gutter signs
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "󰅚",

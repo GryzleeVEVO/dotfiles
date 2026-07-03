@@ -1,6 +1,5 @@
 return {
-  -- Indentation marks
-  "lukas-reineke/indent-blankline.nvim",
+  "lukas-reineke/indent-blankline.nvim", -- Indentation marks
 
   main = "ibl",
   opts = {},

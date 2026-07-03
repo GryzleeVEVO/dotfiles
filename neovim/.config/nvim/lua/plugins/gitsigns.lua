@@ -1,6 +1,5 @@
 return {
-  -- Git icons
-  "lewis6991/gitsigns.nvim",
+  "lewis6991/gitsigns.nvim", -- Git icons
 
   opts = {},
 }

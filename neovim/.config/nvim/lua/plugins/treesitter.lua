@@ -1,23 +1,5 @@
 local tools = require("tools")
-
-local function enable_parser()
-  local ok, _ = pcall(vim.treesitter.start)
-
-  if not ok then
-    return
-  end
-
-  vim.opt.foldcolumn = "0"
-  vim.opt.foldtext = ""
-  vim.opt.foldlevel = 99
-
-  -- Folding
-  vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-  vim.wo[0][0].foldmethod = "expr"
-
-  -- Indenting
-  vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
-end
+local util = require("util")
 
 return {
   "nvim-treesitter/nvim-treesitter",
@@ -33,9 +15,9 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       group = vim.api.nvim_create_augroup("treesitter_custom", { clear = true }),
       pattern = { "*" },
-      callback = enable_parser,
+      callback = util.enable_parser,
     })
 
-    vim.api.nvim_create_user_command("TSStart", enable_parser, {})
+    vim.api.nvim_create_user_command("TSStart", util.enable_parser, {})
   end,
 }

@@ -1,6 +1,5 @@
 return {
-  -- Markdown pretty printing
-  "MeanderingProgrammer/render-markdown.nvim",
+  "MeanderingProgrammer/render-markdown.nvim", -- Markdown pretty printing
 
   ft = "markdown",
 

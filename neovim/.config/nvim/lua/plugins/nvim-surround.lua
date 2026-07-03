@@ -1,6 +1,5 @@
 return {
-  -- Add, delete or change matching pairs
-  "kylechui/nvim-surround",
+  "kylechui/nvim-surround", -- Add, delete or change matching pairs
 
   opts = {},
 }

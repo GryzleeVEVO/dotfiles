@@ -1,14 +1,20 @@
+local keybinds = require("keybinds")
+
 local au = vim.api.nvim_create_autocmd
 local auclr = vim.api.nvim_clear_autocmds
 local ag = vim.api.nvim_create_augroup
 local cmd = vim.cmd
 
+-- Set up autocommand groups
 local editor_group = ag("editor-quality-of-life", { clear = true })
+local lsp_group = ag("lsp-attach-setup", { clear = true })
 
 --- Editing ---
 
+-- Since formatoptions is set per buffer, we ned an autocommandt to disable it
+-- every time
 au({ "BufEnter" }, {
-  desc = "Do not insert comment prefix on line break",
+  desc = "Disable inserting new comments on line break",
   group = editor_group,
   pattern = "",
   -- c = autowrap comment comment with textwidth
@@ -22,7 +28,7 @@ au({ "BufWritePre" }, {
   group = editor_group,
   pattern = "",
   callback = function()
-    if vim.g.enable_autoformat then
+    if vim.g.autoformat then
       local cursor = vim.fn.getpos(".")
       cmd([[%s/\s\+$//e]])
       vim.fn.setpos(".", cursor)
@@ -41,10 +47,7 @@ au({ "TextYankPost" }, {
   end,
 })
 
-
 --- LSP ---
-
-local lsp_group = ag("lsp-attach-setup", { clear = true })
 
 au({ "LspAttach" }, {
   desc = "Configure newly attached LSP",
@@ -55,7 +58,7 @@ au({ "LspAttach" }, {
       and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, ev.buf)
 
     if highlightSupported then
-      local lsp_highlight_group = ag("lsp-highlight-setup", { clear = false })
+      local lsp_highlight_group = ag("lsp-highlight-setup", { clear = true })
 
       au({ "CursorHold", "CursorHoldI" }, {
         desc = "Highlight references to symbol in cursor",
@@ -75,7 +78,10 @@ au({ "LspAttach" }, {
         desc = "Clean up highlight autocommands when detaching an LSP",
         callback = function(ev2)
           vim.lsp.buf.clear_references()
-          auclr({ group = "lsp-highlight", buffer = ev2.buf })
+          auclr({
+            group = lsp_highlight_group,
+            buffer = ev2.buf,
+          })
         end,
       })
     end
@@ -85,5 +91,5 @@ au({ "LspAttach" }, {
 au({ "LspAttach" }, {
   desc = "Set up keybindings after attaching an LSP",
   group = lsp_group,
-  callback = require("keybinds").lsp_keybinds_setup
+  callback = keybinds.lsp_keybinds,
 })

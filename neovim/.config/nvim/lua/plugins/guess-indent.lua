@@ -1,6 +1,5 @@
 return {
-  -- Guess indentation based on file contents
-  "NMAC427/guess-indent.nvim",
+  "NMAC427/guess-indent.nvim", -- Guess indentation based on file contents
 
   opts = {},
 }

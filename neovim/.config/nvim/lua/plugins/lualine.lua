@@ -1,6 +1,5 @@
 return {
-  -- Status bar
-  "nvim-lualine/lualine.nvim",
+  "nvim-lualine/lualine.nvim", -- Status bar
 
   dependencies = {
     "nvim-tree/nvim-web-devicons", -- Dependency

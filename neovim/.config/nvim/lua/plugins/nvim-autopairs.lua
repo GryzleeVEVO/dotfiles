@@ -1,6 +1,5 @@
 return {
-  -- Auto pair characters
-  "windwp/nvim-autopairs",
+  "windwp/nvim-autopairs", -- Auto pair characters
 
   event = "InsertEnter",
   opts = {},

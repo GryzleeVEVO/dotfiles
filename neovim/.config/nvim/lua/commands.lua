@@ -1,18 +1,18 @@
-local command = vim.api.nvim_create_user_command
+local cmd = vim.api.nvim_create_user_command
 
-command("ToggleFormatting", function()
-  vim.g.enable_autoformat = not vim.g.enable_autoformat
+cmd("ToggleFormatting", function()
+  vim.g.autoformat = not vim.g.autoformat
 end, {
-  desc = "Toggle formatting",
+  desc = "Toggle automatic formatting",
 })
 
-command("ToggleWrappedLinesHandling", function()
-  vim.g.wrapped_lines_jk = not vim.g.wrapped_lines_jk
+cmd("ToggleUpDownDisplayLines", function()
+  vim.g.up_down_display_lines = not vim.g.up_down_display_lines
 end, {
-  desc = "Toggle if j/k should go up/down the displayed (wrapped) line or the actual line",
+  desc = "Toggle whether j/k moves up/down the display lines instead of real lines",
 })
 
-command("Tools", function()
+cmd("Tools", function()
   vim.cmd("edit " .. vim.fn.stdpath("config") .. "/lua/tools.lua")
 end, {
   desc = "Open tools config file",

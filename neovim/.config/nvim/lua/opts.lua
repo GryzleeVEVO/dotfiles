@@ -58,4 +58,3 @@ o.linebreak = true
 -- Scrolling limits
 o.scrolloff = 10
 o.sidescrolloff = 10
-

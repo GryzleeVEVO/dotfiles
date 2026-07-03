@@ -1,6 +1,7 @@
 return {
   {
     "ravibrock/spellwarn.nvim",
+    enabled = false,
     event = "VeryLazy",
 
     opts = {

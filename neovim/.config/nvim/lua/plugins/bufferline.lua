@@ -1,6 +1,5 @@
 return {
-  -- Show opened buffers like tabs
-  "akinsho/bufferline.nvim",
+  "akinsho/bufferline.nvim", -- Show opened buffers like tabs
 
   version = "*",
 

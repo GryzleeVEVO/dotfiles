@@ -1,6 +1,6 @@
 return {
   {
-    "saghen/blink.cmp",
+    "saghen/blink.cmp", -- Auto complete
     version = "1.*",
 
     dependencies = {
@@ -55,7 +55,7 @@ return {
 
       completion = {
         ghost_text = {
-          enabled = true, -- Show suggestion as ghost text
+          enabled = false, -- Show suggestion as ghost text
         },
       },
 
