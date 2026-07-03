@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
 
-if [[ ! -f "/etc/arch-release" ]]; then
+if [ ! -f "/etc/arch-release" ]; then
   return
 fi
-
 
 if command -v yay >/dev/null; then
   # p: install

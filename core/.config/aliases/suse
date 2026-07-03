@@ -1,19 +1,15 @@
 #!/usr/bin/env sh
 
-check_suse() {
-    if [ -f /etc/os-release ]; then
-        cat /etc/os-release | grep '^NAME' | cut -d '=' -f 2 | tr -d '"' |
-            grep -qi "suse" && return 0
-    fi
-
-    return 1
-}
-
-check_suse || return
+if ! cat /etc/os-release |
+    grep '^NAME' |
+    cut -d '=' -f 2 |
+    tr -d '"' |
+    grep -qi "suse" 2>/dev/null; then
+    return
+fi
 
 # p: install
 p() {
-    # Enable parallel downloads and use modern media backend
     sudo zypper dist-upgrade --no-confirm --no-recommends
     [ $# -ne 0 ] && sudo zypper install "$@"
 }
@@ -41,5 +37,3 @@ pcl() {
 
 # pcc: clean up cache
 alias pcc='sudo zypper clean --all'
-
-unset -f check_suse

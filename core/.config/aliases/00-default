@@ -8,9 +8,6 @@
 alias o='XDG_CURRENT_DESKTOP=X-generic xdg-open'
 alias open='XDG_CURRENT_DESKTOP=X-generic xdg-open'
 
-# $EDITOR must be set
-alias e='$EDITOR'
-
 # Use all available cores for make.
 alias make='make --jobs=$(nproc)'
 alias m='make'
