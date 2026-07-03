@@ -10,9 +10,6 @@ alias open='XDG_CURRENT_DESKTOP=X-generic xdg-open'
 
 # Use all available cores for make.
 alias make='make --jobs=$(nproc)'
-alias m='make'
-
-alias py='python'
 
 # Tmux is a terminal multiplexer
 alias t='tmux'
@@ -29,10 +26,7 @@ command -v rsync >&/dev/null && alias rsync='rsync -v'
 # ------------------------------------------------------------------------------
 
 # https://wiki.archlinux.org/title/Sudo#Passing_aliases
-#
-# Preserve user environment. The extra space allows the next commands to
-# be aliases too
-alias sudo='sudo --preserve-env '
+alias sudo='sudo '
 
 # ------------------------------------------------------------------------------
 # Everything else                                                              |
@@ -70,13 +64,10 @@ alias ln='ln --interactive --verbose'
 alias lns='ln --symbolic'
 
 alias chmod='chmod --preserve-root --changes'
-alias mod='chmod'
 
 alias chown='chown  --preserve-root --changes'
-alias own='chown'
 
 alias chgrp='chgrp --preserve-root --changes'
-alias grp='chgrp'
 
 alias du='du --human-readable --total'
 
@@ -87,8 +78,6 @@ alias free='free --human --total'
 
 # Show changes together
 alias diff='diff --recursive --unified --color=auto'
-
-alias f='find'
 
 alias grep='grep --color=auto'
 alias egrep='grep --extended-regexp'
