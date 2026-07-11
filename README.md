@@ -23,15 +23,3 @@ stow -vt $HOME package...
 stow -vt $HOME --adopt package...
 git restore -- package...
 ```
-
-## Packages
-
-The dotfiles are grouped into packages:
-
-- **core**: The bare minimum I'd want on any system: a **`.profile`** with the right environment, **shell aliases**, and configuration for CLI and TUI programs, like **tmux**.
-- **bash**: Configuration specifific to `bash`.
-- **desktop**: Anything common to any desktop, mostly autostart and GUI programs.
-- **plasma**: Files specific to KDE Plasma, such as **key bindings** .
-- **neovim**: My Neovim config. Complex enough to have its own [README](./neovim/.config/nvim/README.md).
-
-Aditionally, an **etc** directory is included, however it will be ignored by stow since etc files must be handled manually.
