@@ -1,12 +1,12 @@
-local lsp = vim.lsp
-
+---@type LazySpec
 return {
-  "b0o/schemastore.nvim", -- Get schemas for JSON and YAML files
+  -- Get schemas for JSON and YAML files
+  "b0o/schemastore.nvim",
 
   config = function()
     local schema = require("schemastore")
 
-    lsp.config("jsonls", {
+    vim.lsp.config("jsonls", {
       settings = {
         json = {
           schemas = schema.json.schemas(),
@@ -15,7 +15,7 @@ return {
       },
     })
 
-    lsp.config("yamlls", {
+    vim.lsp.config("yamlls", {
       settings = {
         yaml = {
           schemaStore = { enable = false, url = "" },

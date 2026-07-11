@@ -1,7 +1,6 @@
-local tools = require("tools")
-local util = require("util")
-
+---@type LazySpec
 return {
+  -- Parser and AST generator. Better syntax, indenting, etc...
   "nvim-treesitter/nvim-treesitter",
 
   lazy = false,
@@ -10,14 +9,8 @@ return {
   init = function()
     local ts = require("nvim-treesitter")
 
-    ts.install(tools.treesitter_ensure_installed)
-
-    vim.api.nvim_create_autocmd("FileType", {
-      group = vim.api.nvim_create_augroup("treesitter_custom", { clear = true }),
-      pattern = { "*" },
-      callback = util.enable_parser,
-    })
-
-    vim.api.nvim_create_user_command("TSStart", util.enable_parser, {})
+    ts.install(require("tools").treesitter_ensure_installed)
+    require("commands").treesitter()
+    require("autocmds").treesitter()
   end,
 }

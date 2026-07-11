@@ -1,13 +1,15 @@
-local keybinds = require("keybinds")
+local M = {}
+
+local keymap = require("keymap")
 
 local au = vim.api.nvim_create_autocmd
 local auclr = vim.api.nvim_clear_autocmds
-local ag = vim.api.nvim_create_augroup
+local aug = vim.api.nvim_create_augroup
 local cmd = vim.cmd
 
 -- Set up autocommand groups
-local editor_group = ag("editor-quality-of-life", { clear = true })
-local lsp_group = ag("lsp-attach-setup", { clear = true })
+local editor_group = aug("editor-quality-of-life", { clear = true })
+local lsp_group = aug("lsp-attach-setup", { clear = true })
 
 --- Editing ---
 
@@ -58,7 +60,7 @@ au({ "LspAttach" }, {
       and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, ev.buf)
 
     if highlightSupported then
-      local lsp_highlight_group = ag("lsp-highlight-setup", { clear = true })
+      local lsp_highlight_group = aug("lsp-highlight-setup", { clear = true })
 
       au({ "CursorHold", "CursorHoldI" }, {
         desc = "Highlight references to symbol in cursor",
@@ -91,5 +93,21 @@ au({ "LspAttach" }, {
 au({ "LspAttach" }, {
   desc = "Set up keybindings after attaching an LSP",
   group = lsp_group,
-  callback = keybinds.lsp_keybinds,
+  callback = keymap.lsp,
 })
+
+--- PLUGINS ---
+
+--- Set up autocommands for Treesitter
+M.treesitter = function()
+  local treesitter_group = aug("treesitter-plugin", { clear = true })
+
+  au("FileType", {
+    desc = "Start Treesitter when opening a file",
+    group = treesitter_group,
+    pattern = { "*" },
+    callback = require("util").enable_parser,
+  })
+end
+
+return M

@@ -1,5 +1,8 @@
+---@type LazySpec
 return {
-  "akinsho/bufferline.nvim", -- Show opened buffers like tabs
+  -- Show opened buffers like tabs
+  "akinsho/bufferline.nvim",
+  enabled = false,
 
   version = "*",
 

@@ -102,7 +102,7 @@ map("n", "<C-q>", "<C-w><C-q>", {
 
 --- Set up keybinds on LSP attach
 ---@param ev vim.api.keyset.create_autocmd.callback_args event
-M.lsp_keybinds = function(ev)
+M.lsp = function(ev)
   local builtin = require("telescope.builtin")
 
   -- F2 to rename, default grn
@@ -137,28 +137,111 @@ M.lsp_keybinds = function(ev)
     buffer = ev.buf,
     desc = "[Telescope] Workspace symbols",
   })
-
-  map({ "n" }, "<leader>D", builtin.diagnostics, {
-    buffer = ev.buf,
-    desc = "[Telescope] Diagnostics",
-  })
 end
 
---- Set up keybinds for Telescope on load
-M.telescope_keybinds = function()
+--- PLUGINS ---
+
+--- Set up keymap for blink.cmp
+---@type blink.cmp.KeymapConfig
+M.blink = {
+  preset = "default",
+
+  -- Use j/k to select items
+  ["<C-j>"] = { "select_next", "fallback" },
+  ["<C-k>"] = { "select_prev", "fallback" },
+}
+
+-- Set up keymap for Neogen
+---@type LazyKeysSpec[]
+M.neogen = {
+  {
+    "<leader>c",
+    function()
+      require("neogen").generate()
+    end,
+    desc = "[Neogen] Generate comment",
+  },
+}
+
+--- Set up keymap for oil.nvim
+---@type LazyKeysSpec[]
+M.oil = {
+  {
+    "<leader>e",
+    "<cmd>Oil<cr>",
+    desc = "[Oil] Open explorer",
+  },
+}
+
+--- Set up keymap for Telescope's menu
+---@return table
+M.telescope_actions = function()
+  local actions = require("telescope.actions")
+  return {
+    i = {
+      ["<C-j>"] = actions.move_selection_next,
+      ["<C-k>"] = actions.move_selection_previous,
+      ["<C-y>"] = actions.select_default,
+    },
+  }
+end
+
+--- Set up keymap for Telescope pickers
+---@return LazyKeysSpec[]
+M.telescope_pickers = function()
   local builtin = require("telescope.builtin")
 
-  map({ "n" }, "<leader>f", builtin.find_files, {
-    desc = "[Telescope] Find files",
-  })
+  return {
+    {
+      "<leader>f",
+      builtin.find_files,
+      desc = "[Telescope] Show open buffers",
+    },
+    {
+      "<leader>b",
+      builtin.buffers,
+      desc = "[Telescope] Show open buffers",
+    },
+    {
+      "<leader>/",
+      builtin.live_grep,
+      desc = "[Telescope] Find string in workspace",
+    },
+    {
+      "<leader>H",
+      builtin.help_tags,
+      desc = "[Telescope] Find help tag",
+    },
+    {
+      "<leader>D",
+      builtin.diagnostics,
+      desc = "[Telescope] Diagnostics",
+    },
+  }
+end
 
-  map({ "n" }, "<leader>b", builtin.buffers, {
-    desc = "[Telescope] Show open buffers",
-  })
+--- Set up keymaps for undotree
+---@type LazyKeysSpec[]
+M.undotree = {
+  {
+    "<leader>u",
+    "<cmd>UndotreeToggle<cr>",
+    desc = "[undotree] Toggle undo tree",
+  },
+}
 
-  map({ "n" }, "<leader>/", builtin.live_grep, {
-    desc = "[Telescope] Find string in workspace",
-  })
+--- Set up keybinds for which-key
+---@return LazyKeysSpec[]
+M.which_key = function()
+  return {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "[Which-key] Open",
+    },
+  }
 end
 
 return M

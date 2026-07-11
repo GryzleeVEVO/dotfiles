@@ -1,5 +1,7 @@
+---@type LazySpec
 return {
-  "lewis6991/gitsigns.nvim", -- Git icons
+  -- Git icons
+  "lewis6991/gitsigns.nvim",
 
   opts = {},
 }

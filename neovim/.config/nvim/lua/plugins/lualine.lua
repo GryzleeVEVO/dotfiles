@@ -1,8 +1,11 @@
+---@type LazySpec
 return {
-  "nvim-lualine/lualine.nvim", -- Status bar
+  -- Status bar
+  "nvim-lualine/lualine.nvim",
 
   dependencies = {
-    "nvim-tree/nvim-web-devicons", -- Dependency
+    -- Dependency
+    "nvim-tree/nvim-web-devicons",
   },
 
   opts = {

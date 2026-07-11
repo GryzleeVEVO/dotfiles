@@ -1,17 +1,11 @@
+---@type LazySpec
 return {
-  "danymat/neogen", -- Generate documentation
+  -- Generate documentation
+  "danymat/neogen",
 
   cmd = { "Neogen" },
 
-  keys = {
-    {
-      "<leader>c",
-      function()
-        require("neogen").generate()
-      end,
-      { desc = "[Neogen] Generate comment" },
-    },
-  },
+  keys = require("keymap").neogen,
 
   opts = {
     snippet_engine = "luasnip",

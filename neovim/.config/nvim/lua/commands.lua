@@ -1,3 +1,5 @@
+local M = {}
+
 local cmd = vim.api.nvim_create_user_command
 
 cmd("ToggleFormatting", function()
@@ -17,3 +19,26 @@ cmd("Tools", function()
 end, {
   desc = "Open tools config file",
 })
+
+--- PLUGINS ---
+
+--- Set up commands for Conform
+M.conform = function()
+  cmd("Format", require("util").format, {
+    desc = "Format buffer",
+    range = true,
+  })
+end
+
+--- Set up commands for Treesitter
+M.treesitter = function()
+  cmd("TSStart", require("util").enable_parser, {
+    desc = "Start a parser",
+  })
+
+  cmd("TSStop", vim.treesitter.stop, {
+    desc = "Stop a parser",
+  })
+end
+
+return M

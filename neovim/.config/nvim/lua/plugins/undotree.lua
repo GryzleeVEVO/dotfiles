@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   -- Undo history
   "mbbill/undotree",
@@ -10,7 +11,5 @@ return {
     "UndotreeToggle",
   },
 
-  keys = {
-    { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "[undotree] Toggle undo tree" },
-  },
+  keys = require("keymap").undotree,
 }

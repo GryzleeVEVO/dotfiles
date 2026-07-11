@@ -1,5 +1,7 @@
+---@type LazySpec
 return {
-  "stevearc/oil.nvim", -- File explorer
+  -- File explorer
+  "stevearc/oil.nvim",
 
   dependencies = {
     "nvim-web-devicons",
@@ -9,7 +11,5 @@ return {
 
   opts = {},
 
-  keys = {
-    { "<leader>e", "<cmd>Oil<cr>", desc = "[Oil] Open explorer" },
-  },
+  keys = require("keymap").oil,
 }

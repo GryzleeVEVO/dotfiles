@@ -1,5 +1,7 @@
+---@type LazySpec
 return {
-  "lukas-reineke/indent-blankline.nvim", -- Indentation marks
+  -- Indentation marks
+  "lukas-reineke/indent-blankline.nvim",
 
   main = "ibl",
   opts = {},

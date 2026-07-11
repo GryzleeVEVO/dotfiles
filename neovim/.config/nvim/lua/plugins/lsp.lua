@@ -1,28 +1,35 @@
-local tools = require("tools")
-
+---@type LazySpec
 return {
   {
-    "neovim/nvim-lspconfig", -- Sane defaults for LSPs
+    -- Sane defaults for LSPs
+    "neovim/nvim-lspconfig",
   },
   {
-    "mason-org/mason.nvim", -- Tooling package manager
+    -- Tooling package manager
+    "mason-org/mason.nvim",
 
     dependencies = {
-      "neovim/nvim-lspconfig", -- Load before Mason
-      "mason-org/mason-lspconfig.nvim", -- Set up LSPs installed with Mason
-      "WhoIsSethDaniel/mason-tool-installer.nvim", -- Auto install from list
+      -- Load before Mason
+      "neovim/nvim-lspconfig",
+
+      -- Set up LSPs installed with Mason
+      "mason-org/mason-lspconfig.nvim",
+
+      -- Auto install from list
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
 
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({})
       require("mason-tool-installer").setup({
-        ensure_installed = tools.mason_ensure_installed,
+        ensure_installed = require("tools").mason_ensure_installed,
       })
     end,
   },
   {
-    "folke/lazydev.nvim", -- Support for nvim lua API
+    -- Support for nvim lua API
+    "folke/lazydev.nvim",
 
     ft = "lua",
 

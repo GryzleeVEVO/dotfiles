@@ -1,11 +1,16 @@
+---@type LazySpec
 return {
-  "MeanderingProgrammer/render-markdown.nvim", -- Markdown pretty printing
+  -- Markdown pretty printing
+  "MeanderingProgrammer/render-markdown.nvim",
 
   ft = "markdown",
 
   dependencies = {
-    "nvim-treesitter/nvim-treesitter", -- Dependency
-    "nvim-tree/nvim-web-devicons", -- Dependency
+    -- Dependency
+    "nvim-treesitter/nvim-treesitter",
+
+    -- Dependency
+    "nvim-tree/nvim-web-devicons",
   },
 
   opts = {},

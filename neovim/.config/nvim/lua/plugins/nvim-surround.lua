@@ -1,5 +1,7 @@
+---@type LazySpec
 return {
-  "kylechui/nvim-surround", -- Add, delete or change matching pairs
+  -- Add, delete or change matching pairs
+  "kylechui/nvim-surround",
 
   opts = {},
 }

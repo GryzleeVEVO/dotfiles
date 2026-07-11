@@ -1,7 +1,10 @@
+---@type LazySpec
 return {
   {
+    -- Show spelling errors as diagnostic errors
     "ravibrock/spellwarn.nvim",
     enabled = false,
+
     event = "VeryLazy",
 
     opts = {

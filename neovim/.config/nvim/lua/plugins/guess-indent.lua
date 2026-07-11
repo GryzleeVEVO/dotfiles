@@ -1,5 +1,7 @@
+---@type LazySpec
 return {
-  "NMAC427/guess-indent.nvim", -- Guess indentation based on file contents
+  -- Guess indentation based on file contents
+  "NMAC427/guess-indent.nvim",
 
   opts = {},
 }

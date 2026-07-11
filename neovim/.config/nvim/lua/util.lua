@@ -37,5 +37,44 @@ M.enable_parser = function()
   vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
 end
 
-return M
+--- Return a list of tools to be installed by Mason automatically. If a package
+--- manager is unavailable, skip installing the packages.
+---@param t table List of tools per package manager.
+---@return table mason_tools Flat list of tools to be installed by Mason
+M.create_mason_install_list = function(t)
+  local res = {}
 
+  for k, v in pairs(t) do
+    if type(k) == "number" and type(v) == "string" then
+      table.insert(res, v)
+    elseif vim.fn.executable(k) == 1 then
+      for _, tool in pairs(v) do
+        table.insert(res, tool)
+      end
+    end
+  end
+
+  return res
+end
+
+--- Reverse a list of filetypes per formatter to a list of formatters per
+--- filetype.
+---@param f table List of filetypes per formatter
+---@return table conform_formatters List of formatters per filetype
+M.create_conform_formatter_list = function(f)
+  local res = {}
+
+  for tool, fts in pairs(f) do
+    for _, ft in ipairs(fts) do
+      if not res[ft] then
+        res[ft] = {}
+      end
+
+      table.insert(res[ft], tool)
+    end
+  end
+
+  return res
+end
+
+return M

@@ -1,27 +1,24 @@
-local keybinds = require("keybinds")
-
+---@type LazySpec
 return {
-
-  "nvim-telescope/telescope.nvim", -- Search and pick menu
+  -- Picker menus
+  "nvim-telescope/telescope.nvim",
 
   dependencies = {
-    "nvim-lua/plenary.nvim", -- Depenency
-    "nvim-telescope/telescope-ui-select.nvim", -- Use Telescope UI for some native actions
+    -- Depenency
+    "nvim-lua/plenary.nvim",
+
+    -- Use Telescope UI for some native actions
+    "nvim-telescope/telescope-ui-select.nvim",
   },
+
+  keys = require("keymap").telescope_pickers(),
 
   config = function()
     local telescope = require("telescope")
-    local actions = require("telescope.actions")
 
     telescope.setup({
       defaults = {
-        mappings = {
-          i = {
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
-            ["<C-y>"] = actions.select_default,
-          },
-        },
+        mappings = require("keymap").telescope_actions(),
       },
 
       pickers = {
@@ -40,7 +37,5 @@ return {
     })
 
     telescope.load_extension("ui-select")
-
-    keybinds.telescope_keybinds()
   end,
 }

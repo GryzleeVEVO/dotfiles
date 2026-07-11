@@ -1,8 +1,7 @@
-local tools = require("tools")
-local util = require("util")
-
+---@type LazySpec
 return {
-  "stevearc/conform.nvim", -- Detect and run formatters
+  -- Detect and run formatters
+  "stevearc/conform.nvim",
 
   event = { "BufWritePre" },
   cmd = { "ConformInfo", "Format" },
@@ -11,7 +10,7 @@ return {
     local conform = require("conform")
 
     conform.setup({
-      formatters_by_ft = tools.conform_formatters,
+      formatters_by_ft = require("tools").conform_formatters,
 
       default_format_opts = {
         lsp_format = "fallback",
@@ -27,9 +26,6 @@ return {
       notify_on_error = true,
     })
 
-    vim.api.nvim_create_user_command("Format", util.format, {
-      desc = "Format buffer",
-      range = true,
-    })
+    require("commands").conform()
   end,
 }

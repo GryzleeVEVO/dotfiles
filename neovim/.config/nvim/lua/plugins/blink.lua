@@ -1,15 +1,19 @@
+---@type LazySpec
 return {
   {
-    "saghen/blink.cmp", -- Auto complete
+    -- Auto complete
+    "saghen/blink.cmp",
     version = "1.*",
 
     dependencies = {
       {
-        "L3MON4D3/LuaSnip", -- Snippet engine
+        -- Snippet engine
+        "L3MON4D3/LuaSnip",
         version = "*",
 
         dependencies = {
-          "rafamadriz/friendly-snippets", -- Snippets
+          -- Snippets
+          "rafamadriz/friendly-snippets",
         },
 
         run = "make install_jsregexp",
@@ -25,26 +29,7 @@ return {
     opts = {
       snippets = { preset = "luasnip" },
 
-      -- https://cmp.saghen.dev/configuration/keymap
-      keymap = {
-        -- C-p, Up/C-n, Down: Select up/down
-        -- C-y: Select
-        -- C-e: Cancel
-
-        -- C-space: Toggle documentation
-        -- C-b/C-f: Scroll up/down
-
-        -- C-k: Toggle signature
-
-        -- After inserting a snippet
-        -- Tab: Go to next gap
-        -- S-Tab: Go to previous gap
-        preset = "default",
-
-        -- Use j/k to select items
-        ["<C-j>"] = { "select_next", "fallback" },
-        ["<C-k>"] = { "select_prev", "fallback" },
-      },
+      keymap = require("keymap").blink,
 
       signature = {
         enabled = true, -- Show function signature when filling in arguments

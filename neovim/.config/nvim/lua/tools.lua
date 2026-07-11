@@ -1,5 +1,7 @@
 local M = {}
 
+local util = require("util")
+
 -- List of tools to be installed automatically by Mason
 local tools = {
   "docker_language_server",
@@ -58,39 +60,13 @@ local treesitter = {
   "yaml",
 }
 
+-- TODO: Create treesitter exclude list
+
 --------------------------------------------------------------------------------
 
-M.mason_ensure_installed = (function(t)
-  local res = {}
+M.mason_ensure_installed = util.create_mason_install_list(tools)
 
-  for k, v in pairs(t) do
-    if type(k) == "number" and type(v) == "string" then
-      table.insert(res, v)
-    elseif vim.fn.executable(k) == 1 then
-      for _, tool in pairs(v) do
-        table.insert(res, tool)
-      end
-    end
-  end
-
-  return res
-end)(tools)
-
-M.conform_formatters = (function(f)
-  local res = {}
-
-  for tool, fts in pairs(f) do
-    for _, ft in ipairs(fts) do
-      if not res[ft] then
-        res[ft] = {}
-      end
-
-      table.insert(res[ft], tool)
-    end
-  end
-
-  return res
-end)(formatters)
+M.conform_formatters = util.create_conform_formatter_list(formatters)
 
 M.treesitter_ensure_installed = treesitter
 
