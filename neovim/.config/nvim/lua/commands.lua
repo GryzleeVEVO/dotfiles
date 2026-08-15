@@ -4,12 +4,16 @@ local cmd = vim.api.nvim_create_user_command
 
 cmd("ToggleFormatting", function()
   vim.g.autoformat = not vim.g.autoformat
+  vim.cmd('echom "Formatting ' .. (vim.g.autoformat and "on" or "off") .. '"')
 end, {
   desc = "Toggle automatic formatting",
 })
 
 cmd("ToggleUpDownDisplayLines", function()
   vim.g.up_down_display_lines = not vim.g.up_down_display_lines
+  vim.cmd(
+    'echom "' .. (vim.g.up_down_display_lines and "j/k will move display lines" or "j/k will move real lines") .. '"'
+  )
 end, {
   desc = "Toggle whether j/k moves up/down the display lines instead of real lines",
 })

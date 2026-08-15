@@ -5,6 +5,7 @@ return {
 
   event = { "BufWritePre" },
   cmd = { "ConformInfo", "Format" },
+  keys = require("keymap").conform,
 
   config = function()
     local conform = require("conform")

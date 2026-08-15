@@ -151,6 +151,16 @@ M.blink = {
   ["<C-k>"] = { "select_prev", "fallback" },
 }
 
+-- Set up keymap for Conform
+---@type LazyKeysSpec[]
+M.conform = {
+  {
+    "<leader>F",
+    require("util").format,
+    desc = "[Conform] Format",
+  },
+}
+
 -- Set up keymap for Neogen
 ---@type LazyKeysSpec[]
 M.neogen = {

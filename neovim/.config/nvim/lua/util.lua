@@ -6,7 +6,7 @@ M.format = function(args)
   local conform = require("conform")
   local range = nil
 
-  if args.count ~= -1 then
+  if args and args.count ~= -1 then
     local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
     range = {
       start = { args.line1, 0 },
@@ -14,7 +14,12 @@ M.format = function(args)
     }
   end
 
-  conform.format({ async = true, range = range })
+  conform.format({
+    async = true,
+    range = range,
+    stop_after_first = true,
+    lsp_format = "fallback",
+  })
 end
 
 --- Start a Treesitter parser on the current buffer
