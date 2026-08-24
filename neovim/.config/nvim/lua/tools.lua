@@ -14,12 +14,14 @@ local tools = {
     "ansiblels",
     "bashls",
     "json-lsp",
+    "prettier",
     "prettierd",
   },
   python = {
     "autopep8",
     "basedpyright",
     "ruff",
+    "xmlformatter",
   },
   cargo = {
     "jinja-lsp",
@@ -33,6 +35,7 @@ local formatters = {
   prettierd = { "css", "html", "javascript", "javascriptreact", "json", "typescript", "typescriptreact" },
   ruff = { "python" },
   shfmt = { "sh", "bash", "zsh" },
+  xmlformatter = { "xml" },
 }
 
 -- List of parsers to install
