@@ -1,6 +1,0 @@
-[Unit]
-Description=Synchronize OneDrive directory
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/onedrive --sync --disable-notifications
