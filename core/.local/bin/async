@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-# Run the program passed as argument and immediately disown it
-
-"$@" &
-disown
