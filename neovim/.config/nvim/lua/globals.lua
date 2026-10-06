@@ -9,3 +9,28 @@ g.autoformat = true
 ---
 --- This is ignored when j/k is used with a count
 g.up_down_display_lines = true
+
+-- Use the Windows clipboard when using WSL. If within a TMUX session, fall back
+-- to TMUX handling the clipboard, since it already uses the WSL clipboard
+if vim.fn.has("wsl") == 1 and not vim.env.TMUX then
+  local paste_cmd = table.concat({
+    "powershell.exe",
+    "-NoLogo",
+    "-NoProfile",
+    "-c",
+    '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+  }, " ")
+
+  vim.g.clipboard = {
+    name = "WslClipboard",
+    copy = {
+      ["+"] = "clip.exe",
+      ["*"] = "clip.exe",
+    },
+    paste = {
+      ["+"] = paste_cmd,
+      ["*"] = paste_cmd,
+    },
+    cache_enabled = 0,
+  }
+end
